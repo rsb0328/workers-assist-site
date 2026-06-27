@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Worker's Assist — English classes for immigrant workers &amp; families</title>
+  <meta name="description" content="A community that teaches English in the learner's own language — Mandarin and Cantonese — one-on-one. Greater Boston.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Oswald:wght@500;600;700&family=Noto+Sans:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;900&family=Noto+Sans+TC:wght@400;600;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/styles.css?v=2">
+  <link rel="icon" href="assets/img/logo.svg">
+</head>
+<body>
+
+  <nav class="site-topbar" aria-label="Page sections">
+    <div class="site-topbar__nav">
+      <a class="site-topbar__link is-active" href="index.html" data-i18n="nav.home">Home</a>
+      <a class="site-topbar__link" href="volunteer.html" data-i18n="nav.volunteer">Volunteer</a>
+      <a class="site-topbar__link" href="students.html" data-i18n="nav.students">Students</a>
+    </div>
+    <div class="site-topbar__lang">
+      <div class="langbar__seg" role="group" aria-label="Language">
+        <button class="langbar__btn" type="button" data-lang="en"      lang="en">English</button>
+        <button class="langbar__btn" type="button" data-lang="zh-hans" lang="zh-Hans">简体中文</button>
+        <button class="langbar__btn" type="button" data-lang="zh-hant" lang="zh-Hant">繁體中文</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Banner: header + hero share ONE continuous mural background, so the
+         top fades from black straight into the artwork with no seam. -->
+    <div class="banner">
+      <!-- Header: logo left, single CTA right. No nav menu. -->
+      <header class="header">
+        <div class="wrap header__inner">
+          <a class="brand" href="index.html" aria-label="Worker's Assist — home">
+            <span class="brand__bar" aria-hidden="true"></span>
+            <span class="brand__text">
+              <span class="brand__wa">WA</span>
+              <span class="brand__name">WORKER'S ASSIST</span>
+            </span>
+          </a>
+          <div class="header__actions">
+
+            <a class="btn btn--primary" href="students.html" data-i18n="cta.join">Join a Class</a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Hero banner -->
+      <section class="hero">
+        <div class="wrap">
+          <span class="eyebrow eyebrow--bar hero__eyebrow" data-i18n="hero.eyebrow">Greater Boston</span>
+          <h1 data-i18n="hero.headline">Uniting immigrant workers &amp; families</h1>
+          <p class="hero__tagline" data-i18n="hero.tagline">Linguistic justice Civic engagement Worker rights</p>
+        </div>
+        <p class="hero__credit">Mural: Diego M. Rivera, <i>Detroit Industry</i>, 1932–1933. Detroit Institute of Arts, Gift of Edsel B. Ford. Public domain in the U.S.</p>
+      </section>
+    </div>
+
+    <!-- Scroll body: three beats. Mobile = stacked text+image; desktop = sticky two-column. -->
+    <div class="wrap scrolly">
+
+      <!-- Beat 1 — Intro -->
+      <section class="beat" id="beat-intro">
+        <figure class="beat__figure">
+          <img src="assets/img/beat-1.svg" alt="Placeholder: a teacher and student working together one-on-one." data-i18n-alt="beat1.alt">
+        </figure>
+        <div class="beat__body">
+          <span class="eyebrow" data-i18n="beat1.eyebrow">Who we are</span>
+          <p data-i18n="beat1.body">We're a community of English teachers and learners. Our classes are instructed in Mandarin and Cantonese. We build a one-on-one connection with every student.</p>
+        </div>
+      </section>
+
+      <!-- Beat 2 — Class schedule -->
+      <section class="beat" id="beat-schedule">
+        <figure class="beat__figure">
+          <img src="assets/img/beat-2.svg" alt="Placeholder: this week's class schedule." data-i18n-alt="beat2.alt">
+        </figure>
+        <div class="beat__body">
+          <div class="schedule">
+            <span class="eyebrow" data-i18n="beat2.eyebrow">Schedule</span>
+            <h2 data-i18n="beat2.heading">Classes you can join now</h2>
+            <ul class="schedule__list" id="schedule-list">
+              <!-- Rendered from classes.json by i18n.js. Static fallback below. -->
+              <li class="schedule__item">
+                <span class="schedule__name">Everyday English</span>
+                <span class="schedule__time">Mondays, 6:30pm</span>
+                <span class="schedule__loc">In person, Chinatown</span>
+              </li>
+              <li class="schedule__item">
+                <span class="schedule__name">Advanced English</span>
+                <span class="schedule__time">Wednesdays, 6:30pm</span>
+                <span class="schedule__loc">Online</span>
+              </li>
+              <li class="schedule__item">
+                <span class="schedule__name">Work English Intensive Program</span>
+                <span class="schedule__time">Tuesdays &amp; Fridays, 6:30pm</span>
+                <span class="schedule__loc">In person, Chinatown</span>
+              </li>
+            </ul>
+            <a class="btn btn--primary" href="students.html" data-i18n="cta.joinArrow">Join a Class →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Beat 3 — Origin & mission -->
+      <section class="beat" id="beat-origin">
+        <figure class="beat__figure">
+          <img src="assets/img/beat-3.svg" alt="Placeholder: neighbors gathered at a community event." data-i18n-alt="beat3.alt">
+        </figure>
+        <div class="beat__body">
+          <span class="eyebrow" data-i18n="beat3.eyebrow">Our story</span>
+          <p data-i18n="beat3.body1">We started as a group of international students who wanted to help. We knew how hard a new language and a new country can be — and how much easier it gets when someone beside you speaks your language.</p>
+          <p data-i18n="beat3.body2">Today we're a cooperative of teachers and learners across Greater Boston, built on a simple idea: mutual aid. Neighbors helping neighbors — and everyone is welcome.</p>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Closing CTAs -->
+    <section class="section closing">
+      <div class="wrap">
+        <div class="closing__btns">
+          <a class="btn btn--primary" href="students.html" data-i18n="cta.join">Join a Class</a>
+
+          <a class="btn btn--ink" href="volunteer.html" data-i18n="cta.volunteer">Volunteer with us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="wrap">
+      <p class="footer__org">Worker's Assist</p>
+      <p data-i18n="footer.mission">A 501(c)(3) nonprofit cooperative serving immigrant workers and families across Greater Boston.</p>
+      <p><a href="mailto:admin@workers-assist.com" data-i18n="footer.email">admin@workers-assist.com</a></p>
+    </div>
+  </footer>
+
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/scroll.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+

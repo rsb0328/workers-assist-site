@@ -1,0 +1,56 @@
+[
+  {
+    "id": "everyday",
+    "name": {
+      "en": "Everyday English",
+      "zh-hans": "日常英语",
+      "zh-hant": "日常英語"
+    },
+    "time": {
+      "en": "Mondays, 6:30pm",
+      "zh-hans": "每周一 晚 6:30",
+      "zh-hant": "每週一 晚 6:30"
+    },
+    "location": {
+      "en": "In person, Chinatown",
+      "zh-hans": "线下 · 华埠",
+      "zh-hant": "實體 · 華埠"
+    }
+  },
+  {
+    "id": "advanced",
+    "name": {
+      "en": "Advanced English",
+      "zh-hans": "进阶英语",
+      "zh-hant": "進階英語"
+    },
+    "time": {
+      "en": "Wednesdays, 6:30pm",
+      "zh-hans": "每周三 晚 6:30",
+      "zh-hant": "每週三 晚 6:30"
+    },
+    "location": {
+      "en": "Online",
+      "zh-hans": "线上",
+      "zh-hant": "線上"
+    }
+  },
+  {
+    "id": "work-intensive",
+    "name": {
+      "en": "Work English Intensive Program",
+      "zh-hans": "职场英语强化班",
+      "zh-hant": "職場英語強化班"
+    },
+    "time": {
+      "en": "Tuesdays & Fridays, 6:30pm",
+      "zh-hans": "每周二、周五 晚 6:30",
+      "zh-hant": "每週二、週五 晚 6:30"
+    },
+    "location": {
+      "en": "In person, Chinatown",
+      "zh-hans": "线下 · 华埠",
+      "zh-hant": "實體 · 華埠"
+    }
+  }
+]
