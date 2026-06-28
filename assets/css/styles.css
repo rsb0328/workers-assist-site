@@ -104,12 +104,14 @@ body {
   min-width: 0;
 }
 .site-topbar__lang .langbar__seg {
-  width: clamp(260px, 34vw, 360px);
+  width: clamp(190px, 22vw, 250px);
   background: rgba(245,239,223,0.04);
 }
 .site-topbar__lang .langbar__btn {
   flex: 1 1 0;
   padding-block: 7px;
+  padding-inline: 6px;
+  font-size: 13px;
 }
 .site-topbar__link {
   height: 100%;
@@ -460,6 +462,28 @@ p:last-child { margin-bottom: 0; }
     transform: translateY(-4px);
     box-shadow: 0 12px 32px rgba(28,27,25,0.18);
   }
+}
+
+/* Below ~880px the centered nav would collide with the (now slimmer) language
+   switcher, so stack the bar into two rows (nav on top, language below). The
+   taller bar height feeds back into body padding-top via the same variable. */
+@media (max-width: 880px) {
+  :root { --fixed-topbar-h: 96px; }
+  .site-topbar {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding-block: 8px;
+  }
+  .site-topbar__nav {
+    position: static;
+    inset: auto;
+    width: 100%;
+    pointer-events: auto;
+  }
+  .site-topbar__lang { align-self: center; }
+  .site-topbar__lang .langbar__seg { width: clamp(240px, 70vw, 360px); }
 }
 
 @media (max-width: 720px) {
