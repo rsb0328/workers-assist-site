@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 84" role="img" aria-label="Worker's Assist">
-  <rect x="0" y="15" width="12" height="63" fill="#CE2029"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 84" role="img" aria-label="Worker&#39;s Assist">
+  <rect x="0" y="15" width="12" height="63" fill="#CE2029"></rect>
   <text x="26" y="56" font-family="Oswald, sans-serif" font-weight="700" font-size="56" fill="#1C1B19">WA</text>
-  <text x="28" y="78" font-family="Oswald, sans-serif" font-weight="600" font-size="16" letter-spacing="6" fill="#CE2029">WORKER'S ASSIST</text>
+  <text x="28" y="78" font-family="Oswald, sans-serif" font-weight="600" font-size="16" letter-spacing="6" fill="#CE2029">WORKER&#39;S ASSIST</text>
 </svg>

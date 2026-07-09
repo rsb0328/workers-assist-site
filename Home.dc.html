@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Oswald:wght@500;600;700&family=Noto+Sans:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;900&family=Noto+Sans+TC:wght@400;600;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { text-decoration: none; }
+    ::selection { background: #CE2029; color: #F5EFDF; }
+    @keyframes wa-breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+  </style>
+</helmet>
+
+<div style="{{ rootStyle }}">
+
+  <!-- ===== Top bar ===== -->
+  <nav style="position: sticky; top: 0; z-index: 200; background: #1C1B19; box-shadow: 0 1px 0 rgba(245,239,223,0.12); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; padding: 0 20px; min-height: 56px;">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 4px; flex-wrap: wrap; grid-column: 2;">
+      <a href="#top" style="display: inline-flex; align-items: center; height: 56px; padding: 0 14px; color: #F5EFDF; font-family: 'Noto Sans', sans-serif; font-size: 15px; font-weight: 700; border-bottom: 3px solid var(--accent, #CE2029);">{{ t.navHome }}</a>
+      <a href="#beat-schedule" style="display: inline-flex; align-items: center; height: 56px; padding: 0 14px; color: rgba(245,239,223,0.72); font-family: 'Noto Sans', sans-serif; font-size: 15px; font-weight: 700; border-bottom: 3px solid transparent;" style-hover="{ color: '#F5EFDF' }">{{ t.navClasses }}</a>
+      <a href="#get-involved" style="display: inline-flex; align-items: center; height: 56px; padding: 0 14px; color: rgba(245,239,223,0.72); font-family: 'Noto Sans', sans-serif; font-size: 15px; font-weight: 700; border-bottom: 3px solid transparent;" style-hover="{ color: '#F5EFDF' }">{{ t.navVolunteer }}</a>
+    </div>
+    <div style="grid-column: 3; justify-self: end;">
+      <div role="group" aria-label="Language" style="display: flex; width: clamp(200px, 24vw, 240px); border: 1px solid rgba(245,239,223,0.28); border-radius: 8px; overflow: hidden; background: rgba(28,27,25,0.36);">
+        <button type="button" onClick="{{ selEn }}" style="{{ langBtnEn }}">English</button>
+        <button type="button" onClick="{{ selHans }}" style="{{ langBtnHans }}">简体中文</button>
+        <button type="button" onClick="{{ selHant }}" style="{{ langBtnHant }}">繁體中文</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Banner: header + hero over one continuous mural ===== -->
+  <div id="top" style="position: relative; background-color: #EBE2CB; background-image: linear-gradient(to bottom, #1C1B19 0%, rgba(28,27,25,0.86) 10%, rgba(28,27,25,0) 30%), linear-gradient(to bottom, rgba(235,226,203,0) 70%, rgba(235,226,203,0.85) 85%, #EBE2CB 95%), linear-gradient(90deg, rgba(28,27,25,0.9) 0%, rgba(28,27,25,0.6) 45%, rgba(28,27,25,0.2) 100%), url('assets/img/hero-mural.jpg'); background-size: cover; background-position: center 64%;">
+
+    <!-- Header -->
+    <header style="position: relative; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; max-width: 1180px; margin: 0 auto; padding: 20px 28px;">
+      <a href="#top" aria-label="Worker's Assist — home" style="display: inline-flex; align-items: stretch; gap: 14px;">
+        <span aria-hidden="true" style="width: 11px; background: var(--accent, #CE2029); border-radius: 2px;"></span>
+        <span style="display: flex; flex-direction: column; justify-content: center; gap: 3px;">
+          <span style="font-family: 'Archivo Black', sans-serif; font-size: 42px; line-height: 1; letter-spacing: 0.01em; color: #F5EFDF;">WA</span>
+          <span style="font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.28em; color: var(--accent, #CE2029);">WORKER'S ASSIST</span>
+        </span>
+      </a>
+      <a href="#beat-schedule" style="display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 600; font-size: 16px; padding: 13px 28px; border-radius: 8px; background: var(--accent, #CE2029); color: #F5EFDF; min-height: 48px; white-space: nowrap;" style-hover="{ filter: 'brightness(0.9)' }">{{ t.ctaJoin }}</a>
+    </header>
+
+    <!-- Hero -->
+    <section style="position: relative; min-height: 520px; display: flex; align-items: center; padding: 56px 0 88px;">
+      <div style="max-width: 1180px; margin: 0 auto; padding: 0 28px; width: 100%;">
+        <span style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); background: var(--accent, #CE2029); color: #F5EFDF; padding: 5px 16px; border-radius: 6px; margin-bottom: 20px;">{{ t.heroEyebrow }}</span>
+        <h1 style="{{ heroHeadlineStyle }}">{{ t.heroHeadline }}</h1>
+        <p style="font-size: clamp(18px, 2.4vw, 23px); color: rgba(245,239,223,0.88); margin: 20px 0 0; font-family: var(--font-body); letter-spacing: 0.01em;">{{ t.heroTagline }}</p>
+      </div>
+      <p style="position: absolute; right: 24px; bottom: 12px; margin: 0; max-width: 52%; text-align: right; font-size: 11px; line-height: 1.4; color: #5C584B; font-family: var(--font-body);">Mural: Diego M. Rivera, <i>Detroit Industry</i>, 1932&ndash;33. Detroit Institute of Arts. Public domain in the U.S.</p>
+    </section>
+  </div>
+
+  <!-- ===== Pillars (framed manifesto) ===== -->
+  <section style="background: #EBE2CB; color: #34322C; position: relative; z-index: 2; margin-top: -2px;">
+    <div style="max-width: 1180px; margin: 0 auto; padding: 76px 28px 64px;">
+      <div id="wa-pillars-frame" style="--wa: 0; position: relative; display: flex; flex-direction: column; justify-content: flex-start; min-height: 380px; background-color: #EFE7D0; background-image: radial-gradient(rgba(92,88,75,0.06) 1px, transparent 1px); background-size: 4px 4px; padding: 58px clamp(46px, 6vw, 66px) clamp(44px, 5vw, 58px);">
+
+        <!-- brass outer keyline (thin) — fades in first -->
+        <div aria-hidden="true" style="position: absolute; inset: 4px; border: 2px solid #a8813f; box-shadow: inset 0 0 0 1px rgba(28,27,25,0.06); opacity: var(--wa, 1); transition: opacity 0.55s ease 0s; pointer-events: none;"></div>
+
+        <!-- red inner rule (thick): 8 bars drawing outward from the 4 corners toward center -->
+        <div aria-hidden="true" style="position: absolute; top: 14px; left: 14px; width: calc(50% - 14px); height: 3px; background: #8a1c1c; transform: scaleX(var(--wa, 1)); transform-origin: left center; transition: transform 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s; pointer-events: none;"></div>
+        <div aria-hidden="true" style="position: absolute; top: 14px; right: 14px; width: calc(50% - 14px); height: 3px; background: #8a1c1c; transform: scaleX(var(--wa, 1)); transform-origin: right center; transition: transform 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s; pointer-events: none;"></div>
+        <div aria-hidden="true" style="position: absolute; bottom: 14px; left: 14px; width: calc(50% - 14px); height: 3px; background: #8a1c1c; transform: scaleX(var(--wa, 1)); transform-origin: left center; transition: transform 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s; pointer-events: none;"></div>
+        <div aria-hidden="true" style="position: absolute; bottom: 14px; right: 14px; width: calc(50% - 14px); height: 3px; background: #8a1c1c; transform: scaleX(var(--wa, 1)); transform-origin: right center; transition: transform 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s; pointer-events: none;"></div>
+        <div aria-hidden="true" style="position: absolute; top: 14px; left: 14px; width: 3px; height: calc(50% - 14px); background: #8a1c1c; transform: scaleY(var(--wa, 1)); transform-origin: center top; transition: transform 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s; pointer-events: none;"></div>
+        <div aria-hidden="true" style="position: absolute; bottom: 14px; left: 14px; width: 3px; height: calc(50% - 14px); background: #8a1c1c; transform: scaleY(var(--wa, 1)); transform-origin: center bottom; transition: transform 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s; pointer-events: none;"></div>
+        <div aria-hidden="true" style="position: absolute; top: 14px; right: 14px; width: 3px; height: calc(50% - 14px); background: #8a1c1c; transform: scaleY(var(--wa, 1)); transform-origin: center top; transition: transform 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s; pointer-events: none;"></div>
+        <div aria-hidden="true" style="position: absolute; bottom: 14px; right: 14px; width: 3px; height: calc(50% - 14px); background: #8a1c1c; transform: scaleY(var(--wa, 1)); transform-origin: center bottom; transition: transform 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s; pointer-events: none;"></div>
+
+        <!-- cream inner mat / picture-frame lining — fades in after the rule is drawn -->
+        <div aria-hidden="true" style="position: absolute; inset: 27px; border: 1px solid rgba(168,129,63,0.42); opacity: var(--wa, 1); transition: opacity 0.6s ease 0.7s; pointer-events: none;"></div>
+
+        <!-- corner gears (fade in, then breathe) — each missing the quarter that faces the frame interior -->
+        <span aria-hidden="true" style="position: absolute; top: -10px; left: -10px; opacity: var(--wa, 1); transition: opacity 0.4s ease 0.55s; pointer-events: none;"><svg width="30" height="30" viewBox="0 0 32 32" style="display: block; animation: wa-breathe 3s ease-in-out infinite;"><g transform="rotate(270 16 16)"><g fill="#a8813f"><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(0 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(30 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(60 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(90 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(120 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(150 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(180 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(270 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(300 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(330 16 16)"></rect></g><path d="M16 16 L5.5 16 A10.5 10.5 0 1 1 16 26.5 Z" fill="#EFE7D0" stroke="#a8813f" stroke-width="1.5"></path><path d="M9.5 16 A6.5 6.5 0 1 1 16 22.5" fill="none" stroke="#a8813f" stroke-width="0.8" opacity="0.55"></path><circle cx="16" cy="16" r="1.6" fill="#a8813f"></circle></g></svg></span>
+        <span aria-hidden="true" style="position: absolute; top: -10px; right: -10px; opacity: var(--wa, 1); transition: opacity 0.4s ease 0.55s; pointer-events: none;"><svg width="30" height="30" viewBox="0 0 32 32" style="display: block; animation: wa-breathe 3s ease-in-out infinite;"><g transform="rotate(0 16 16)"><g fill="#a8813f"><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(0 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(30 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(60 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(90 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(120 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(150 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(180 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(270 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(300 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(330 16 16)"></rect></g><path d="M16 16 L5.5 16 A10.5 10.5 0 1 1 16 26.5 Z" fill="#EFE7D0" stroke="#a8813f" stroke-width="1.5"></path><path d="M9.5 16 A6.5 6.5 0 1 1 16 22.5" fill="none" stroke="#a8813f" stroke-width="0.8" opacity="0.55"></path><circle cx="16" cy="16" r="1.6" fill="#a8813f"></circle></g></svg></span>
+        <span aria-hidden="true" style="position: absolute; bottom: -10px; left: -10px; opacity: var(--wa, 1); transition: opacity 0.4s ease 0.55s; pointer-events: none;"><svg width="30" height="30" viewBox="0 0 32 32" style="display: block; animation: wa-breathe 3s ease-in-out infinite;"><g transform="rotate(180 16 16)"><g fill="#a8813f"><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(0 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(30 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(60 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(90 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(120 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(150 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(180 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(270 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(300 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(330 16 16)"></rect></g><path d="M16 16 L5.5 16 A10.5 10.5 0 1 1 16 26.5 Z" fill="#EFE7D0" stroke="#a8813f" stroke-width="1.5"></path><path d="M9.5 16 A6.5 6.5 0 1 1 16 22.5" fill="none" stroke="#a8813f" stroke-width="0.8" opacity="0.55"></path><circle cx="16" cy="16" r="1.6" fill="#a8813f"></circle></g></svg></span>
+        <span aria-hidden="true" style="position: absolute; bottom: -10px; right: -10px; opacity: var(--wa, 1); transition: opacity 0.4s ease 0.55s; pointer-events: none;"><svg width="30" height="30" viewBox="0 0 32 32" style="display: block; animation: wa-breathe 3s ease-in-out infinite;"><g transform="rotate(90 16 16)"><g fill="#a8813f"><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(0 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(30 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(60 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(90 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(120 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(150 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(180 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(270 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(300 16 16)"></rect><rect x="14.4" y="1.5" width="3.2" height="5" transform="rotate(330 16 16)"></rect></g><path d="M16 16 L5.5 16 A10.5 10.5 0 1 1 16 26.5 Z" fill="#EFE7D0" stroke="#a8813f" stroke-width="1.5"></path><path d="M9.5 16 A6.5 6.5 0 1 1 16 22.5" fill="none" stroke="#a8813f" stroke-width="0.8" opacity="0.55"></path><circle cx="16" cy="16" r="1.6" fill="#a8813f"></circle></g></svg></span>
+
+        <span style="position: relative; display: inline-block; opacity: var(--wa, 1); transform: translateY(calc((1 - var(--wa, 1)) * 10px)); transition: opacity 0.5s ease 0.75s, transform 0.5s ease 0.75s; font-family: var(--font-head); font-size: clamp(30px, 4.2vw, 42px); line-height: 1.12; font-weight: var(--head-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); margin-bottom: 38px;">{{ t.pillarsKicker }}</span>
+
+        <div style="position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px;">
+          <div style="min-width: 0;" style-hover="{ '--wa-nscale': '1.1', '--wa-uw': '46px' }">
+            <div style="opacity: var(--wa, 1); transform: translateY(calc((1 - var(--wa, 1)) * 10px)); transition: opacity 0.5s ease 0.9s, transform 0.5s ease 0.9s;">
+              <span style="display: inline-block; font-family: 'Oswald', sans-serif; font-size: 16px; font-weight: 700; color: var(--accent, #CE2029); transform: scale(var(--wa-nscale, 1)); transform-origin: left center; transition: transform 0.25s ease;">01</span>
+              <div style="height: 3px; background: var(--accent, #CE2029); width: var(--wa-uw, 0px); margin-top: 6px; transition: width 0.3s ease;"></div>
+            </div>
+            <h3 style="font-family: var(--font-head); font-weight: var(--head-weight); font-size: clamp(22px, 2.6vw, 28px); color: #1C1B19; line-height: 1.15; margin: 12px 0 10px;">{{ t.pillar1Label }}</h3>
+            <p style="font-family: var(--font-body); font-size: 16.5px; line-height: 1.65; color: #34322C; margin: 0; max-width: 34ch;">{{ t.pillar1Body }}</p>
+          </div>
+          <div style="min-width: 0;" style-hover="{ '--wa-nscale': '1.1', '--wa-uw': '46px' }">
+            <div style="opacity: var(--wa, 1); transform: translateY(calc((1 - var(--wa, 1)) * 10px)); transition: opacity 0.5s ease 1.05s, transform 0.5s ease 1.05s;">
+              <span style="display: inline-block; font-family: 'Oswald', sans-serif; font-size: 16px; font-weight: 700; color: var(--accent, #CE2029); transform: scale(var(--wa-nscale, 1)); transform-origin: left center; transition: transform 0.25s ease;">02</span>
+              <div style="height: 3px; background: var(--accent, #CE2029); width: var(--wa-uw, 0px); margin-top: 6px; transition: width 0.3s ease;"></div>
+            </div>
+            <h3 style="font-family: var(--font-head); font-weight: var(--head-weight); font-size: clamp(22px, 2.6vw, 28px); color: #1C1B19; line-height: 1.15; margin: 12px 0 10px;">{{ t.pillar2Label }}</h3>
+            <p style="font-family: var(--font-body); font-size: 16.5px; line-height: 1.65; color: #34322C; margin: 0; max-width: 34ch;">{{ t.pillar2Body }}</p>
+          </div>
+          <div style="min-width: 0;" style-hover="{ '--wa-nscale': '1.1', '--wa-uw': '46px' }">
+            <div style="opacity: var(--wa, 1); transform: translateY(calc((1 - var(--wa, 1)) * 10px)); transition: opacity 0.5s ease 1.2s, transform 0.5s ease 1.2s;">
+              <span style="display: inline-block; font-family: 'Oswald', sans-serif; font-size: 16px; font-weight: 700; color: var(--accent, #CE2029); transform: scale(var(--wa-nscale, 1)); transform-origin: left center; transition: transform 0.25s ease;">03</span>
+              <div style="height: 3px; background: var(--accent, #CE2029); width: var(--wa-uw, 0px); margin-top: 6px; transition: width 0.3s ease;"></div>
+            </div>
+            <h3 style="font-family: var(--font-head); font-weight: var(--head-weight); font-size: clamp(22px, 2.6vw, 28px); color: #1C1B19; line-height: 1.15; margin: 12px 0 10px;">{{ t.pillar3Label }}</h3>
+            <p style="font-family: var(--font-body); font-size: 16.5px; line-height: 1.65; color: #34322C; margin: 0; max-width: 34ch;">{{ t.pillar3Body }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Scrollytelling beats ===== -->
+  <div style="max-width: 1180px; margin: 0 auto; padding: 72px 28px 24px;">
+
+    <!-- Beat 1 — image left, text right -->
+    <section id="beat-intro" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 56px; margin-bottom: 96px;">
+      <figure style="flex: 1 1 320px; margin: 0; position: sticky; top: 80px;">
+        <img src="uploads/DSCF6086.jpg" alt="{{ t.beat1Eyebrow }}" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid #1C1B19; border-radius: 12px;">
+      </figure>
+      <div style="flex: 1 1 340px; min-height: 56vh; display: flex; flex-direction: column; justify-content: center;">
+        <span style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); margin-bottom: 10px;">{{ t.beat1Eyebrow }}</span>
+        <h2 style="font-family: var(--font-head); font-weight: var(--head-weight); color: #1C1B19; font-size: clamp(26px, 4vw, 34px); line-height: 1.12; letter-spacing: -0.01em; margin: 0 0 16px;">{{ t.beat1Heading }}</h2>
+        <p style="font-family: var(--font-body); font-size: 17.5px; line-height: 1.75; color: #34322C; margin: 0; max-width: 52ch;">{{ t.beat1Body }}</p>
+      </div>
+    </section>
+
+    <!-- Beat 2 — schedule -->
+    <section id="beat-schedule" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 48px; margin-bottom: 96px;">
+      <div style="flex: 1 1 280px; min-height: 60vh; display: flex; flex-direction: column; justify-content: center;">
+        <span style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); margin-bottom: 10px;">{{ t.beat2Eyebrow }}</span>
+        <h2 style="font-family: var(--font-head); font-weight: var(--head-weight); color: #1C1B19; font-size: clamp(26px, 4vw, 34px); line-height: 1.12; letter-spacing: -0.01em; margin: 0 0 14px;">{{ t.beat2Heading }}</h2>
+        <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.7; color: #5C584B; margin: 0; max-width: 34ch;">{{ t.beat2Sub }}</p>
+      </div>
+      <div style="flex: 1.4 1 340px; position: sticky; top: 80px; align-self: flex-start; background: #F5EFDF; border: 1px solid #D8CDAE; border-radius: 10px; padding: 28px 32px;">
+        <ul style="list-style: none; margin: 0; padding: 0;">
+          <sc-for list="{{ scheduleRows }}" as="row" hint-placeholder-count="3">
+            <li style="display: flex; flex-direction: column; gap: 5px; padding: 18px 0; border-bottom: 1px solid #D8CDAE;">
+              <div style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                <span style="font-family: var(--font-head); font-weight: var(--head-weight); font-size: 19px; color: #1C1B19;">{{ row.name }}</span>
+                <sc-if value="{{ showLevels }}" hint-placeholder-val="{{ true }}">
+                  <span style="font-family: var(--font-body); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #F5EFDF; background: var(--accent, #CE2029); padding: 3px 9px; border-radius: 999px;">{{ row.level }}</span>
+                </sc-if>
+              </div>
+              <span style="font-family: var(--font-body); font-size: 16px; color: #34322C;">{{ row.time }}</span>
+              <span style="font-family: var(--font-body); font-size: 15px; color: #5C584B;">&middot; {{ row.loc }}</span>
+            </li>
+          </sc-for>
+        </ul>
+        <a href="#get-involved" style="display: inline-flex; align-items: center; justify-content: center; margin-top: 22px; font-family: var(--font-head); font-weight: 600; font-size: 16px; padding: 13px 28px; border-radius: 8px; background: var(--accent, #CE2029); color: #F5EFDF; min-height: 48px;" style-hover="{ filter: 'brightness(0.9)' }">{{ t.ctaJoinArrow }}</a>
+      </div>
+    </section>
+
+    <!-- Beat 3 — image left, text right -->
+    <section id="beat-origin" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 56px; margin-bottom: 24px;">
+      <div style="flex: 1 1 340px; order: 2; min-height: 56vh; display: flex; flex-direction: column; justify-content: center;">
+        <span style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); margin-bottom: 10px;">{{ t.beat3Eyebrow }}</span>
+        <h2 style="font-family: var(--font-head); font-weight: var(--head-weight); color: #1C1B19; font-size: clamp(26px, 4vw, 34px); line-height: 1.12; letter-spacing: -0.01em; margin: 0 0 16px;">{{ t.beat3Heading }}</h2>
+        <p style="font-family: var(--font-body); font-size: 17.5px; line-height: 1.75; color: #34322C; margin: 0 0 16px; max-width: 52ch;">{{ t.beat3Body1 }}</p>
+        <p style="font-family: var(--font-body); font-size: 17.5px; line-height: 1.75; color: #34322C; margin: 0; max-width: 52ch;">{{ t.beat3Body2 }}</p>
+      </div>
+      <figure style="flex: 1 1 320px; margin: 0; order: 1; position: sticky; top: 80px;">
+        <div style="aspect-ratio: 4 / 3; background-image: repeating-linear-gradient(45deg, #E2D8BE 0 12px, #EBE2CB 12px 24px); border: 1px solid #1C1B19; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+          <span style="font-family: ui-monospace, monospace; font-size: 12.5px; color: #5C584B; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(245,239,223,0.88); padding: 6px 12px; border-radius: 4px; border: 1px solid #D8CDAE;">photo &mdash; community gathering</span>
+        </div>
+      </figure>
+    </section>
+  </div>
+
+  <!-- ===== Closing CTA (ink band) ===== -->
+  <section id="get-involved" style="background: #1C1B19; color: #F5EFDF;">
+    <div style="max-width: 1180px; margin: 0 auto; padding: 76px 28px; text-align: center;">
+      <span style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); margin-bottom: 12px;">{{ t.closingEyebrow }}</span>
+      <h2 style="font-family: var(--font-head); font-weight: var(--head-weight); color: #F5EFDF; font-size: clamp(28px, 5vw, 44px); line-height: 1.1; margin: 0 0 14px;">{{ t.closingHeading }}</h2>
+      <p style="font-family: var(--font-body); font-size: 18px; line-height: 1.7; color: rgba(245,239,223,0.85); margin: 0 auto 28px; max-width: 46ch;">{{ t.closingBody }}</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px; justify-content: center;">
+        <a href="#beat-schedule" style="display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 600; font-size: 17px; padding: 14px 32px; border-radius: 8px; background: var(--accent, #CE2029); color: #F5EFDF; min-height: 48px;" style-hover="{ filter: 'brightness(0.9)' }">{{ t.ctaJoin }}</a>
+        <a href="#get-involved" style="display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 600; font-size: 17px; padding: 14px 32px; border-radius: 8px; background: transparent; border: 1.5px solid #F5EFDF; color: #F5EFDF; min-height: 48px;" style-hover="{ background: '#F5EFDF', color: '#1C1B19' }">{{ t.ctaVolunteer }}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer style="background: #1C1B19; color: #F5EFDF; border-top: 1px solid rgba(245,239,223,0.12);">
+    <div style="max-width: 1180px; margin: 0 auto; padding: 48px 28px;">
+      <p style="font-family: var(--font-head); font-weight: 600; font-size: 20px; color: #F5EFDF; margin: 0 0 8px;">Worker's Assist</p>
+      <p style="font-family: var(--font-body); font-size: 15px; line-height: 1.7; color: rgba(245,239,223,0.8); margin: 0 0 12px; max-width: 60ch;">{{ t.footerMission }}</p>
+      <p style="margin: 0;"><a href="mailto:admin@workers-assist.com" style="color: #F5EFDF; text-decoration: underline; font-family: var(--font-body); font-size: 15px;" style-hover="{ color: 'var(--accent, #CE2029)' }">{{ t.footerEmail }}</a></p>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;en&quot;, &quot;zh-hans&quot;, &quot;zh-hant&quot;], &quot;default&quot;: &quot;en&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Content&quot;}, &quot;accent&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#CE2029&quot;, &quot;options&quot;: [&quot;#CE2029&quot;, &quot;#A3151C&quot;, &quot;#C04A1E&quot;, &quot;#2C6E49&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Theme&quot;}, &quot;showLevels&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Schedule&quot;}}">
+class Component extends DCLogic {
+  strings = {
+    "en": {
+      navHome: "Home", navClasses: "Classes", navAbout: "About", navVolunteer: "Volunteer",
+      ctaJoin: "Join a Class", ctaJoinArrow: "Join a Class →", ctaVolunteer: "Volunteer with us",
+      heroEyebrow: "Greater Boston",
+      heroHeadline: "Uniting immigrant workers & families",
+      heroTagline: "Linguistic justice · Civic engagement · Worker rights",
+      pillarsKicker: "What we stand for",
+      pillar1Label: "Linguistic justice", pillar1Body: "Everyone deserves to learn in a language they already think in.",
+      pillar2Label: "Civic engagement", pillar2Body: "Language is the door to school, work, and your community.",
+      pillar3Label: "Worker rights", pillar3Body: "Knowing your words means knowing your rights.",
+      beat1Eyebrow: "Who we are", beat1Heading: "We teach English in Mandarin & Cantonese",
+      beat1Body: "We're a community of English teachers and learners. Our classes are instructed in Mandarin and Cantonese. We build a one-on-one connection with every student.",
+      beat2Eyebrow: "Schedule", beat2Heading: "Classes you can join now",
+      beat2Sub: "Free, every week — in person in Chinatown and online.",
+      beat3Eyebrow: "Our story", beat3Heading: "Neighbors helping neighbors",
+      beat3Body1: "We started as a group of international students who wanted to help. We knew how hard a new language and a new country can be — and how much easier it gets when someone beside you speaks your language.",
+      beat3Body2: "Today we're a cooperative of teachers and learners across Greater Boston, built on a simple idea: mutual aid. Neighbors helping neighbors — and everyone is welcome.",
+      closingEyebrow: "Get involved", closingHeading: "There's a place for you here",
+      closingBody: "Join a class, or teach one. Everyone is welcome.",
+      footerMission: "A 501(c)(3) nonprofit cooperative serving immigrant workers and families across Greater Boston.",
+      footerEmail: "admin@workers-assist.com"
+    },
+    "zh-hans": {
+      navHome: "首页", navClasses: "课程", navAbout: "关于我们", navVolunteer: "志愿者",
+      ctaJoin: "报名上课", ctaJoinArrow: "报名上课 →", ctaVolunteer: "成为志愿者",
+      heroEyebrow: "大波士顿地区",
+      heroHeadline: "团结移民工人与家庭",
+      heroTagline: "掌握语言　接轨社会　争回我们的权利",
+      pillarsKicker: "我们的信念",
+      pillar1Label: "掌握语言", pillar1Body: "每个人都该用自己熟悉的语言去学习。",
+      pillar2Label: "接轨社会", pillar2Body: "语言是通往学校、工作与社区的大门。",
+      pillar3Label: "争回权利", pillar3Body: "懂得表达，才能守住自己的权利。",
+      beat1Eyebrow: "我们是谁", beat1Heading: "用普通话和粤语教英语",
+      beat1Body: "我们是一个由英语老师和学员组成的社群。课程以普通话和粤语讲授，我们与每一位学员建立一对一的联系。",
+      beat2Eyebrow: "课表", beat2Heading: "现在就能报名的课程",
+      beat2Sub: "每周免费开课 —— 华埠线下与线上同步。",
+      beat3Eyebrow: "我们的故事", beat3Heading: "邻里帮邻里",
+      beat3Body1: "我们最初只是一群想出一份力的留学生。我们深知面对一门新语言、一个新国家有多难，也明白当身边有人说着你的母语时，一切会变得轻松许多。",
+      beat3Body2: "如今，我们已是一个遍布大波士顿地区、由老师和学员组成的合作社，秉持一个朴素的信念：互助。邻里帮邻里，人人都受欢迎。",
+      closingEyebrow: "加入我们", closingHeading: "这里有属于你的位置",
+      closingBody: "来上课，或者来教课。我们欢迎每一个人。",
+      footerMission: "一家服务于大波士顿地区移民工人及其家庭的 501(c)(3) 非营利互助合作社。",
+      footerEmail: "admin@workers-assist.com"
+    },
+    "zh-hant": {
+      navHome: "首頁", navClasses: "課程", navAbout: "關於我們", navVolunteer: "志工",
+      ctaJoin: "報名上課", ctaJoinArrow: "報名上課 →", ctaVolunteer: "成為志工",
+      heroEyebrow: "大波士頓地區",
+      heroHeadline: "團結移民工人與家庭",
+      heroTagline: "掌握語言　接軌社會　爭回我們的權利",
+      pillarsKicker: "我們的信念",
+      pillar1Label: "掌握語言", pillar1Body: "每個人都該用自己熟悉的語言去學習。",
+      pillar2Label: "接軌社會", pillar2Body: "語言是通往學校、工作與社區的大門。",
+      pillar3Label: "爭回權利", pillar3Body: "懂得表達，才能守住自己的權利。",
+      beat1Eyebrow: "我們是誰", beat1Heading: "用普通話和廣東話教英語",
+      beat1Body: "我們是一個由英語老師和學員組成的社群。課程以普通話和廣東話講授，我們與每一位學員建立一對一的聯繫。",
+      beat2Eyebrow: "課表", beat2Heading: "現在就能報名的課程",
+      beat2Sub: "每週免費開課 —— 華埠實體與線上同步。",
+      beat3Eyebrow: "我們的故事", beat3Heading: "鄰里幫鄰里",
+      beat3Body1: "我們最初只是一群想出一份力的留學生。我們深知面對一門新語言、一個新國家有多難，也明白當身邊有人說著你的母語時，一切會變得輕鬆許多。",
+      beat3Body2: "如今，我們已是一個遍布大波士頓地區、由老師和學員組成的合作社，秉持一個樸素的信念：互助。鄰里幫鄰里，人人都受歡迎。",
+      closingEyebrow: "加入我們", closingHeading: "這裡有屬於你的位置",
+      closingBody: "來上課，或者來教課。我們歡迎每一個人。",
+      footerMission: "一家服務於大波士頓地區移民工人及其家庭的 501(c)(3) 非營利互助合作社。",
+      footerEmail: "admin@workers-assist.com"
+    }
+  };
+
+  classData = [
+    { name: { en: "Everyday English", "zh-hans": "日常英语", "zh-hant": "日常英語" },
+      time: { en: "Mondays, 6:30pm", "zh-hans": "每周一 晚 6:30", "zh-hant": "每週一 晚 6:30" },
+      loc:  { en: "In person, Chinatown", "zh-hans": "线下 · 华埠", "zh-hant": "實體 · 華埠" },
+      level:{ en: "Beginner", "zh-hans": "初级", "zh-hant": "初級" } },
+    { name: { en: "Advanced English", "zh-hans": "进阶英语", "zh-hant": "進階英語" },
+      time: { en: "Wednesdays, 6:30pm", "zh-hans": "每周三 晚 6:30", "zh-hant": "每週三 晚 6:30" },
+      loc:  { en: "Online", "zh-hans": "线上", "zh-hant": "線上" },
+      level:{ en: "Advanced", "zh-hans": "进阶", "zh-hant": "進階" } },
+    { name: { en: "Work English Intensive Program", "zh-hans": "职场英语强化班", "zh-hant": "職場英語強化班" },
+      time: { en: "Tuesdays & Fridays, 6:30pm", "zh-hans": "每周二、周五 晚 6:30", "zh-hant": "每週二、週五 晚 6:30" },
+      loc:  { en: "In person, Chinatown", "zh-hans": "线下 · 华埠", "zh-hant": "實體 · 華埠" },
+      level:{ en: "Intensive", "zh-hans": "强化", "zh-hant": "強化" } }
+  ];
+
+  constructor(props) {
+    super(props);
+    let saved = null;
+    try { saved = localStorage.getItem("wa.lang"); } catch (e) {}
+    var init = this.strings[saved] ? saved
+             : (props && this.strings[props.defaultLang] ? props.defaultLang : "en");
+    this.state = { lang: init };
+  }
+
+  componentDidMount() {
+    this.syncHtmlLang();
+    this.setupReveal();
+  }
+
+  setupReveal() {
+    var el = document.getElementById("wa-pillars-frame");
+    if (!el) return;
+    var reveal = function () {
+      window.__waRevealed = true;
+      var e = document.getElementById("wa-pillars-frame");
+      if (e) e.style.setProperty("--wa", "1");
+    };
+    // Keep it revealed even if a re-render (e.g. language switch) resets the
+    // inline --wa back to 0.
+    if (!window.__waKeep) {
+      window.__waKeep = setInterval(function () {
+        if (!window.__waRevealed) return;
+        var e = document.getElementById("wa-pillars-frame");
+        if (e && e.style.getPropertyValue("--wa").trim() !== "1") {
+          e.style.setProperty("--wa", "1");
+        }
+      }, 250);
+    }
+    if (window.__waRevealed) { reveal(); return; }
+    // IntersectionObserver fires asynchronously, so the --wa:0 state is painted
+    // first and the draw-in transition actually plays. Fallback: reveal now.
+    if (!("IntersectionObserver" in window)) { reveal(); return; }
+    var io = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) { reveal(); io.disconnect(); return; }
+      }
+    }, { threshold: 0, rootMargin: "0px 0px -12% 0px" });
+    io.observe(el);
+  }
+
+  syncHtmlLang() {
+    var map = { "en": "en", "zh-hans": "zh-Hans", "zh-hant": "zh-Hant" };
+    try { document.documentElement.lang = map[this.state.lang] || "en"; } catch (e) {}
+  }
+
+  setLang = (lang) => {
+    if (!this.strings[lang]) lang = "en";
+    try { localStorage.setItem("wa.lang", lang); } catch (e) {}
+    this.setState({ lang: lang }, () => this.syncHtmlLang());
+  };
+
+  renderVals() {
+    var lang = this.state.lang;
+    var t = this.strings[lang] || this.strings.en;
+    var isCJK = lang !== "en";
+    var accent = (this.props && this.props.accent) || "#CE2029";
+    var fontHead = isCJK
+      ? (lang === "zh-hant" ? '"Noto Sans TC", sans-serif' : '"Noto Sans SC", sans-serif')
+      : '"Oswald", system-ui, sans-serif';
+    var fontBody = isCJK
+      ? (lang === "zh-hant" ? '"Noto Sans TC", sans-serif' : '"Noto Sans SC", sans-serif')
+      : '"Noto Sans", system-ui, sans-serif';
+
+    var rootStyle = {
+      "--font-head": fontHead,
+      "--font-body": fontBody,
+      "--accent": accent,
+      "--eb-transform": isCJK ? "none" : "uppercase",
+      "--eb-spacing": isCJK ? "0" : "0.14em",
+      "--eb-weight": isCJK ? "700" : "600",
+      "--head-weight": lang === "zh-hant" ? "900" : "700",
+      fontFamily: "var(--font-body)",
+      color: "#34322C",
+      backgroundColor: "#EBE2CB",
+      backgroundImage: "radial-gradient(rgba(92,88,75,0.05) 1px, transparent 1px)",
+      backgroundSize: "4px 4px",
+      lineHeight: isCJK ? 1.8 : 1.7,
+      WebkitFontSmoothing: "antialiased"
+    };
+
+    var heroHeadlineStyle = {
+      fontFamily: "var(--font-head)",
+      fontWeight: "var(--head-weight)",
+      color: "#F5EFDF",
+      lineHeight: 1.05,
+      fontSize: "clamp(40px, 7vw, 72px)",
+      margin: 0,
+      maxWidth: isCJK ? "none" : "15ch",
+      letterSpacing: isCJK ? "0.01em" : "-0.01em"
+    };
+
+    var langBtn = function (on) {
+      return {
+        flex: "1 1 0",
+        background: on ? "rgba(245,239,223,0.06)" : "transparent",
+        border: "none",
+        color: on ? "#F5EFDF" : "rgba(245,239,223,0.7)",
+        fontFamily: '"Noto Sans", sans-serif',
+        fontSize: "13px",
+        fontWeight: on ? 700 : 400,
+        padding: "8px 6px",
+        cursor: "pointer",
+        borderBottom: "3px solid " + (on ? accent : "transparent"),
+        transition: "color .15s ease, background .15s ease"
+      };
+    };
+
+    var scheduleRows = this.classData.map(function (c) {
+      return {
+        name: c.name[lang] || c.name.en,
+        time: c.time[lang] || c.time.en,
+        loc: c.loc[lang] || c.loc.en,
+        level: c.level[lang] || c.level.en
+      };
+    });
+
+    var showLevels = (this.props && this.props.showLevels !== undefined) ? this.props.showLevels : true;
+
+    return {
+      t: t,
+      rootStyle: rootStyle,
+      heroHeadlineStyle: heroHeadlineStyle,
+      scheduleRows: scheduleRows,
+      showLevels: showLevels,
+      selEn: () => this.setLang("en"),
+      selHans: () => this.setLang("zh-hans"),
+      selHant: () => this.setLang("zh-hant"),
+      langBtnEn: langBtn(lang === "en"),
+      langBtnHans: langBtn(lang === "zh-hans"),
+      langBtnHant: langBtn(lang === "zh-hant")
+    };
+  }
+}
+</script>
+</body>
+</html>

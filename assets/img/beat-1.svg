@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Placeholder photo">
-  <rect width="800" height="600" fill="#1C1B19"/>
-  <circle cx="320" cy="240" r="78" fill="#F5EFDF" opacity="0.92"/>
-  <circle cx="500" cy="270" r="60" fill="#EBE2CB" opacity="0.78"/>
-  <rect x="200" y="360" width="400" height="120" rx="14" fill="#34322C"/>
-  <rect x="0" y="530" width="800" height="70" fill="#CE2029"/>
-  <text x="400" y="575" font-family="Oswald, sans-serif" font-size="26" font-weight="600" letter-spacing="4" fill="#F5EFDF" text-anchor="middle">A CLASS IN SESSION</text>
-</svg>

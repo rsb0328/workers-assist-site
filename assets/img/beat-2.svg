@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Placeholder photo">
-  <rect width="800" height="600" fill="#1C1B19"/>
-  <rect x="140" y="120" width="520" height="56" rx="8" fill="#F5EFDF" opacity="0.95"/>
-  <rect x="140" y="210" width="400" height="36" rx="8" fill="#EBE2CB" opacity="0.65"/>
-  <rect x="140" y="284" width="460" height="36" rx="8" fill="#EBE2CB" opacity="0.65"/>
-  <rect x="140" y="358" width="340" height="36" rx="8" fill="#EBE2CB" opacity="0.65"/>
-  <rect x="0" y="530" width="800" height="70" fill="#CE2029"/>
-  <text x="400" y="575" font-family="Oswald, sans-serif" font-size="26" font-weight="600" letter-spacing="4" fill="#F5EFDF" text-anchor="middle">WEEKLY SCHEDULE</text>
-</svg>
