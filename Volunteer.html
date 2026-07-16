@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-Hans" data-lang="zh-hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="成为 Worker's Assist 志愿者，可通过电子邮件或微信联系我们。">
+  <title>成为志愿者 | Worker's Assist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Oswald:wght@500;600;700&family=Noto+Sans:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700;900&family=Noto+Sans+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <script src="./site-runtime.js"></script>
+  <style>
+    :root {
+      --ink: #1c1b19;
+      --paper: #ebe2cb;
+      --paper-light: #f5efdf;
+      --red: #ce2029;
+      --deep-red: #981b24;
+      --gold: #a8813f;
+      --text: #34322c;
+      --muted: #686253;
+      --head: "Oswald", "Noto Sans SC", sans-serif;
+      --body: "Noto Sans", "Noto Sans SC", sans-serif;
+    }
+    html[data-lang="zh-hans"] { --head: "Noto Sans SC", sans-serif; --body: "Noto Sans SC", sans-serif; }
+    html[data-lang="zh-hant"] { --head: "Noto Sans TC", sans-serif; --body: "Noto Sans TC", sans-serif; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background-color: var(--paper);
+      background-image: radial-gradient(rgba(92,88,75,0.075) 0.8px, transparent 0.8px);
+      background-size: 4px 4px;
+      font-family: var(--body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    ::selection { color: var(--paper-light); background: var(--red); }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      min-height: 72px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 18px;
+      padding: 8px clamp(18px, 4vw, 42px);
+      color: var(--paper-light);
+      background: var(--ink);
+      border-bottom: 1px solid rgba(245,239,223,0.12);
+    }
+    .brand { display: inline-flex; align-items: center; gap: 10px; justify-self: start; min-width: 0; }
+    .brand-logo-frame { display: grid; place-items: center; width: 58px; height: 58px; overflow: hidden; flex: 0 0 auto; }
+    .brand-logo { display: block; width: 100%; height: 100%; object-fit: contain; transform: scale(1.48); filter: drop-shadow(0 3px 7px rgba(0,0,0,0.35)); }
+    .brand-divider { width: 6px; height: 44px; border-radius: 2px; background: var(--red); }
+    .brand-name { display: block; height: 44px; font-family: "Oswald", sans-serif; font-size: 18px; font-weight: 600; line-height: 1.22; letter-spacing: 0.16em; color: var(--red); }
+    .lang-switch { display: flex; overflow: hidden; border: 1px solid rgba(245,239,223,0.3); border-radius: 8px; background: rgba(255,255,255,0.04); }
+    .lang-button {
+      min-height: 38px;
+      padding: 0 13px;
+      border: 0;
+      border-right: 1px solid rgba(245,239,223,0.2);
+      color: rgba(245,239,223,0.72);
+      background: transparent;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+    }
+    .lang-button:last-child { border-right: 0; }
+    .lang-button:hover { color: var(--paper-light); transform: translateY(-1px); }
+    .lang-button.active { color: var(--paper-light); background: var(--red); }
+    .back-link {
+      justify-self: end;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid rgba(245,239,223,0.35);
+      border-radius: 7px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+    .back-link:hover { color: var(--ink); background: var(--paper-light); transform: translateY(-2px); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: var(--paper-light);
+      background: var(--ink);
+      border-bottom: 8px solid var(--red);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(105deg, rgba(28,27,25,0.99) 0%, rgba(28,27,25,0.91) 58%, rgba(28,27,25,0.72) 100%),
+        url("assets/img/hero-mural.jpg");
+      background-position: center 62%;
+      background-size: cover;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.42;
+      background-image: radial-gradient(rgba(245,239,223,0.18) 0.7px, transparent 0.7px);
+      background-size: 3px 3px;
+      mix-blend-mode: soft-light;
+    }
+    .hero-watermark {
+      position: absolute;
+      z-index: 1;
+      right: -70px;
+      top: -85px;
+      width: min(43vw, 520px);
+      opacity: 0.075;
+      pointer-events: none;
+      -webkit-mask-image: radial-gradient(circle, #000 24%, rgba(0,0,0,0.72) 54%, transparent 76%);
+      mask-image: radial-gradient(circle, #000 24%, rgba(0,0,0,0.72) 54%, transparent 76%);
+    }
+    .hero-watermark img { display: block; width: 100%; filter: grayscale(1) brightness(2.2); }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: clamp(64px, 9vw, 104px) 0 clamp(70px, 10vw, 118px);
+    }
+    .hero-kicker {
+      display: inline-block;
+      margin-bottom: 19px;
+      padding: 6px 15px;
+      border-radius: 6px;
+      color: var(--paper-light);
+      background: var(--red);
+      font-family: var(--head);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      box-shadow: 0 7px 0 rgba(0,0,0,0.18);
+    }
+    h1 {
+      max-width: none;
+      margin: 0;
+      font-family: var(--head);
+      font-size: clamp(24px, 6.8vw, 78px);
+      font-weight: 900;
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      white-space: nowrap;
+    }
+    html[data-lang="en"] h1 { max-width: 18ch; white-space: normal; }
+    .hero-copy { max-width: 700px; margin: 24px 0 0; color: rgba(245,239,223,0.84); font-size: clamp(17px, 2.2vw, 21px); }
+
+    main { width: min(1120px, calc(100% - 40px)); margin: 0 auto; padding: clamp(48px, 7vw, 82px) 0 90px; }
+    .intro { display: grid; grid-template-columns: 1fr; gap: 14px; align-items: start; margin-bottom: 36px; }
+    .intro h2 { margin: 0; color: var(--ink); font-family: var(--head); font-size: clamp(34px, 5vw, 54px); line-height: 1.08; }
+    .intro p { max-width: 720px; margin: 0; color: var(--muted); font-size: 16px; }
+    .contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 0.88fr); gap: 24px; align-items: stretch; }
+    .contact-card { position: relative; overflow: hidden; min-width: 0; border-radius: 14px; box-shadow: 0 24px 55px rgba(28,27,25,0.13); }
+    .contact-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 7px; background: var(--red); }
+    .email-card { min-height: 590px; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(34px, 5vw, 52px); color: var(--paper-light); background: var(--ink); }
+    .email-card::after {
+      content: "@";
+      position: absolute;
+      right: -18px;
+      bottom: -100px;
+      color: rgba(245,239,223,0.035);
+      font-family: "Archivo Black", sans-serif;
+      font-size: 340px;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .method-number { position: relative; z-index: 1; display: block; margin-bottom: 52px; color: var(--red); font-family: "Oswald", sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.18em; }
+    .contact-card h3 { position: relative; z-index: 1; margin: 0; font-family: var(--head); font-size: clamp(33px, 4.5vw, 49px); line-height: 1.08; }
+    .email-card p { position: relative; z-index: 1; max-width: 520px; margin: 18px 0 0; color: rgba(245,239,223,0.7); }
+    .email-address { position: relative; z-index: 1; display: block; margin: 26px 0 0; color: var(--paper-light); font-size: clamp(15px, 2vw, 19px); font-weight: 700; text-decoration: underline; text-underline-offset: 5px; overflow-wrap: anywhere; }
+    .action-button {
+      position: relative;
+      z-index: 2;
+      isolation: isolate;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      min-height: 54px;
+      margin-top: 40px;
+      padding: 0 28px;
+      border-radius: 8px;
+      color: var(--paper-light);
+      background: var(--red);
+      font-family: var(--head);
+      font-size: 17px;
+      font-weight: 700;
+      box-shadow: 0 7px 0 rgba(0,0,0,0.2);
+      transition: transform 0.22s cubic-bezier(0.22,1,0.36,1), box-shadow 0.22s ease, filter 0.22s ease;
+    }
+    .action-button::after { content: ""; position: absolute; inset: -30% auto -30% -45%; width: 24%; background: rgba(245,239,223,0.24); transform: translateX(-260%) skewX(-18deg); transition: transform 0.48s cubic-bezier(0.22,1,0.36,1); }
+    .action-button:hover { transform: translateY(-3px) rotate(-0.2deg); box-shadow: 0 10px 0 rgba(0,0,0,0.18); }
+    .action-button:hover::after { transform: translateX(720%) skewX(-18deg); }
+    .action-button:active { transform: translateY(2px) scale(0.985); box-shadow: 0 2px 0 rgba(0,0,0,0.2); }
+    .action-button:focus-visible, .lang-button:focus-visible, .back-link:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+
+    .wechat-card { padding: clamp(28px, 4vw, 42px); color: var(--ink); background: rgba(245,239,223,0.96); border: 1px solid rgba(52,50,44,0.16); }
+    .wechat-card .method-number { margin-bottom: 27px; }
+    .wechat-card p { margin: 14px 0 26px; color: var(--muted); }
+    .qr-frame { position: relative; overflow: hidden; border: 1px solid rgba(52,50,44,0.17); border-radius: 11px; background: #fff; box-shadow: 0 15px 34px rgba(28,27,25,0.12); }
+    .qr-frame::before, .qr-frame::after { content: ""; position: absolute; z-index: 1; width: 32px; height: 32px; pointer-events: none; }
+    .qr-frame::before { top: 11px; left: 11px; border-top: 3px solid var(--red); border-left: 3px solid var(--red); }
+    .qr-frame::after { right: 11px; bottom: 11px; border-right: 3px solid var(--red); border-bottom: 3px solid var(--red); }
+    .qr-image { display: block; width: 100%; height: auto; background: #fff; }
+    .expectation {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 28px;
+      border: 1px solid rgba(52,50,44,0.16);
+      background: rgba(245,239,223,0.72);
+    }
+    .expectation-item { padding: 26px; }
+    .expectation-item + .expectation-item { border-left: 1px solid rgba(52,50,44,0.16); }
+    .expectation-item strong { display: block; margin-bottom: 5px; color: var(--red); font-family: var(--head); font-size: 21px; }
+    .expectation-item span { color: var(--muted); font-size: 14px; }
+
+    footer { padding: 34px 20px; color: rgba(245,239,223,0.7); background: var(--ink); text-align: center; font-size: 13px; }
+    footer strong { color: var(--paper-light); }
+
+    @media (max-width: 780px) {
+      .site-nav { grid-template-columns: 1fr auto; }
+      .lang-switch { grid-column: 1 / -1; grid-row: 2; justify-self: center; width: min(100%, 310px); }
+      .lang-button { flex: 1; }
+      .hero-watermark { width: 380px; right: -150px; }
+      .intro, .contact-grid { grid-template-columns: 1fr; }
+      .email-card { min-height: 500px; }
+      .expectation { grid-template-columns: 1fr; }
+      .expectation-item + .expectation-item { border-left: 0; border-top: 1px solid rgba(52,50,44,0.16); }
+    }
+    @media (max-width: 480px) {
+      .brand-logo-frame { width: 50px; height: 50px; }
+      .brand-divider { height: 38px; }
+      .brand-name { height: 38px; font-size: 15.5px; }
+      .back-link { padding: 0 11px; font-size: 13px; }
+      .hero-inner, main { width: min(100% - 28px, 1120px); }
+      .email-card, .wechat-card { padding: 28px 23px; }
+      .action-button { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+      .action-button:hover, .lang-button:hover, .back-link:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a class="brand" href="Home.dc.html" aria-label="Worker's Assist home">
+      <span class="brand-logo-frame"><img class="brand-logo" src="assets/img/wa-logo-transparent.png" alt="Worker's Assist logo"></span>
+      <span class="brand-divider" aria-hidden="true"></span>
+      <span class="brand-name">WORKER'S<br>ASSIST</span>
+    </a>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button class="lang-button" type="button" data-lang-button="en">English</button>
+      <button class="lang-button" type="button" data-lang-button="zh-hans">简体中文</button>
+      <button class="lang-button" type="button" data-lang-button="zh-hant">繁體中文</button>
+    </div>
+    <a class="back-link" href="Home.dc.html#get-involved" data-i18n="back">返回主页</a>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-watermark" aria-hidden="true"><img src="assets/img/wa-logo-transparent.png" alt=""></div>
+    <div class="hero-inner">
+      <span class="hero-kicker" data-i18n="heroKicker">志愿者报名</span>
+      <h1 data-i18n="heroTitle">愿意和工人站在一起吗？</h1>
+      <p class="hero-copy" data-i18n="heroCopy">选一种方便的方式联系我们。聊聊你想做什么、会哪些语言、什么时候有空，我们再一起看看你适合帮什么忙。</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="contact-title">
+      <div>
+        <h2 id="contact-title" data-i18n="contactTitle">用下面两种方式联系我们</h2>
+      </div>
+      <p data-i18n="contactCopy">不用准备正式简历。简单介绍一下自己，说说你想做什么、每周大概什么时候有空就可以。</p>
+    </section>
+
+    <section class="contact-grid">
+      <article class="contact-card email-card">
+        <div>
+          <span class="method-number" data-i18n="methodEmail">方式 01 · 电子邮件</span>
+          <h3 data-i18n="emailTitle">发邮件给我们</h3>
+          <p data-i18n="emailCopy">点击下面的按钮，会自动打开邮件并填好收件人和主题。你只要补上姓名、会说的语言、想帮的事情和有空的时间。</p>
+          <a class="email-address" href="mailto:admin@workers-assist.com">admin@workers-assist.com</a>
+        </div>
+        <a id="email-action" class="action-button" href="mailto:admin@workers-assist.com" data-i18n="emailButton">用邮件联系我们</a>
+      </article>
+
+      <article class="contact-card wechat-card">
+        <span class="method-number" data-i18n="methodWechat">方式 02 · 微信</span>
+        <h3 data-i18n="wechatTitle">扫码添加微信</h3>
+        <p data-i18n="wechatCopy">打开微信扫一扫，添加好友后告诉我们你想报名做志愿者。</p>
+        <div class="qr-frame">
+          <img class="qr-image" src="assets/img/wechat-qr.png" alt="微信二维码" data-i18n-alt="qrAlt">
+        </div>
+      </article>
+    </section>
+
+    <section class="expectation" aria-label="接下来怎么安排" data-i18n-aria="expectationLabel">
+      <div class="expectation-item"><strong data-i18n="step1Title">先聊一聊</strong><span data-i18n="step1Copy">说说你想做什么、以前做过什么。</span></div>
+      <div class="expectation-item"><strong data-i18n="step2Title">一起商量</strong><span data-i18n="step2Copy">根据你的兴趣和时间，选一项合适的工作。</span></div>
+      <div class="expectation-item"><strong data-i18n="step3Title">开始帮忙</strong><span data-i18n="step3Copy">我们会说明做法，并陪你一起开始。</span></div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Worker's Assist</strong> · <span data-i18n="footer">和大波士顿地区的移民工人及其家庭站在一起</span>
+  </footer>
+
+  <script>
+    (function () {
+      var strings = {
+        en: {
+          title: "Volunteer | Worker's Assist",
+          description: "Volunteer with Worker's Assist. Contact us by email or WeChat.",
+          back: "Back to home",
+          heroKicker: "Volunteer sign-up",
+          heroTitle: "Will you stand with workers?",
+          heroCopy: "Choose the easiest way to reach us. We will learn about your interests, languages, and availability, then find a role that fits.",
+          contactTitle: "Two ways to join us",
+          contactCopy: "You do not need a formal resume. Just introduce yourself, tell us what you would like to do, and share your general availability.",
+          methodEmail: "METHOD 01 · EMAIL",
+          emailTitle: "Send us an email",
+          emailCopy: "The button opens your email app with the recipient and subject ready. Tell us your name, languages, interests, and when you may be available.",
+          emailButton: "Open email sign-up",
+          emailSubject: "Volunteer with Worker's Assist",
+          emailBody: "Hello Worker's Assist,\n\nI would like to volunteer.\n\nName:\nLanguages:\nInterests or skills:\nGeneral availability:\n\nThank you!",
+          methodWechat: "METHOD 02 · WECHAT",
+          wechatTitle: "Scan to add us on WeChat",
+          wechatCopy: "Open WeChat and scan the code. After adding us, mention that you would like to join the Worker's Assist volunteer team.",
+          qrAlt: "WeChat QR code",
+          expectationLabel: "What happens after you contact us",
+          step1Title: "Connect",
+          step1Copy: "Tell us about your interests and experience.",
+          step2Title: "Find a fit",
+          step2Copy: "Choose a volunteer role together.",
+          step3Title: "Get involved",
+          step3Copy: "Join the team at a pace that works for you.",
+          footer: "Standing with immigrant workers and families across Greater Boston"
+        },
+        "zh-hans": {
+          title: "成为志愿者 | Worker's Assist",
+          description: "成为 Worker's Assist 志愿者，可通过电子邮件或微信联系我们。",
+          back: "返回主页",
+          heroKicker: "志愿者报名",
+          heroTitle: "愿意和工人站在一起吗？",
+          heroCopy: "选一种方便的方式联系我们。聊聊你想做什么、会哪些语言、什么时候有空，我们再一起看看你适合帮什么忙。",
+          contactTitle: "用下面两种方式联系我们",
+          contactCopy: "不用准备正式简历。简单介绍一下自己，说说你想做什么、每周大概什么时候有空就可以。",
+          methodEmail: "方式 01 · 电子邮件",
+          emailTitle: "发邮件给我们",
+          emailCopy: "点击下面的按钮，会自动打开邮件并填好收件人和主题。你只要补上姓名、会说的语言、想帮的事情和有空的时间。",
+          emailButton: "用邮件联系我们",
+          emailSubject: "报名成为 Worker's Assist 志愿者",
+          emailBody: "Worker's Assist 你好：\n\n我想报名成为志愿者。\n\n姓名：\n会说的语言：\n想做的事情或擅长的技能：\n每周大概有空的时间：\n\n谢谢！",
+          methodWechat: "方式 02 · 微信",
+          wechatTitle: "扫码添加微信",
+          wechatCopy: "打开微信扫一扫，添加好友后告诉我们你想报名做志愿者。",
+          qrAlt: "微信二维码",
+          expectationLabel: "报名后怎么安排",
+          step1Title: "先聊一聊",
+          step1Copy: "说说你想做什么、以前做过什么。",
+          step2Title: "一起商量",
+          step2Copy: "根据你的兴趣和时间，选一项合适的工作。",
+          step3Title: "开始帮忙",
+          step3Copy: "我们会说明做法，并陪你一起开始。",
+          footer: "和大波士顿地区的移民工人及其家庭站在一起"
+        },
+        "zh-hant": {
+          title: "成為義工 | Worker's Assist",
+          description: "成為 Worker's Assist 義工，可用電郵或微信聯絡我們。",
+          back: "返回首頁",
+          heroKicker: "義工報名",
+          heroTitle: "願意和工人站在一起嗎？",
+          heroCopy: "選一個方便的方法聯絡我們。談談你想做甚麼、會哪些語言、甚麼時候有空，我們再一起看看你適合幫甚麼忙。",
+          contactTitle: "用以下兩種方法聯絡我們",
+          contactCopy: "不用準備正式履歷。簡單介紹一下自己，說說你想做甚麼、每週大概甚麼時候有空就可以。",
+          methodEmail: "方式 01 · 電郵",
+          emailTitle: "傳電郵給我們",
+          emailCopy: "按下面的按鈕，會自動開啟電郵並填好收件人和主旨。你只要補上姓名、會說的語言、想幫的事情和有空的時間。",
+          emailButton: "用電郵聯絡我們",
+          emailSubject: "報名成為 Worker's Assist 義工",
+          emailBody: "Worker's Assist 你好：\n\n我想報名成為義工。\n\n姓名：\n會說的語言：\n想做的事情或擅長的技能：\n每週大概有空的時間：\n\n謝謝！",
+          methodWechat: "方式 02 · 微信",
+          wechatTitle: "掃碼添加微信",
+          wechatCopy: "打開微信掃一掃，加為好友後告訴我們你想報名做義工。",
+          qrAlt: "微信二維碼",
+          expectationLabel: "報名後怎樣安排",
+          step1Title: "先談一談",
+          step1Copy: "說說你想做甚麼、以前做過甚麼。",
+          step2Title: "一起商量",
+          step2Copy: "按你的興趣和時間，選一項合適的工作。",
+          step3Title: "開始幫忙",
+          step3Copy: "我們會說明做法，並陪你一起開始。",
+          footer: "和大波士頓地區的移民工人及其家庭站在一起"
+        }
+      };
+      var supportedLanguages = Object.keys(strings);
+
+      function setLanguage(lang) {
+        if (!strings[lang]) lang = "zh-hans";
+        var copy = strings[lang];
+        document.documentElement.dataset.lang = lang;
+        document.documentElement.lang = lang === "en" ? "en" : (lang === "zh-hant" ? "zh-Hant" : "zh-Hans");
+        WASite.updateMetadata(copy);
+        WASite.applyCopy(document, copy);
+        WASite.updateLanguageButtons("[data-lang-button]", "data-lang-button", lang);
+        document.getElementById("email-action").href = WASite.buildMailto("admin@workers-assist.com", copy.emailSubject, copy.emailBody);
+        WASite.writeLanguage(lang);
+      }
+
+      document.querySelectorAll("[data-lang-button]").forEach(function (button) {
+        button.addEventListener("click", function () { setLanguage(button.getAttribute("data-lang-button")); });
+      });
+
+      setLanguage(WASite.readLanguage(supportedLanguages, "zh-hans"));
+    })();
+  </script>
+</body>
+</html>
