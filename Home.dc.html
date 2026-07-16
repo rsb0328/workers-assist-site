@@ -1,33 +1,155 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hans">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./site-runtime.js"></script>
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
+  <title>Worker's Assist | 团结移民工人与家庭</title>
+  <meta name="description" content="Worker's Assist 为大波士顿地区的移民工人和家庭提供免费社区英语课程。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Oswald:wght@500;600;700&family=Noto+Sans:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;900&family=Noto+Sans+TC:wght@400;600;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Noto+Sans:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;900&family=Noto+Sans+TC:wght@400;600;900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; }
     a { text-decoration: none; }
     ::selection { background: #CE2029; color: #F5EFDF; }
     @keyframes wa-breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+    @keyframes wa-press-in { 0% { opacity: 0; transform: translateY(18px) scale(1.035); filter: blur(8px); text-shadow: 7px 0 0 rgba(206,32,41,0.48), -5px 0 0 rgba(168,129,63,0.38); } 68% { opacity: 1; filter: blur(0); text-shadow: 3px 0 0 rgba(206,32,41,0.28), -2px 0 0 rgba(168,129,63,0.24); } 100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); text-shadow: 0 2px 0 rgba(28,27,25,0.38), 0 10px 28px rgba(0,0,0,0.22); } }
+    @keyframes wa-stamp-pop { 0% { opacity: 0; transform: translateY(-8px) scale(1.18); filter: blur(2px); } 54% { opacity: 1; transform: translateY(0) scale(0.96); filter: blur(0); } 100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
+    @keyframes wa-paper-grain { 0%, 100% { transform: translate3d(0,0,0); opacity: 0.42; } 25% { transform: translate3d(-1.5%,1%,0); opacity: 0.36; } 50% { transform: translate3d(1%,-1.2%,0); opacity: 0.44; } 75% { transform: translate3d(-0.8%,-0.6%,0); opacity: 0.38; } }
+    .wa-kinetic-hero { --wa-pan-x: 0px; --wa-pan-y: 0px; overflow: hidden; transform: translateZ(0); }
+    .wa-kinetic-hero::before { content: ''; position: absolute; inset: -18px; z-index: 0; pointer-events: none; background-image: inherit; background-size: cover; background-position: calc(50% + var(--wa-pan-x)) calc(64% + var(--wa-pan-y)); filter: saturate(1.06) contrast(1.05); transform: scale(1.035); transition: background-position 0.16s ease-out; }
+    .wa-kinetic-hero::after { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; background-image: radial-gradient(rgba(245,239,223,0.16) 0.8px, transparent 0.8px), linear-gradient(90deg, rgba(206,32,41,0.18), transparent 28%, rgba(168,129,63,0.14) 64%, transparent); background-size: 3px 3px, 100% 100%; mix-blend-mode: soft-light; animation: wa-paper-grain 9s steps(5, end) infinite; }
+    .wa-hero-layer { position: relative; z-index: 1; }
+    .wa-hero-tagline { display: block !important; visibility: visible !important; opacity: 1 !important; position: relative; z-index: 4; min-height: 1.7em; color: #F5EFDF !important; -webkit-text-fill-color: #F5EFDF; text-shadow: 0 2px 12px rgba(0,0,0,0.86), 0 1px 2px rgba(28,27,25,0.95); }
+    .wa-press-word { display: inline-block; opacity: 0; animation: wa-press-in 0.82s cubic-bezier(0.16, 1, 0.3, 1) forwards; transform-origin: left bottom; }
+    .wa-press-word:nth-child(1) { animation-delay: 0.14s; }
+    .wa-press-word:nth-child(2) { animation-delay: 0.24s; }
+    .wa-press-word:nth-child(3) { animation-delay: 0.34s; }
+    .wa-press-word:nth-child(4) { animation-delay: 0.44s; }
+    .wa-press-word:nth-child(5) { animation-delay: 0.54s; }
+    .wa-press-word:nth-child(6) { animation-delay: 0.64s; }
+    .wa-press-word:nth-child(7) { animation-delay: 0.74s; }
+    .wa-press-word:nth-child(8) { animation-delay: 0.84s; }
+    .wa-press-word:nth-child(9) { animation-delay: 0.94s; }
+    .wa-press-word:nth-child(10) { animation-delay: 1.04s; }
+    .wa-press-word:nth-child(11) { animation-delay: 1.14s; }
+    .wa-press-word:nth-child(12) { animation-delay: 1.24s; }
+    .wa-hero-stamp { animation: wa-stamp-pop 0.58s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both; box-shadow: 0 8px 0 rgba(28,27,25,0.12); }
+    .wa-scroll-proof { --wa-proof-delay: 0ms; position: relative; opacity: 0; transform: translateY(22px); filter: blur(6px); transition: opacity 0.72s ease var(--wa-proof-delay), transform 0.72s cubic-bezier(0.16, 1, 0.3, 1) var(--wa-proof-delay), filter 0.72s ease var(--wa-proof-delay); }
+    .wa-scroll-proof.wa-proof-visible { opacity: 1; transform: translateY(0); filter: blur(0); }
+    .wa-schedule-ticket { --wa-ticket-delay: 0ms; opacity: 0; transform: translateX(18px); transition: opacity 0.55s ease var(--wa-ticket-delay), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) var(--wa-ticket-delay); }
+    .wa-proof-visible .wa-schedule-ticket { opacity: 1; transform: translateX(0); }
+    .wa-schedule-ticket:nth-child(1) { --wa-ticket-delay: 140ms; }
+    .wa-schedule-ticket:nth-child(2) { --wa-ticket-delay: 230ms; }
+    .wa-schedule-ticket:nth-child(3) { --wa-ticket-delay: 320ms; }
+    .wa-schedule-ticket span[style*="border-radius: 999px"] { transform: scale(0.88); transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--wa-ticket-delay) + 180ms); }
+    .wa-proof-visible .wa-schedule-ticket span[style*="border-radius: 999px"] { transform: scale(1); }
+    .wa-nav-track { position: relative; display: flex; align-items: center; justify-content: center; gap: 4px; flex-wrap: wrap; grid-column: 2; }
+    .wa-nav-link { display: inline-flex; align-items: center; height: 56px; padding: 0 14px; color: rgba(245,239,223,0.72); font-family: 'Noto Sans', sans-serif; font-size: 15px; font-weight: 700; transition: color 0.18s ease; }
+    .wa-nav-link:hover, .wa-nav-link.wa-nav-active { color: #F5EFDF; }
+    .wa-nav-indicator { position: absolute; left: 0; bottom: 0; width: var(--wa-nav-w, 0px); height: 3px; background: var(--accent, #CE2029); border-radius: 999px 999px 0 0; transform: translateX(var(--wa-nav-x, 0px)); transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), width 0.34s cubic-bezier(0.22, 1, 0.36, 1); pointer-events: none; }
+    .wa-action-button { position: relative; isolation: isolate; overflow: hidden; transform: translateY(0); transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s ease, filter 0.22s ease !important; }
+    .wa-action-button::after { content: ''; position: absolute; inset: -30% auto -30% -45%; width: 24%; pointer-events: none; background: rgba(245,239,223,0.24); transform: translateX(-260%) skewX(-18deg); transition: transform 0.48s cubic-bezier(0.22, 1, 0.36, 1); }
+    .wa-action-button:hover { transform: translateY(-3px) rotate(-0.25deg); box-shadow: 0 7px 0 rgba(28,27,25,0.2), 0 13px 24px rgba(0,0,0,0.18); }
+    .wa-action-button:hover::after { transform: translateX(720%) skewX(-18deg); }
+    .wa-action-button:active { transform: translateY(2px) scale(0.985); box-shadow: 0 2px 0 rgba(28,27,25,0.2); transition-duration: 0.07s !important; }
+    .wa-action-button:focus-visible, button:focus-visible { outline: 3px solid #F5EFDF; outline-offset: 4px; }
+    button { transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), color 0.15s ease, background 0.15s ease !important; }
+    button:hover { transform: translateY(-2px); }
+    button:active { transform: translateY(1px) scale(0.97); transition-duration: 0.06s !important; }
+    .wa-footer-mission { white-space: nowrap; max-width: none !important; }
+    .wa-volunteer-role { position: relative; min-height: 250px; padding: 30px; background: #272521; border: 1px solid rgba(245,239,223,0.18); border-top: 5px solid var(--accent, #CE2029); transition: transform 0.24s ease, background 0.24s ease, border-color 0.24s ease; }
+    .wa-volunteer-role:hover { transform: translateY(-6px); background: #2F2C27; border-color: rgba(245,239,223,0.34); }
+    .wa-volunteer-role-number { display: block; font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.14em; color: var(--accent, #CE2029); margin-bottom: 38px; }
+    .wa-volunteer-roles,
+    .wa-volunteer-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .wa-volunteer-path { position: relative; display: block; overflow: visible; margin-top: 50px; padding: 34px 0 38px; color: #F5EFDF; background: transparent; border-top: 1px solid rgba(245,239,223,0.22); border-bottom: 1px solid rgba(245,239,223,0.22); }
+    .wa-volunteer-path-head { display: block; padding: 0 0 22px; color: #F5EFDF; background: transparent; }
+    .wa-volunteer-path-kicker { display: block; align-self: start; padding-top: 3px; font-family: var(--font-head); font-size: clamp(25px, 3vw, 34px); font-weight: var(--head-weight); line-height: 1.08; text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); }
+    .wa-volunteer-steps { padding: 32px 0 0; background: transparent; }
+    .wa-volunteer-step { position: relative; min-height: 184px; padding: 22px 0 0; }
+    .wa-volunteer-step::before { content: ''; position: absolute; top: 0; left: 0; width: 52px; height: 3px; background: var(--accent, #CE2029); }
+    .wa-volunteer-step + .wa-volunteer-step { border-left: 0; }
+    .wa-volunteer-step-top { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 18px; }
+    .wa-volunteer-step-number { display: block; flex: 0 0 auto; width: auto; height: auto; color: #F5EFDF; background: transparent; font-family: 'Oswald', sans-serif; font-size: 54px; font-weight: 700; line-height: 0.86; letter-spacing: -0.04em; -webkit-text-stroke: 0; text-shadow: none; box-shadow: none; }
+    .wa-volunteer-step-title { padding-bottom: 2px; font-family: var(--font-head); font-size: 21px; font-weight: var(--head-weight); line-height: 1.15; color: #F5EFDF; }
+    .wa-volunteer-step-copy { display: block; max-width: 29ch; font-family: var(--font-body); font-size: 15px; line-height: 1.68; color: rgba(245,239,223,0.68); }
+    .wa-course-story { padding-top: 56px !important; padding-bottom: 16px !important; }
+    .wa-story-beat { margin-bottom: 72px !important; }
+    .wa-story-beat-last { margin-bottom: 48px !important; }
+    .wa-story-copy { min-height: clamp(460px, 62vh, 540px) !important; }
+    .wa-story-kicker { font-size: clamp(38px, 4.4vw, 50px) !important; line-height: 1.08 !important; margin-bottom: 18px !important; letter-spacing: -0.01em !important; }
+    .wa-join-kicker { font-size: clamp(22px, 2.6vw, 30px) !important; line-height: 1.1 !important; margin-bottom: 16px !important; }
+    .wa-volunteer-primary-kicker { font-size: clamp(29px, 4.1vw, 47px) !important; margin-bottom: 60px !important; }
+    .wa-top-brand { display: inline-flex; align-items: center; gap: 10px; justify-self: start; min-width: 0; grid-column: 1; }
+    .wa-brand-logo-frame { display: grid; place-items: center; width: 58px; height: 58px; overflow: hidden; flex: 0 0 auto; }
+    .wa-brand-logo { display: block; width: 100%; height: 100%; object-fit: contain; transform: scale(1.48); transform-origin: center; filter: drop-shadow(0 3px 7px rgba(0,0,0,0.35)); opacity: 1; }
+    .wa-brand-divider { width: 6px; height: 44px; flex: 0 0 auto; border-radius: 2px; background: var(--accent, #CE2029); box-shadow: 0 3px 8px rgba(0,0,0,0.28); }
+    .wa-brand-wordmark { display: block; height: 44px; font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 18px; line-height: 1.22; letter-spacing: 0.16em; color: var(--accent, #CE2029); text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+    .wa-volunteer-watermark { position: absolute; right: -100px; top: -74px; width: min(46vw, 540px); aspect-ratio: 1; pointer-events: none; overflow: hidden; opacity: 0.085; mix-blend-mode: screen; -webkit-mask-image: radial-gradient(circle at 48% 46%, #000 0 30%, rgba(0,0,0,0.82) 47%, rgba(0,0,0,0.24) 64%, transparent 78%); mask-image: radial-gradient(circle at 48% 46%, #000 0 30%, rgba(0,0,0,0.82) 47%, rgba(0,0,0,0.24) 64%, transparent 78%); }
+    .wa-volunteer-watermark img { display: block; width: 100%; height: 100%; object-fit: contain; transform: scale(1.5); filter: grayscale(1) brightness(2.2) contrast(0.68); }
+    @media (max-width: 760px) {
+      nav { grid-template-columns: 1fr auto !important; padding: 8px 12px 10px !important; }
+      .wa-top-brand { grid-column: 1 !important; grid-row: 1; }
+      nav > div:last-child { grid-column: 2 !important; grid-row: 1; justify-self: end !important; }
+      nav div[role="group"] { width: min(100%, 260px) !important; }
+      .wa-nav-track { grid-column: 1 / -1 !important; grid-row: 2; width: 100%; }
+      .wa-nav-link { flex: 1 1 0; justify-content: center; padding: 0 8px; }
+      .wa-header-cta { display: none !important; }
+      .wa-hero-tagline { max-width: 20rem !important; font-size: 17px !important; overflow-wrap: normal; word-break: normal; }
+      .wa-footer-mission { font-size: clamp(10px, 1.85vw, 14px) !important; }
+      .wa-volunteer-path { margin-top: 38px; padding: 28px 0 30px; }
+      .wa-volunteer-path-head { padding: 0 0 20px; }
+      .wa-volunteer-roles { grid-template-columns: 1fr; gap: 18px; }
+      .wa-volunteer-steps { grid-template-columns: 1fr; gap: 0; padding: 6px 0 0; }
+      .wa-volunteer-step { min-height: 0; padding: 22px 0 0; }
+      .wa-volunteer-step + .wa-volunteer-step { border-left: 0; border-top: 1px solid rgba(245,239,223,0.16); margin-top: 26px; padding-top: 28px; }
+      .wa-volunteer-step + .wa-volunteer-step::before { top: 0; }
+      .wa-course-story { padding-top: 36px !important; }
+      .wa-story-beat { margin-bottom: 44px !important; }
+      .wa-story-beat-last { margin-bottom: 8px !important; }
+      .wa-story-copy { min-height: 0 !important; }
+      .wa-story-kicker { font-size: clamp(34px, 9vw, 42px) !important; }
+      .wa-brand-logo-frame { width: 50px; height: 50px; }
+      .wa-brand-divider { height: 38px; }
+      .wa-brand-wordmark { height: 38px; font-size: 15.5px; }
+      .wa-volunteer-watermark { right: -130px; top: -34px; width: 380px; }
+    }
+    @media (max-width: 520px) {
+      nav { grid-template-columns: minmax(0, 1fr) auto !important; gap: 8px !important; }
+      .wa-top-brand { grid-column: 1 !important; grid-row: 1; gap: 7px; }
+      .wa-brand-logo-frame { width: 42px; height: 42px; }
+      .wa-brand-divider { width: 5px; height: 32px; }
+      .wa-brand-wordmark { height: 32px; font-size: 13px; letter-spacing: 0.13em; }
+      nav > div:last-child { grid-column: 2 !important; grid-row: 1; justify-self: end !important; width: 180px; }
+      .wa-nav-track { grid-column: 1 / -1 !important; grid-row: 2; }
+      .wa-footer-mission { white-space: normal; font-size: 15px !important; }
+    }
+    @media (prefers-reduced-motion: reduce) { .wa-kinetic-hero::after, .wa-press-word, .wa-hero-stamp { animation: none; opacity: 1; transform: none; filter: none; } .wa-scroll-proof, .wa-schedule-ticket { opacity: 1; transform: none; filter: none; transition: none; } .wa-schedule-ticket span[style*="border-radius: 999px"] { transform: none; transition: none; } .wa-kinetic-hero::before { transition: none; } .wa-action-button, button { transform: none !important; transition: none !important; } .wa-action-button::after { display: none; } }
   </style>
 </helmet>
 
 <div style="{{ rootStyle }}">
 
   <!-- ===== Top bar ===== -->
-  <nav style="position: sticky; top: 0; z-index: 200; background: #1C1B19; box-shadow: 0 1px 0 rgba(245,239,223,0.12); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; padding: 0 20px; min-height: 56px;">
-    <div style="display: flex; align-items: center; justify-content: center; gap: 4px; flex-wrap: wrap; grid-column: 2;">
-      <a href="#top" style="display: inline-flex; align-items: center; height: 56px; padding: 0 14px; color: #F5EFDF; font-family: 'Noto Sans', sans-serif; font-size: 15px; font-weight: 700; border-bottom: 3px solid var(--accent, #CE2029);">{{ t.navHome }}</a>
-      <a href="#beat-schedule" style="display: inline-flex; align-items: center; height: 56px; padding: 0 14px; color: rgba(245,239,223,0.72); font-family: 'Noto Sans', sans-serif; font-size: 15px; font-weight: 700; border-bottom: 3px solid transparent;" style-hover="{ color: '#F5EFDF' }">{{ t.navClasses }}</a>
-      <a href="#get-involved" style="display: inline-flex; align-items: center; height: 56px; padding: 0 14px; color: rgba(245,239,223,0.72); font-family: 'Noto Sans', sans-serif; font-size: 15px; font-weight: 700; border-bottom: 3px solid transparent;" style-hover="{ color: '#F5EFDF' }">{{ t.navVolunteer }}</a>
+  <nav style="position: sticky; top: 0; z-index: 200; background: #1C1B19; box-shadow: 0 1px 0 rgba(245,239,223,0.12); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 18px; padding: 8px clamp(18px, 4vw, 42px); min-height: 72px;">
+    <a href="#top" class="wa-top-brand" aria-label="Worker's Assist — home">
+      <span class="wa-brand-logo-frame"><img class="wa-brand-logo" src="assets/img/wa-logo-transparent.png" alt="Worker's Assist logo"></span>
+      <span class="wa-brand-divider" aria-hidden="true"></span>
+      <span class="wa-brand-wordmark">WORKER'S<br>ASSIST</span>
+    </a>
+    <div class="wa-nav-track" id="wa-nav-track">
+      <a href="#top" class="wa-nav-link wa-nav-active" data-wa-nav="top">{{ t.navHome }}</a>
+      <a href="#beat-schedule" class="wa-nav-link" data-wa-nav="beat-schedule">{{ t.navClasses }}</a>
+      <a href="#get-involved" class="wa-nav-link" data-wa-nav="get-involved">{{ t.navVolunteer }}</a>
+      <span class="wa-nav-indicator" id="wa-nav-indicator" aria-hidden="true"></span>
     </div>
     <div style="grid-column: 3; justify-self: end;">
       <div role="group" aria-label="Language" style="display: flex; width: clamp(200px, 24vw, 240px); border: 1px solid rgba(245,239,223,0.28); border-radius: 8px; overflow: hidden; background: rgba(28,27,25,0.36);">
@@ -39,26 +161,23 @@
   </nav>
 
   <!-- ===== Banner: header + hero over one continuous mural ===== -->
-  <div id="top" style="position: relative; background-color: #EBE2CB; background-image: linear-gradient(to bottom, #1C1B19 0%, rgba(28,27,25,0.86) 10%, rgba(28,27,25,0) 30%), linear-gradient(to bottom, rgba(235,226,203,0) 70%, rgba(235,226,203,0.85) 85%, #EBE2CB 95%), linear-gradient(90deg, rgba(28,27,25,0.9) 0%, rgba(28,27,25,0.6) 45%, rgba(28,27,25,0.2) 100%), url('assets/img/hero-mural.jpg'); background-size: cover; background-position: center 64%;">
+  <div id="top" class="wa-kinetic-hero" style="position: relative; background-color: #EBE2CB; background-image: linear-gradient(to bottom, #1C1B19 0%, rgba(28,27,25,0.86) 10%, rgba(28,27,25,0) 30%), linear-gradient(to bottom, rgba(235,226,203,0) 70%, rgba(235,226,203,0.85) 85%, #EBE2CB 95%), linear-gradient(90deg, rgba(28,27,25,0.9) 0%, rgba(28,27,25,0.6) 45%, rgba(28,27,25,0.2) 100%), url('assets/img/hero-mural.jpg'); background-size: cover; background-position: center 64%;">
 
     <!-- Header -->
-    <header style="position: relative; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; max-width: 1180px; margin: 0 auto; padding: 20px 28px;">
-      <a href="#top" aria-label="Worker's Assist — home" style="display: inline-flex; align-items: stretch; gap: 14px;">
-        <span aria-hidden="true" style="width: 11px; background: var(--accent, #CE2029); border-radius: 2px;"></span>
-        <span style="display: flex; flex-direction: column; justify-content: center; gap: 3px;">
-          <span style="font-family: 'Archivo Black', sans-serif; font-size: 42px; line-height: 1; letter-spacing: 0.01em; color: #F5EFDF;">WA</span>
-          <span style="font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.28em; color: var(--accent, #CE2029);">WORKER'S ASSIST</span>
-        </span>
-      </a>
-      <a href="#beat-schedule" style="display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 600; font-size: 16px; padding: 13px 28px; border-radius: 8px; background: var(--accent, #CE2029); color: #F5EFDF; min-height: 48px; white-space: nowrap;" style-hover="{ filter: 'brightness(0.9)' }">{{ t.ctaJoin }}</a>
+    <header class="wa-hero-layer" style="position: relative; display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 16px; max-width: 1180px; margin: 0 auto; padding: 20px 28px;">
+      <a href="Join.html" class="wa-hero-stamp wa-header-cta wa-action-button" style="display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 600; font-size: 16px; padding: 13px 28px; border-radius: 8px; background: var(--accent, #CE2029); color: #F5EFDF; min-height: 48px; white-space: nowrap;" style-hover="{ filter: 'brightness(0.9)' }">{{ t.ctaJoin }}</a>
     </header>
 
     <!-- Hero -->
-    <section style="position: relative; min-height: 520px; display: flex; align-items: center; padding: 56px 0 88px;">
+    <section class="wa-hero-layer" style="position: relative; min-height: 520px; display: flex; align-items: center; padding: 56px 0 88px;">
       <div style="max-width: 1180px; margin: 0 auto; padding: 0 28px; width: 100%;">
-        <span style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); background: var(--accent, #CE2029); color: #F5EFDF; padding: 5px 16px; border-radius: 6px; margin-bottom: 20px;">{{ t.heroEyebrow }}</span>
-        <h1 style="{{ heroHeadlineStyle }}">{{ t.heroHeadline }}</h1>
-        <p style="font-size: clamp(18px, 2.4vw, 23px); color: rgba(245,239,223,0.88); margin: 20px 0 0; font-family: var(--font-body); letter-spacing: 0.01em;">{{ t.heroTagline }}</p>
+        <span class="wa-hero-stamp" style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); background: var(--accent, #CE2029); color: #F5EFDF; padding: 5px 16px; border-radius: 6px; margin-bottom: 20px;">{{ t.heroEyebrow }}</span>
+        <h1 style="{{ heroHeadlineStyle }}">
+          <sc-for list="{{ heroHeadlineWords }}" as="word" hint-placeholder-count="5">
+            <span class="wa-press-word" style="{{ heroWordStyle }}">{{ word }}</span>
+          </sc-for>
+        </h1>
+        <p class="wa-hero-tagline" style="font-size: clamp(18px, 2.4vw, 23px); margin: 20px 0 0; font-family: var(--font-body); letter-spacing: 0.01em;">{{ heroTagline }}</p>
       </div>
       <p style="position: absolute; right: 24px; bottom: 12px; margin: 0; max-width: 52%; text-align: right; font-size: 11px; line-height: 1.4; color: #5C584B; font-family: var(--font-body);">Mural: Diego M. Rivera, <i>Detroit Industry</i>, 1932&ndash;33. Detroit Institute of Arts. Public domain in the U.S.</p>
     </section>
@@ -124,31 +243,31 @@
   </section>
 
   <!-- ===== Scrollytelling beats ===== -->
-  <div style="max-width: 1180px; margin: 0 auto; padding: 72px 28px 24px;">
+  <div class="wa-course-story" style="max-width: 1180px; margin: 0 auto; padding: 72px 28px 24px;">
 
     <!-- Beat 1 — image left, text right -->
-    <section id="beat-intro" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 56px; margin-bottom: 96px;">
-      <figure style="flex: 1 1 320px; margin: 0; position: sticky; top: 80px;">
+    <section id="beat-intro" class="wa-story-beat" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 56px; margin-bottom: 96px;">
+      <figure class="wa-scroll-proof" style="--wa-proof-delay: 0ms; flex: 1 1 320px; margin: 0; position: sticky; top: 80px;">
         <img src="uploads/DSCF6086.jpg" alt="{{ t.beat1Eyebrow }}" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid #1C1B19; border-radius: 12px;">
       </figure>
-      <div style="flex: 1 1 340px; min-height: 56vh; display: flex; flex-direction: column; justify-content: center;">
-        <span style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); margin-bottom: 10px;">{{ t.beat1Eyebrow }}</span>
+      <div class="wa-scroll-proof wa-story-copy" style="--wa-proof-delay: 120ms; flex: 1 1 340px; min-height: 56vh; display: flex; flex-direction: column; justify-content: center;">
+        <span class="wa-story-kicker" style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); margin-bottom: 10px;">{{ t.beat1Eyebrow }}</span>
         <h2 style="font-family: var(--font-head); font-weight: var(--head-weight); color: #1C1B19; font-size: clamp(26px, 4vw, 34px); line-height: 1.12; letter-spacing: -0.01em; margin: 0 0 16px;">{{ t.beat1Heading }}</h2>
         <p style="font-family: var(--font-body); font-size: 17.5px; line-height: 1.75; color: #34322C; margin: 0; max-width: 52ch;">{{ t.beat1Body }}</p>
       </div>
     </section>
 
     <!-- Beat 2 — schedule -->
-    <section id="beat-schedule" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 48px; margin-bottom: 96px;">
-      <div style="flex: 1 1 280px; min-height: 60vh; display: flex; flex-direction: column; justify-content: center;">
-        <span style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); margin-bottom: 10px;">{{ t.beat2Eyebrow }}</span>
+    <section id="beat-schedule" class="wa-story-beat" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 48px; margin-bottom: 96px;">
+      <div class="wa-scroll-proof wa-story-copy" style="--wa-proof-delay: 0ms; flex: 1 1 280px; min-height: 60vh; display: flex; flex-direction: column; justify-content: center;">
+        <span class="wa-story-kicker" style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); margin-bottom: 10px;">{{ t.beat2Eyebrow }}</span>
         <h2 style="font-family: var(--font-head); font-weight: var(--head-weight); color: #1C1B19; font-size: clamp(26px, 4vw, 34px); line-height: 1.12; letter-spacing: -0.01em; margin: 0 0 14px;">{{ t.beat2Heading }}</h2>
         <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.7; color: #5C584B; margin: 0; max-width: 34ch;">{{ t.beat2Sub }}</p>
       </div>
-      <div style="flex: 1.4 1 340px; position: sticky; top: 80px; align-self: flex-start; background: #F5EFDF; border: 1px solid #D8CDAE; border-radius: 10px; padding: 28px 32px;">
+      <div class="wa-scroll-proof" style="--wa-proof-delay: 120ms; flex: 1.4 1 340px; position: sticky; top: 80px; align-self: flex-start; background: #F5EFDF; border: 1px solid #D8CDAE; border-radius: 10px; padding: 28px 32px;">
         <ul style="list-style: none; margin: 0; padding: 0;">
           <sc-for list="{{ scheduleRows }}" as="row" hint-placeholder-count="3">
-            <li style="display: flex; flex-direction: column; gap: 5px; padding: 18px 0; border-bottom: 1px solid #D8CDAE;">
+            <li class="wa-schedule-ticket" style="display: flex; flex-direction: column; gap: 5px; padding: 18px 0; border-bottom: 1px solid #D8CDAE;">
               <div style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
                 <span style="font-family: var(--font-head); font-weight: var(--head-weight); font-size: 19px; color: #1C1B19;">{{ row.name }}</span>
                 <sc-if value="{{ showLevels }}" hint-placeholder-val="{{ true }}">
@@ -156,39 +275,93 @@
                 </sc-if>
               </div>
               <span style="font-family: var(--font-body); font-size: 16px; color: #34322C;">{{ row.time }}</span>
-              <span style="font-family: var(--font-body); font-size: 15px; color: #5C584B;">&middot; {{ row.loc }}</span>
+              <span style="font-family: var(--font-body); font-size: 15px; color: #5C584B;">{{ row.loc }}</span>
             </li>
           </sc-for>
         </ul>
-        <a href="#get-involved" style="display: inline-flex; align-items: center; justify-content: center; margin-top: 22px; font-family: var(--font-head); font-weight: 600; font-size: 16px; padding: 13px 28px; border-radius: 8px; background: var(--accent, #CE2029); color: #F5EFDF; min-height: 48px;" style-hover="{ filter: 'brightness(0.9)' }">{{ t.ctaJoinArrow }}</a>
+        <a href="Join.html" class="wa-action-button" style="display: inline-flex; align-items: center; justify-content: center; margin-top: 22px; font-family: var(--font-head); font-weight: 600; font-size: 16px; padding: 13px 28px; border-radius: 8px; background: var(--accent, #CE2029); color: #F5EFDF; min-height: 48px;" style-hover="{ filter: 'brightness(0.9)' }">{{ t.ctaJoinArrow }}</a>
       </div>
     </section>
 
     <!-- Beat 3 — image left, text right -->
-    <section id="beat-origin" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 56px; margin-bottom: 24px;">
-      <div style="flex: 1 1 340px; order: 2; min-height: 56vh; display: flex; flex-direction: column; justify-content: center;">
-        <span style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); margin-bottom: 10px;">{{ t.beat3Eyebrow }}</span>
+    <section id="beat-origin" class="wa-story-beat-last" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 56px; margin-bottom: 24px;">
+      <div class="wa-scroll-proof wa-story-copy" style="--wa-proof-delay: 120ms; flex: 1 1 340px; order: 2; min-height: 56vh; display: flex; flex-direction: column; justify-content: center;">
+        <span class="wa-story-kicker" style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); margin-bottom: 10px;">{{ t.beat3Eyebrow }}</span>
         <h2 style="font-family: var(--font-head); font-weight: var(--head-weight); color: #1C1B19; font-size: clamp(26px, 4vw, 34px); line-height: 1.12; letter-spacing: -0.01em; margin: 0 0 16px;">{{ t.beat3Heading }}</h2>
         <p style="font-family: var(--font-body); font-size: 17.5px; line-height: 1.75; color: #34322C; margin: 0 0 16px; max-width: 52ch;">{{ t.beat3Body1 }}</p>
         <p style="font-family: var(--font-body); font-size: 17.5px; line-height: 1.75; color: #34322C; margin: 0; max-width: 52ch;">{{ t.beat3Body2 }}</p>
       </div>
-      <figure style="flex: 1 1 320px; margin: 0; order: 1; position: sticky; top: 80px;">
-        <div style="aspect-ratio: 4 / 3; background-image: repeating-linear-gradient(45deg, #E2D8BE 0 12px, #EBE2CB 12px 24px); border: 1px solid #1C1B19; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-          <span style="font-family: ui-monospace, monospace; font-size: 12.5px; color: #5C584B; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(245,239,223,0.88); padding: 6px 12px; border-radius: 4px; border: 1px solid #D8CDAE;">photo &mdash; community gathering</span>
-        </div>
+      <figure class="wa-scroll-proof" style="--wa-proof-delay: 0ms; flex: 1 1 320px; margin: 0; order: 1; position: sticky; top: 80px;">
+        <img src="assets/img/workers-assist-sinthome-bg-1920.jpg" alt="{{ t.beat3Eyebrow }}" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 52%; border: 1px solid #1C1B19; border-radius: 12px;">
       </figure>
     </section>
   </div>
 
+  <!-- ===== Volunteer section ===== -->
+  <section id="get-involved" style="position: relative; overflow: hidden; background: #1C1B19; color: #F5EFDF; border-top: 8px solid var(--accent, #CE2029);">
+    <div class="wa-volunteer-watermark" aria-hidden="true"><img src="assets/img/wa-logo-transparent.png" alt=""></div>
+    <div style="max-width: 1180px; margin: 0 auto; padding: 88px 28px 82px; position: relative;">
+      <div class="wa-scroll-proof" style="--wa-proof-delay: 0ms; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 48px; align-items: end; margin-bottom: 42px;">
+        <div>
+          <span class="wa-join-kicker wa-volunteer-primary-kicker" style="display: inline-block; font-family: var(--font-head); font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029);">{{ t.volunteerEyebrow }}</span>
+          <h2 style="font-family: var(--font-head); font-weight: var(--head-weight); color: #F5EFDF; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.15; letter-spacing: -0.02em; margin: 0; max-width: 22ch;">{{ t.volunteerHeading }}</h2>
+        </div>
+        <div style="padding-bottom: 4px;">
+          <p style="font-family: var(--font-body); font-size: 18px; line-height: 1.72; color: rgba(245,239,223,0.84); margin: 0 0 22px; max-width: 50ch;">{{ t.volunteerIntro }}</p>
+          <div style="display: flex; align-items: center; gap: 14px; padding-top: 18px; border-top: 1px solid rgba(245,239,223,0.22);">
+            <strong style="font-family: var(--font-head); font-size: clamp(26px, 4vw, 42px); line-height: 1; color: var(--accent, #CE2029);">{{ t.volunteerTime }}</strong>
+            <span style="font-family: var(--font-body); font-size: 15px; line-height: 1.45; color: rgba(245,239,223,0.72); max-width: 26ch;">{{ t.volunteerTimeNote }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wa-volunteer-roles wa-scroll-proof" style="--wa-proof-delay: 100ms;">
+        <article class="wa-volunteer-role">
+          <span class="wa-volunteer-role-number">01 / {{ t.volunteerRoleLabel }}</span>
+          <h3 style="font-family: var(--font-head); font-weight: var(--head-weight); font-size: 25px; line-height: 1.15; color: #F5EFDF; margin: 0 0 14px;">{{ t.volunteerRole1Title }}</h3>
+          <p style="font-family: var(--font-body); font-size: 16px; line-height: 1.65; color: rgba(245,239,223,0.72); margin: 0;">{{ t.volunteerRole1Body }}</p>
+        </article>
+        <article class="wa-volunteer-role">
+          <span class="wa-volunteer-role-number">02 / {{ t.volunteerRoleLabel }}</span>
+          <h3 style="font-family: var(--font-head); font-weight: var(--head-weight); font-size: 25px; line-height: 1.15; color: #F5EFDF; margin: 0 0 14px;">{{ t.volunteerRole2Title }}</h3>
+          <p style="font-family: var(--font-body); font-size: 16px; line-height: 1.65; color: rgba(245,239,223,0.72); margin: 0;">{{ t.volunteerRole2Body }}</p>
+        </article>
+        <article class="wa-volunteer-role">
+          <span class="wa-volunteer-role-number">03 / {{ t.volunteerRoleLabel }}</span>
+          <h3 style="font-family: var(--font-head); font-weight: var(--head-weight); font-size: 25px; line-height: 1.15; color: #F5EFDF; margin: 0 0 14px;">{{ t.volunteerRole3Title }}</h3>
+          <p style="font-family: var(--font-body); font-size: 16px; line-height: 1.65; color: rgba(245,239,223,0.72); margin: 0;">{{ t.volunteerRole3Body }}</p>
+        </article>
+      </div>
+
+      <div class="wa-volunteer-path wa-scroll-proof" style="--wa-proof-delay: 160ms;">
+        <div class="wa-volunteer-path-head">
+          <span class="wa-volunteer-path-kicker">{{ t.volunteerPathEyebrow }}</span>
+        </div>
+        <div class="wa-volunteer-steps">
+          <div class="wa-volunteer-step"><div class="wa-volunteer-step-top"><strong class="wa-volunteer-step-number">01</strong><span class="wa-volunteer-step-title">{{ t.volunteerStep1Title }}</span></div><span class="wa-volunteer-step-copy">{{ t.volunteerStep1 }}</span></div>
+          <div class="wa-volunteer-step"><div class="wa-volunteer-step-top"><strong class="wa-volunteer-step-number">02</strong><span class="wa-volunteer-step-title">{{ t.volunteerStep2Title }}</span></div><span class="wa-volunteer-step-copy">{{ t.volunteerStep2 }}</span></div>
+          <div class="wa-volunteer-step"><div class="wa-volunteer-step-top"><strong class="wa-volunteer-step-number">03</strong><span class="wa-volunteer-step-title">{{ t.volunteerStep3Title }}</span></div><span class="wa-volunteer-step-copy">{{ t.volunteerStep3 }}</span></div>
+        </div>
+      </div>
+
+      <div class="wa-scroll-proof" style="--wa-proof-delay: 200ms; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding-top: 38px;">
+        <div>
+          <h3 style="font-family: var(--font-head); font-weight: var(--head-weight); font-size: clamp(24px, 3vw, 32px); line-height: 1.15; color: #F5EFDF; margin: 0;">{{ t.volunteerCtaHeading }}</h3>
+        </div>
+        <a href="Volunteer.html" class="wa-action-button" style="display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; font-family: var(--font-head); font-weight: 600; font-size: 17px; padding: 14px 28px; border-radius: 8px; background: var(--accent, #CE2029); color: #F5EFDF; min-height: 50px; white-space: nowrap;" style-hover="{ filter: 'brightness(0.9)' }">{{ t.ctaVolunteer }}</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== Closing CTA (ink band) ===== -->
-  <section id="get-involved" style="background: #1C1B19; color: #F5EFDF;">
-    <div style="max-width: 1180px; margin: 0 auto; padding: 76px 28px; text-align: center;">
-      <span style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); margin-bottom: 12px;">{{ t.closingEyebrow }}</span>
+  <section style="background: #1C1B19; color: #F5EFDF; border-top: 1px solid rgba(245,239,223,0.16);">
+    <div class="wa-scroll-proof" style="--wa-proof-delay: 0ms; max-width: 1180px; margin: 0 auto; padding: 72px 28px; text-align: center;">
+      <span class="wa-join-kicker" style="display: inline-block; font-family: var(--font-head); font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029);">{{ t.closingEyebrow }}</span>
       <h2 style="font-family: var(--font-head); font-weight: var(--head-weight); color: #F5EFDF; font-size: clamp(28px, 5vw, 44px); line-height: 1.1; margin: 0 0 14px;">{{ t.closingHeading }}</h2>
       <p style="font-family: var(--font-body); font-size: 18px; line-height: 1.7; color: rgba(245,239,223,0.85); margin: 0 auto 28px; max-width: 46ch;">{{ t.closingBody }}</p>
       <div style="display: flex; flex-wrap: wrap; gap: 14px; justify-content: center;">
-        <a href="#beat-schedule" style="display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 600; font-size: 17px; padding: 14px 32px; border-radius: 8px; background: var(--accent, #CE2029); color: #F5EFDF; min-height: 48px;" style-hover="{ filter: 'brightness(0.9)' }">{{ t.ctaJoin }}</a>
-        <a href="#get-involved" style="display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 600; font-size: 17px; padding: 14px 32px; border-radius: 8px; background: transparent; border: 1.5px solid #F5EFDF; color: #F5EFDF; min-height: 48px;" style-hover="{ background: '#F5EFDF', color: '#1C1B19' }">{{ t.ctaVolunteer }}</a>
+        <a href="Volunteer.html" class="wa-action-button" style="display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 600; font-size: 17px; padding: 14px 32px; border-radius: 8px; background: var(--accent, #CE2029); color: #F5EFDF; min-height: 48px;" style-hover="{ filter: 'brightness(0.9)' }">{{ t.ctaVolunteer }}</a>
+        <a href="Join.html" class="wa-action-button" style="display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 600; font-size: 17px; padding: 14px 32px; border-radius: 8px; background: transparent; border: 1.5px solid #F5EFDF; color: #F5EFDF; min-height: 48px;" style-hover="{ background: '#F5EFDF', color: '#1C1B19' }">{{ t.ctaJoin }}</a>
       </div>
     </div>
   </section>
@@ -197,7 +370,7 @@
   <footer style="background: #1C1B19; color: #F5EFDF; border-top: 1px solid rgba(245,239,223,0.12);">
     <div style="max-width: 1180px; margin: 0 auto; padding: 48px 28px;">
       <p style="font-family: var(--font-head); font-weight: 600; font-size: 20px; color: #F5EFDF; margin: 0 0 8px;">Worker's Assist</p>
-      <p style="font-family: var(--font-body); font-size: 15px; line-height: 1.7; color: rgba(245,239,223,0.8); margin: 0 0 12px; max-width: 60ch;">{{ t.footerMission }}</p>
+      <p class="wa-footer-mission" style="font-family: var(--font-body); font-size: 15px; line-height: 1.7; color: rgba(245,239,223,0.8); margin: 0 0 12px; max-width: 60ch;">{{ t.footerMission }}</p>
       <p style="margin: 0;"><a href="mailto:admin@workers-assist.com" style="color: #F5EFDF; text-decoration: underline; font-family: var(--font-body); font-size: 15px;" style-hover="{ color: 'var(--accent, #CE2029)' }">{{ t.footerEmail }}</a></p>
     </div>
   </footer>
@@ -208,6 +381,8 @@
 class Component extends DCLogic {
   strings = {
     "en": {
+      docTitle: "Worker's Assist | Immigrant workers and families",
+      description: "Free community English classes for immigrant workers and families across Greater Boston.",
       navHome: "Home", navClasses: "Classes", navAbout: "About", navVolunteer: "Volunteer",
       ctaJoin: "Join a Class", ctaJoinArrow: "Join a Class →", ctaVolunteer: "Volunteer with us",
       heroEyebrow: "Greater Boston",
@@ -226,129 +401,382 @@ class Component extends DCLogic {
       beat3Body2: "Today we're a cooperative of teachers and learners across Greater Boston, built on a simple idea: mutual aid. Neighbors helping neighbors — and everyone is welcome.",
       closingEyebrow: "Get involved", closingHeading: "There's a place for you here",
       closingBody: "Join a class, or teach one. Everyone is welcome.",
+      volunteerEyebrow: "Become a volunteer",
+      volunteerHeading: "Give your time. Open a door.",
+      volunteerIntro: "Our classes grow through people who show up consistently. Teach, practice conversation, or help behind the scenes — every role strengthens a learner's connection to work and community.",
+      volunteerTime: "2 hours",
+      volunteerTimeNote: "A typical weekly commitment, with a team beside you.",
+      volunteerRoleLabel: "Ways to help",
+      volunteerRole1Title: "Teach English",
+      volunteerRole1Body: "Lead a small weekly class or support a teacher with practical lessons for work and daily life.",
+      volunteerRole2Title: "Practice together",
+      volunteerRole2Body: "Be a steady conversation partner, help learners review, and build confidence one relationship at a time.",
+      volunteerRole3Title: "Strengthen the community",
+      volunteerRole3Body: "Help with outreach, translation, class coordination, design, technology, or the work that keeps programs running.",
+      volunteerPathEyebrow: "How it works",
+      volunteerStep1Title: "Tell us about you",
+      volunteerStep1: "Tell us about your skills, interests, language background, and availability.",
+      volunteerStep2Title: "Choose together",
+      volunteerStep2: "Meet the team and choose a role that fits the time you can give.",
+      volunteerStep3Title: "Begin with support",
+      volunteerStep3: "Get materials, guidance, and a partner as you begin volunteering.",
+      volunteerCtaHeading: "Stand with workers!",
       footerMission: "A 501(c)(3) nonprofit cooperative serving immigrant workers and families across Greater Boston.",
       footerEmail: "admin@workers-assist.com"
     },
     "zh-hans": {
+      docTitle: "Worker's Assist｜团结移民工人与家庭",
+      description: "Worker's Assist 为大波士顿地区的移民工人和家庭提供免费社区英语课程。",
       navHome: "首页", navClasses: "课程", navAbout: "关于我们", navVolunteer: "志愿者",
       ctaJoin: "报名上课", ctaJoinArrow: "报名上课 →", ctaVolunteer: "成为志愿者",
       heroEyebrow: "大波士顿地区",
       heroHeadline: "团结移民工人与家庭",
-      heroTagline: "掌握语言　接轨社会　争回我们的权利",
+      heroTagline: "学好英语　融入社区　维护我们的权益",
       pillarsKicker: "我们的信念",
-      pillar1Label: "掌握语言", pillar1Body: "每个人都该用自己熟悉的语言去学习。",
-      pillar2Label: "接轨社会", pillar2Body: "语言是通往学校、工作与社区的大门。",
-      pillar3Label: "争回权利", pillar3Body: "懂得表达，才能守住自己的权利。",
+      pillar1Label: "学好英语", pillar1Body: "从熟悉的语言开始学英语，更容易听懂，也更容易坚持。",
+      pillar2Label: "融入社区", pillar2Body: "会说英语，办事、找工作、和邻里沟通都会方便很多。",
+      pillar3Label: "维护权益", pillar3Body: "能听懂、会表达，遇到问题时才更有底气维护自己。",
       beat1Eyebrow: "我们是谁", beat1Heading: "用普通话和粤语教英语",
-      beat1Body: "我们是一个由英语老师和学员组成的社群。课程以普通话和粤语讲授，我们与每一位学员建立一对一的联系。",
-      beat2Eyebrow: "课表", beat2Heading: "现在就能报名的课程",
-      beat2Sub: "每周免费开课 —— 华埠线下与线上同步。",
+      beat1Body: "我们是一群英语老师、志愿者和学员。课堂会用普通话和粤语辅助讲解，老师也会尽量照顾每位学员的进度。",
+      beat2Eyebrow: "课表", beat2Heading: "本周就能加入的英语班",
+      beat2Sub: "课程每周都有，全部免费；可以到华埠上课，也可以在线参加。",
       beat3Eyebrow: "我们的故事", beat3Heading: "邻里帮邻里",
-      beat3Body1: "我们最初只是一群想出一份力的留学生。我们深知面对一门新语言、一个新国家有多难，也明白当身边有人说着你的母语时，一切会变得轻松许多。",
-      beat3Body2: "如今，我们已是一个遍布大波士顿地区、由老师和学员组成的合作社，秉持一个朴素的信念：互助。邻里帮邻里，人人都受欢迎。",
-      closingEyebrow: "加入我们", closingHeading: "这里有属于你的位置",
-      closingBody: "来上课，或者来教课。我们欢迎每一个人。",
-      footerMission: "一家服务于大波士顿地区移民工人及其家庭的 501(c)(3) 非营利互助合作社。",
+      beat3Body1: "一开始，我们只是一群想帮上忙的留学生。我们都经历过在陌生国家学新语言的日子，所以知道：有人愿意用你熟悉的语言解释、陪你练习，真的会轻松很多。",
+      beat3Body2: "现在，我们的老师和学员来自大波士顿各地。我们相信大家互相搭把手，日子就会好一点。邻里帮邻里，谁来都欢迎。",
+      closingEyebrow: "加入我们", closingHeading: "这里总有你能参与的方式",
+      closingBody: "想学英语，就来上课；愿意帮忙，也欢迎来当志愿者。",
+      volunteerEyebrow: "成为志愿者",
+      volunteerHeading: "每周抽一点时间，陪别人一起学英语",
+      volunteerIntro: "这些课能一直办下去，离不开每周愿意来帮忙的人。你可以教课、陪学员练口语，也可以协助联络、翻译或做幕后工作。无论帮哪一项，都会让学员在工作和生活中多一分底气。",
+      volunteerTime: "每周约 2 小时",
+      volunteerTimeNote: "我们会提供材料，也有人和你搭档，不用一个人扛。",
+      volunteerRoleLabel: "可以帮什么",
+      volunteerRole1Title: "教英语",
+      volunteerRole1Body: "每周带一个小班，或协助老师备课、上课，内容以工作和日常生活中用得到的英语为主。",
+      volunteerRole2Title: "陪着练口语",
+      volunteerRole2Body: "固定陪学员复习、聊天、练表达，让他们在一次次开口中慢慢建立信心。",
+      volunteerRole3Title: "帮忙做幕后工作",
+      volunteerRole3Body: "协助联络、翻译、排课、设计或技术工作，让课程顺利进行。",
+      volunteerPathEyebrow: "如何开始",
+      volunteerStep1Title: "先聊一聊",
+      volunteerStep1: "告诉我们你会什么、对什么感兴趣、会哪些语言，以及每周大概什么时候有空。",
+      volunteerStep2Title: "商量做什么",
+      volunteerStep2: "和我们见面聊聊，一起挑一项你做得来、时间也合适的工作。",
+      volunteerStep3Title: "开始帮忙",
+      volunteerStep3: "我们会准备材料、说明怎么做，也会安排搭档陪你一起开始。",
+      volunteerCtaHeading: "和工人站在一起！",
+      footerMission: "Worker's Assist 是一家 501(c)(3) 非营利互助合作社，为大波士顿地区的移民工人和家庭提供服务。",
       footerEmail: "admin@workers-assist.com"
     },
     "zh-hant": {
-      navHome: "首頁", navClasses: "課程", navAbout: "關於我們", navVolunteer: "志工",
-      ctaJoin: "報名上課", ctaJoinArrow: "報名上課 →", ctaVolunteer: "成為志工",
+      docTitle: "Worker's Assist｜團結移民工人與家庭",
+      description: "Worker's Assist 為大波士頓地區的移民工人和家庭提供免費社區英語課程。",
+      navHome: "首頁", navClasses: "課程", navAbout: "關於我們", navVolunteer: "義工",
+      ctaJoin: "報名上課", ctaJoinArrow: "報名上課 →", ctaVolunteer: "成為義工",
       heroEyebrow: "大波士頓地區",
       heroHeadline: "團結移民工人與家庭",
-      heroTagline: "掌握語言　接軌社會　爭回我們的權利",
+      heroTagline: "學好英語　融入社區　維護我們的權益",
       pillarsKicker: "我們的信念",
-      pillar1Label: "掌握語言", pillar1Body: "每個人都該用自己熟悉的語言去學習。",
-      pillar2Label: "接軌社會", pillar2Body: "語言是通往學校、工作與社區的大門。",
-      pillar3Label: "爭回權利", pillar3Body: "懂得表達，才能守住自己的權利。",
+      pillar1Label: "學好英語", pillar1Body: "從熟悉的語言開始學英語，更容易聽懂，也更容易堅持。",
+      pillar2Label: "融入社區", pillar2Body: "懂英語，辦事、找工作和跟鄰里溝通都會方便很多。",
+      pillar3Label: "維護權益", pillar3Body: "聽得懂、說得清，遇到問題時才更有底氣保障自己。",
       beat1Eyebrow: "我們是誰", beat1Heading: "用普通話和廣東話教英語",
-      beat1Body: "我們是一個由英語老師和學員組成的社群。課程以普通話和廣東話講授，我們與每一位學員建立一對一的聯繫。",
-      beat2Eyebrow: "課表", beat2Heading: "現在就能報名的課程",
-      beat2Sub: "每週免費開課 —— 華埠實體與線上同步。",
+      beat1Body: "我們是一群英語老師、義工和學員。課堂會用普通話和廣東話輔助講解，老師亦會盡量照顧每位學員的進度。",
+      beat2Eyebrow: "課表", beat2Heading: "本週就能加入的英語班",
+      beat2Sub: "課程每週都有，全部免費；可以到華埠上課，也可以在網上參加。",
       beat3Eyebrow: "我們的故事", beat3Heading: "鄰里幫鄰里",
-      beat3Body1: "我們最初只是一群想出一份力的留學生。我們深知面對一門新語言、一個新國家有多難，也明白當身邊有人說著你的母語時，一切會變得輕鬆許多。",
-      beat3Body2: "如今，我們已是一個遍布大波士頓地區、由老師和學員組成的合作社，秉持一個樸素的信念：互助。鄰里幫鄰里，人人都受歡迎。",
-      closingEyebrow: "加入我們", closingHeading: "這裡有屬於你的位置",
-      closingBody: "來上課，或者來教課。我們歡迎每一個人。",
-      footerMission: "一家服務於大波士頓地區移民工人及其家庭的 501(c)(3) 非營利互助合作社。",
+      beat3Body1: "一開始，我們只是一群想幫上忙的留學生。我們都經歷過在陌生國家學新語言的日子，所以知道：有人願意用你熟悉的語言解釋、陪你練習，真的會輕鬆很多。",
+      beat3Body2: "現在，我們的老師和學員來自大波士頓各地。我們相信大家互相幫忙，生活就會好一點。鄰里幫鄰里，誰來都歡迎。",
+      closingEyebrow: "加入我們", closingHeading: "這裡總有你能參與的方式",
+      closingBody: "想學英語，就來上課；願意幫忙，也歡迎來做義工。",
+      volunteerEyebrow: "成為義工",
+      volunteerHeading: "每週抽一點時間，陪別人一起學英語",
+      volunteerIntro: "這些課可以一直辦下去，全靠每星期願意來幫忙的人。你可以教課、陪學員練口語，也可以協助聯絡、翻譯或處理幕後工作。無論幫哪一樣，都可以令學員在工作和生活上多一分信心。",
+      volunteerTime: "每週約 2 小時",
+      volunteerTimeNote: "我們會提供教材，也會安排拍檔，不用你一個人應付。",
+      volunteerRoleLabel: "可以幫甚麼",
+      volunteerRole1Title: "教英語",
+      volunteerRole1Body: "每週帶一個小班，或協助老師備課、上課，內容以工作和日常生活中用得到的英語為主。",
+      volunteerRole2Title: "陪著練口語",
+      volunteerRole2Body: "固定陪學員溫習、聊天、練習表達，讓他們在一次次開口中慢慢建立信心。",
+      volunteerRole3Title: "幫忙處理幕後工作",
+      volunteerRole3Body: "協助聯絡、翻譯、排課、設計或技術工作，讓課程順利進行。",
+      volunteerPathEyebrow: "如何開始",
+      volunteerStep1Title: "先談一談",
+      volunteerStep1: "告訴我們你會甚麼、對甚麼有興趣、會哪些語言，以及每週大概甚麼時候有空。",
+      volunteerStep2Title: "商量做甚麼",
+      volunteerStep2: "和我們見面談談，一起挑一項你做得來、時間也合適的工作。",
+      volunteerStep3Title: "開始幫忙",
+      volunteerStep3: "我們會準備教材、說明怎樣做，也會安排拍檔陪你一起開始。",
+      volunteerCtaHeading: "和工人站在一起！",
+      footerMission: "Worker's Assist 是一家 501(c)(3) 非牟利互助合作社，為大波士頓地區的移民工人和家庭提供服務。",
       footerEmail: "admin@workers-assist.com"
     }
   };
 
   classData = [
-    { name: { en: "Everyday English", "zh-hans": "日常英语", "zh-hant": "日常英語" },
-      time: { en: "Mondays, 6:30pm", "zh-hans": "每周一 晚 6:30", "zh-hant": "每週一 晚 6:30" },
-      loc:  { en: "In person, Chinatown", "zh-hans": "线下 · 华埠", "zh-hant": "實體 · 華埠" },
+    { name: { en: "Everyday English Class", "zh-hans": "日常英语班", "zh-hant": "日常英語班" },
+      time: { en: "Mondays, 7:30pm", "zh-hans": "周一晚上 7:30", "zh-hant": "星期一晚上 7:30" },
+      loc:  { en: "In person, 1145 Washington St", "zh-hans": "线下 · 1145 Washington St", "zh-hant": "實體 · 1145 Washington St" },
       level:{ en: "Beginner", "zh-hans": "初级", "zh-hant": "初級" } },
-    { name: { en: "Advanced English", "zh-hans": "进阶英语", "zh-hant": "進階英語" },
-      time: { en: "Wednesdays, 6:30pm", "zh-hans": "每周三 晚 6:30", "zh-hant": "每週三 晚 6:30" },
-      loc:  { en: "Online", "zh-hans": "线上", "zh-hant": "線上" },
+    { name: { en: "Advanced English Class", "zh-hans": "高级英语班", "zh-hant": "高級英語班" },
+      time: { en: "Wednesdays, 7:30pm", "zh-hans": "周三晚上 7:30", "zh-hant": "星期三晚上 7:30" },
+      loc:  { en: "Online, Tencent Meeting", "zh-hans": "线上 · 腾讯会议", "zh-hant": "線上 · 騰訊會議" },
       level:{ en: "Advanced", "zh-hans": "进阶", "zh-hant": "進階" } },
-    { name: { en: "Work English Intensive Program", "zh-hans": "职场英语强化班", "zh-hant": "職場英語強化班" },
-      time: { en: "Tuesdays & Fridays, 6:30pm", "zh-hans": "每周二、周五 晚 6:30", "zh-hant": "每週二、週五 晚 6:30" },
-      loc:  { en: "In person, Chinatown", "zh-hans": "线下 · 华埠", "zh-hant": "實體 · 華埠" },
+    { name: { en: "Work English Class", "zh-hans": "职场英语班", "zh-hant": "職場英語班" },
+      time: { en: "Tuesdays & Fridays, 7:30pm", "zh-hans": "周二、周五晚上 7:30", "zh-hant": "星期二、星期五晚上 7:30" },
+      loc:  { en: "In person, 1145 Washington St", "zh-hans": "线下 · 1145 Washington St", "zh-hant": "實體 · 1145 Washington St" },
       level:{ en: "Intensive", "zh-hans": "强化", "zh-hant": "強化" } }
   ];
 
   constructor(props) {
     super(props);
-    let saved = null;
-    try { saved = localStorage.getItem("wa.lang"); } catch (e) {}
-    var init = this.strings[saved] ? saved
-             : (props && this.strings[props.defaultLang] ? props.defaultLang : "en");
+    var fallback = props && this.strings[props.defaultLang] ? props.defaultLang : "zh-hans";
+    var init = WASite.readLanguage(Object.keys(this.strings), fallback);
     this.state = { lang: init };
   }
 
   componentDidMount() {
     this.syncHtmlLang();
+    this.setupKineticHero();
+    this.setupScrollProofs();
     this.setupReveal();
+    this.setupSmoothNav();
+  }
+
+  componentDidUpdate() {
+    this.syncHtmlLang();
+    this.setupReveal();
+    this.setupScrollProofs();
+    this.setupSmoothNav();
+    this.replayHeroIntro();
+  }
+
+  componentWillUnmount() {
+    if (this.revealObserver) this.revealObserver.disconnect();
+    if (this.scrollProofObserver) this.scrollProofObserver.disconnect();
+    if (this.kineticCleanup) this.kineticCleanup();
+    if (this.navScrollHandler) window.removeEventListener("scroll", this.navScrollHandler);
+    if (this.navResizeHandler) window.removeEventListener("resize", this.navResizeHandler);
+    if (this.navRoot && this.navClickHandler) this.navRoot.removeEventListener("click", this.navClickHandler);
+  }
+
+  replayHeroIntro() {
+    var hero = document.getElementById("top");
+    if (!hero) return;
+    var reduce = false;
+    try { reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+    if (reduce) return;
+    var animated = hero.querySelectorAll(".wa-press-word, .wa-hero-stamp");
+    for (var i = 0; i < animated.length; i++) animated[i].style.animation = "none";
+    void hero.offsetWidth;
+    for (var k = 0; k < animated.length; k++) animated[k].style.removeProperty("animation");
+  }
+
+  setupKineticHero() {
+    if (this.kineticCleanup) return;
+    var hero = document.getElementById("top");
+    if (!hero) return;
+    var reduce = false;
+    try { reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+    if (reduce) return;
+    var targetX = 0;
+    var targetY = 0;
+    var currentX = 0;
+    var currentY = 0;
+    var raf = 0;
+    var paint = function () {
+      currentX += (targetX - currentX) * 0.08;
+      currentY += (targetY - currentY) * 0.08;
+      hero.style.setProperty("--wa-pan-x", currentX.toFixed(2) + "px");
+      hero.style.setProperty("--wa-pan-y", currentY.toFixed(2) + "px");
+      if (Math.abs(targetX - currentX) > 0.05 || Math.abs(targetY - currentY) > 0.05) {
+        raf = window.requestAnimationFrame(paint);
+      } else {
+        raf = 0;
+      }
+    };
+    var queue = function () {
+      if (!raf) raf = window.requestAnimationFrame(paint);
+    };
+    var handlePointerMove = function (event) {
+      var rect = hero.getBoundingClientRect();
+      targetX = ((event.clientX - rect.left) / rect.width - 0.5) * -18;
+      targetY = ((event.clientY - rect.top) / rect.height - 0.5) * -10;
+      queue();
+    };
+    var handleScroll = function () {
+      var rect = hero.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+      targetY = Math.max(-12, Math.min(12, rect.top * -0.025));
+      queue();
+    };
+    hero.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    this.kineticCleanup = function () {
+      hero.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("scroll", handleScroll);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
   }
 
   setupReveal() {
+    if (this.revealObserver) {
+      this.revealObserver.disconnect();
+      this.revealObserver = null;
+    }
     var el = document.getElementById("wa-pillars-frame");
     if (!el) return;
+    var component = this;
     var reveal = function () {
-      window.__waRevealed = true;
+      component.pillarsRevealed = true;
       var e = document.getElementById("wa-pillars-frame");
       if (e) e.style.setProperty("--wa", "1");
     };
-    // Keep it revealed even if a re-render (e.g. language switch) resets the
-    // inline --wa back to 0.
-    if (!window.__waKeep) {
-      window.__waKeep = setInterval(function () {
-        if (!window.__waRevealed) return;
-        var e = document.getElementById("wa-pillars-frame");
-        if (e && e.style.getPropertyValue("--wa").trim() !== "1") {
-          e.style.setProperty("--wa", "1");
-        }
-      }, 250);
-    }
-    if (window.__waRevealed) { reveal(); return; }
+    if (this.pillarsRevealed) { reveal(); return; }
     // IntersectionObserver fires asynchronously, so the --wa:0 state is painted
     // first and the draw-in transition actually plays. Fallback: reveal now.
     if (!("IntersectionObserver" in window)) { reveal(); return; }
-    var io = new IntersectionObserver(function (entries) {
+    this.revealObserver = new IntersectionObserver(function (entries) {
       for (var i = 0; i < entries.length; i++) {
-        if (entries[i].isIntersecting) { reveal(); io.disconnect(); return; }
+        if (entries[i].isIntersecting) {
+          reveal();
+          component.revealObserver.disconnect();
+          component.revealObserver = null;
+          return;
+        }
       }
     }, { threshold: 0, rootMargin: "0px 0px -12% 0px" });
-    io.observe(el);
+    this.revealObserver.observe(el);
+  }
+
+  setupScrollProofs() {
+    if (this.scrollProofObserver) this.scrollProofObserver.disconnect();
+    var items = document.querySelectorAll(".wa-scroll-proof");
+    if (!items.length) return;
+    var show = function (el) { el.classList.add("wa-proof-visible"); };
+    if (!("IntersectionObserver" in window)) {
+      for (var f = 0; f < items.length; f++) show(items[f]);
+      return;
+    }
+    var component = this;
+    this.scrollProofObserver = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          show(entries[i].target);
+          component.scrollProofObserver.unobserve(entries[i].target);
+        }
+      }
+    }, { threshold: 0.16, rootMargin: "0px 0px -8% 0px" });
+    for (var j = 0; j < items.length; j++) {
+      if (!items[j].classList.contains("wa-proof-visible")) this.scrollProofObserver.observe(items[j]);
+    }
+  }
+
+  setupSmoothNav() {
+    var component = this;
+    var getNavParts = function () {
+      var track = document.getElementById("wa-nav-track");
+      return {
+        track: track,
+        indicator: document.getElementById("wa-nav-indicator"),
+        links: track ? Array.prototype.slice.call(track.querySelectorAll("a[href^='#']")) : [],
+        nav: track ? track.closest("nav") : document.querySelector("nav")
+      };
+    };
+    var getOffset = function () {
+      var nav = getNavParts().nav;
+      return nav ? nav.getBoundingClientRect().height + 10 : 66;
+    };
+    var moveIndicator = function (active) {
+      var parts = getNavParts();
+      var track = parts.track;
+      var links = parts.links;
+      if (!track || !parts.indicator || !links.length) return;
+      if (!active) active = track.querySelector(".wa-nav-active") || links[0];
+      if (!active) return;
+      var trackRect = track.getBoundingClientRect();
+      var linkRect = active.getBoundingClientRect();
+      track.style.setProperty("--wa-nav-x", (linkRect.left - trackRect.left + 8).toFixed(1) + "px");
+      track.style.setProperty("--wa-nav-w", Math.max(0, linkRect.width - 16).toFixed(1) + "px");
+    };
+    var setActive = function (id) {
+      var links = getNavParts().links;
+      var active = null;
+      for (var i = 0; i < links.length; i++) {
+        var on = links[i].getAttribute("data-wa-nav") === id;
+        links[i].classList.toggle("wa-nav-active", on);
+        if (on) active = links[i];
+      }
+      moveIndicator(active);
+    };
+    var scrollToId = function (id) {
+      var target = document.getElementById(id);
+      if (!target) return;
+      var top = target.getBoundingClientRect().top + window.pageYOffset - getOffset();
+      setActive(id);
+      window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    };
+    var updateFromScroll = function () {
+      var ids = ["top", "beat-schedule", "get-involved"];
+      var probe = window.pageYOffset + getOffset() + Math.min(140, window.innerHeight * 0.28);
+      var current = "top";
+      for (var i = 0; i < ids.length; i++) {
+        var section = document.getElementById(ids[i]);
+        if (section && section.offsetTop <= probe) current = ids[i];
+      }
+      setActive(current);
+    };
+
+    this.navUpdate = updateFromScroll;
+    this.navMoveIndicator = moveIndicator;
+    this.navScrollTo = scrollToId;
+
+    if (!this.navClickHandler) {
+      var navRoot = getNavParts().nav;
+      this.navClickHandler = function (event) {
+        var anchor = event.target.closest("a[href^='#']");
+        if (!anchor || !component.navRoot.contains(anchor)) return;
+        var id = (anchor.getAttribute("href") || "").slice(1);
+        if (!document.getElementById(id)) return;
+        event.preventDefault();
+        component.navScrollTo(id);
+      };
+      this.navRoot = navRoot;
+      this.navRoot.addEventListener("click", this.navClickHandler);
+    }
+    if (!this.navScrollHandler) {
+      this.navScrollHandler = function () {
+        if (component.navUpdate) component.navUpdate();
+      };
+      this.navResizeHandler = function () {
+        if (component.navMoveIndicator) component.navMoveIndicator();
+      };
+      window.addEventListener("scroll", this.navScrollHandler, { passive: true });
+      window.addEventListener("resize", this.navResizeHandler, { passive: true });
+    }
+    window.requestAnimationFrame(updateFromScroll);
   }
 
   syncHtmlLang() {
     var map = { "en": "en", "zh-hans": "zh-Hans", "zh-hant": "zh-Hant" };
-    try { document.documentElement.lang = map[this.state.lang] || "en"; } catch (e) {}
+    try {
+      var copy = this.strings[this.state.lang] || this.strings.en;
+      document.documentElement.lang = map[this.state.lang] || "zh-Hans";
+      WASite.updateMetadata(copy);
+    } catch (e) {}
   }
 
   setLang = (lang) => {
-    if (!this.strings[lang]) lang = "en";
-    try { localStorage.setItem("wa.lang", lang); } catch (e) {}
+    if (!this.strings[lang]) lang = "zh-hans";
+    WASite.writeLanguage(lang);
     this.setState({ lang: lang }, () => this.syncHtmlLang());
   };
 
   renderVals() {
     var lang = this.state.lang;
     var t = this.strings[lang] || this.strings.en;
+    var heroTagline = t.heroTagline || this.strings["zh-hans"].heroTagline || this.strings.en.heroTagline;
     var isCJK = lang !== "en";
     var accent = (this.props && this.props.accent) || "#CE2029";
     var fontHead = isCJK
@@ -365,7 +793,7 @@ class Component extends DCLogic {
       "--eb-transform": isCJK ? "none" : "uppercase",
       "--eb-spacing": isCJK ? "0" : "0.14em",
       "--eb-weight": isCJK ? "700" : "600",
-      "--head-weight": lang === "zh-hant" ? "900" : "700",
+      "--head-weight": isCJK ? "900" : "700",
       fontFamily: "var(--font-body)",
       color: "#34322C",
       backgroundColor: "#EBE2CB",
@@ -383,7 +811,16 @@ class Component extends DCLogic {
       fontSize: "clamp(40px, 7vw, 72px)",
       margin: 0,
       maxWidth: isCJK ? "none" : "15ch",
-      letterSpacing: isCJK ? "0.01em" : "-0.01em"
+      letterSpacing: isCJK ? "0" : "-0.01em",
+      display: isCJK ? "flex" : "block",
+      flexWrap: isCJK ? "wrap" : "normal",
+      columnGap: 0,
+      rowGap: 0
+    };
+
+    var heroHeadlineWords = isCJK ? Array.from(String(t.heroHeadline)) : String(t.heroHeadline).split(" ");
+    var heroWordStyle = {
+      marginRight: isCJK ? "0" : "0.18em"
     };
 
     var langBtn = function (on) {
@@ -417,6 +854,9 @@ class Component extends DCLogic {
       t: t,
       rootStyle: rootStyle,
       heroHeadlineStyle: heroHeadlineStyle,
+      heroHeadlineWords: heroHeadlineWords,
+      heroWordStyle: heroWordStyle,
+      heroTagline: heroTagline,
       scheduleRows: scheduleRows,
       showLevels: showLevels,
       selEn: () => this.setLang("en"),
