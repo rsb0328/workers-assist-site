@@ -12,9 +12,10 @@ or serve the folder over HTTP.
 
 | File | What it is |
 | --- | --- |
-| `Home.dc.html` | The home page. **Not plain HTML** — see "The home page is different" below. |
+| `index.html` | The home page. **Not plain HTML** — see "The home page is different" below. |
 | `Join.html` | Class registration. Posts to a Google Form. |
 | `Volunteer.html` | Volunteer sign-up via email or WeChat. No form backend. |
+| `Home.dc.html` | Legacy redirect to `index.html`; kept so old links do not break. |
 
 ## Shared files
 
@@ -23,7 +24,7 @@ or serve the folder over HTTP.
 | `classes.js` | **The class schedule.** Single source of truth — see below. |
 | `site.css` | Design tokens, base reset, nav, language switcher, footer. Used by `Join.html` and `Volunteer.html`. |
 | `site-runtime.js` | Worker's Assist' own helpers (`window.WASite`): language persistence, copy swapping, mailto builder. Used by all three pages. |
-| `support.js` | **Vendor code — do not edit.** The generated `dc-runtime` bundle that renders `Home.dc.html`. Regenerate it at source, never by hand. |
+| `support.js` | **Vendor code — do not edit.** The generated `dc-runtime` bundle that renders `index.html`. Regenerate it at source, never by hand. |
 
 > The names `site-runtime.js` and `support.js` read backwards: the "runtime" is
 > our code and the "support" file is the third-party runtime. Renaming means
@@ -85,7 +86,7 @@ success message.
 
 ## The home page is different
 
-`Home.dc.html` is a "Design Component" authored for a design-compiler tool, not
+`index.html` is a "Design Component" authored for a design-compiler tool, not
 plain HTML. It contains:
 
 - an `<x-dc>` block holding the template, using `{{ expression }}` interpolation

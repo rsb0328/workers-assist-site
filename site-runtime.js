@@ -6,7 +6,7 @@
 // do not edit it). The two names read backwards; renaming would mean updating
 // the <script> tags in all three pages.
 //
-// Loaded by Home.dc.html, Join.html and Volunteer.html. Exposes `window.WASite`.
+// Loaded by index.html, Join.html and Volunteer.html. Exposes `window.WASite`.
 (function (global) {
   "use strict";
 

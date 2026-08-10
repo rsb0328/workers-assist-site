@@ -1,7 +1,7 @@
 // Single source of truth for the class schedule.
 //
 // EDIT THE SCHEDULE HERE AND NOWHERE ELSE.
-//   Home.dc.html  renders the schedule table from `schedule`.
+//   index.html    renders the schedule table from `schedule`.
 //   Join.html     renders its sign-up checkboxes from `schedule`.
 //
 // To add, remove, or reschedule a class, change the `schedule` array below.

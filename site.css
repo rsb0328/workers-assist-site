@@ -4,7 +4,7 @@
  * the sticky top nav (brand, language switcher, back link) and the footer.
  * Page-specific styling stays in each page's own <style> block.
  *
- * Home.dc.html deliberately does NOT use this file. It is a Design Component
+ * index.html deliberately does NOT use this file. It is a Design Component
  * rendered by dc-runtime, and its tokens come from the `rootStyle` object in
  * its logic class under different names (--font-head, --font-body, --accent).
  * Loading both systems on one page would give two competing sets of variables.
