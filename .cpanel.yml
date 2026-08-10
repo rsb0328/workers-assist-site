@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/workoend/public_html/
+    - /bin/cp index.html Home.dc.html Join.html Volunteer.html site.css site-runtime.js classes.js support.js $DEPLOYPATH
+    - /bin/cp -R assets uploads $DEPLOYPATH
