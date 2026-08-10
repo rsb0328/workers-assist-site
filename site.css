@@ -1,0 +1,143 @@
+/* Shared chrome for the sub-pages (Join.html, Volunteer.html).
+ *
+ * Covers what both pages have in common: the design tokens, the base reset,
+ * the sticky top nav (brand, language switcher, back link) and the footer.
+ * Page-specific styling stays in each page's own <style> block.
+ *
+ * Home.dc.html deliberately does NOT use this file. It is a Design Component
+ * rendered by dc-runtime, and its tokens come from the `rootStyle` object in
+ * its logic class under different names (--font-head, --font-body, --accent).
+ * Loading both systems on one page would give two competing sets of variables.
+ */
+
+/* ---- Design tokens -------------------------------------------------- */
+
+:root {
+  --ink: #1c1b19;
+  --paper: #ebe2cb;
+  --paper-light: #f5efdf;
+  --red: #ce2029;
+  --deep-red: #981b24;
+  --gold: #a8813f;
+  --text: #34322c;
+  --muted: #686253;
+  --line: rgba(52, 50, 44, 0.18);
+  --head: "Oswald", "Noto Sans SC", sans-serif;
+  --body: "Noto Sans", "Noto Sans SC", sans-serif;
+}
+
+/* Latin headings use Oswald, but it has no CJK glyphs — swap the whole stack
+ * to Noto Sans SC/TC so Chinese never falls back to a mismatched system font.
+ * `data-lang` is set by WASite.initLanguage() on <html>. */
+html[data-lang="zh-hans"] { --head: "Noto Sans SC", sans-serif; --body: "Noto Sans SC", sans-serif; }
+html[data-lang="zh-hant"] { --head: "Noto Sans TC", sans-serif; --body: "Noto Sans TC", sans-serif; }
+
+/* ---- Base ----------------------------------------------------------- */
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  color: var(--text);
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(92, 88, 75, 0.08) 0.8px, transparent 0.8px);
+  background-size: 4px 4px;
+  font-family: var(--body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+button, input, textarea { font: inherit; }
+::selection { color: var(--paper-light); background: var(--red); }
+
+/* ---- Top navigation ------------------------------------------------- */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  min-height: 72px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: 8px clamp(18px, 4vw, 42px);
+  color: var(--paper-light);
+  background: var(--ink);
+  border-bottom: 1px solid rgba(245, 239, 223, 0.12);
+}
+
+.brand { display: inline-flex; align-items: center; gap: 10px; justify-self: start; min-width: 0; }
+.brand-logo-frame { display: grid; place-items: center; width: 58px; height: 58px; overflow: hidden; flex: 0 0 auto; }
+.brand-logo { display: block; width: 100%; height: 100%; object-fit: contain; transform: scale(1.48); filter: drop-shadow(0 3px 7px rgba(0, 0, 0, 0.35)); }
+.brand-divider { width: 6px; height: 44px; border-radius: 2px; background: var(--red); }
+.brand-name { display: block; height: 44px; font-family: "Oswald", sans-serif; font-size: 18px; font-weight: 600; line-height: 1.22; letter-spacing: 0.16em; color: var(--red); }
+
+.lang-switch { display: flex; overflow: hidden; border: 1px solid rgba(245, 239, 223, 0.3); border-radius: 8px; background: rgba(255, 255, 255, 0.04); }
+.lang-button {
+  min-height: 38px;
+  padding: 0 13px;
+  border: 0;
+  border-right: 1px solid rgba(245, 239, 223, 0.2);
+  color: rgba(245, 239, 223, 0.72);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+.lang-button:last-child { border-right: 0; }
+.lang-button:hover { color: var(--paper-light); background: rgba(245, 239, 223, 0.06); transform: translateY(-1px); }
+.lang-button.active { color: var(--paper-light); background: var(--red); }
+
+.back-link {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 15px;
+  border: 1px solid rgba(245, 239, 223, 0.35);
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+.back-link:hover { background: var(--paper-light); color: var(--ink); transform: translateY(-2px); }
+
+.back-link:focus-visible,
+.lang-button:focus-visible,
+.submit-button:focus-visible,
+.return-link:focus-visible,
+.action-button:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+
+/* ---- Footer --------------------------------------------------------- */
+
+footer { padding: 34px 20px; color: rgba(245, 239, 223, 0.72); background: var(--ink); text-align: center; font-size: 13px; }
+footer strong { color: var(--paper-light); }
+
+/* ---- Responsive ----------------------------------------------------- */
+
+@media (max-width: 780px) {
+  /* Brand and back-link stay on row 1; the switcher drops to its own row so
+   * the three buttons keep a comfortable tap target. */
+  .site-nav { grid-template-columns: 1fr auto; }
+  .lang-switch { grid-column: 1 / -1; grid-row: 2; justify-self: center; width: min(100%, 310px); }
+  .lang-button { flex: 1 1 0; }
+}
+
+@media (max-width: 460px) {
+  .brand-logo-frame { width: 50px; height: 50px; }
+  .brand-divider { height: 38px; }
+  .brand-name { height: 38px; font-size: 15.5px; }
+  .back-link { padding: 0 11px; font-size: 13px; }
+  .back-link span[aria-hidden="true"] { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+  .back-link:hover, .lang-button:hover { transform: none; }
+}

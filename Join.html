@@ -1,85 +1,29 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<!--
+  Class registration.
+
+  Posts directly to a Google Form — there is no server. Every field `name` is a
+  Google Form entry ID and must match the live form exactly; see README.md for
+  the full table and for why a failed submission still shows a success message.
+
+  The class checkboxes are generated from classes.js. To change what classes are
+  offered, edit classes.js — not this file.
+-->
+<html lang="en" data-lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="报名参加 Worker's Assist 为大波士顿地区提供的免费社区英语课。">
-  <title>报名英语班 | Worker's Assist</title>
+  <meta name="description" content="Sign up for free community English classes with Worker's Assist across Greater Boston.">
+  <title>Join a Class | Worker's Assist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Noto+Sans:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700;900&family=Noto+Sans+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./site.css">
   <script src="./site-runtime.js"></script>
+  <script src="./classes.js"></script>
   <style>
-    :root {
-      --ink: #1c1b19;
-      --paper: #ebe2cb;
-      --paper-light: #f5efdf;
-      --red: #ce2029;
-      --gold: #a8813f;
-      --text: #34322c;
-      --muted: #686253;
-      --line: rgba(52, 50, 44, 0.18);
-      --head: "Oswald", "Noto Sans SC", sans-serif;
-      --body: "Noto Sans", "Noto Sans SC", sans-serif;
-    }
-    html[data-lang="zh-hans"] { --head: "Noto Sans SC", sans-serif; --body: "Noto Sans SC", sans-serif; }
-    html[data-lang="zh-hant"] { --head: "Noto Sans TC", sans-serif; --body: "Noto Sans TC", sans-serif; }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      color: var(--text);
-      background-color: var(--paper);
-      background-image: radial-gradient(rgba(92, 88, 75, 0.08) 0.8px, transparent 0.8px);
-      background-size: 4px 4px;
-      font-family: var(--body);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: inherit; text-decoration: none; }
-    button, input, textarea { font: inherit; }
-    ::selection { background: var(--red); color: var(--paper-light); }
-
-    .site-nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      min-height: 72px;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 18px;
-      padding: 8px clamp(18px, 4vw, 42px);
-      color: var(--paper-light);
-      background: var(--ink);
-      border-bottom: 1px solid rgba(245, 239, 223, 0.12);
-    }
-    .brand { display: inline-flex; align-items: center; gap: 10px; justify-self: start; min-width: 0; }
-    .brand-logo-frame { display: grid; place-items: center; width: 58px; height: 58px; overflow: hidden; flex: 0 0 auto; }
-    .brand-logo { display: block; width: 100%; height: 100%; object-fit: contain; transform: scale(1.48); filter: drop-shadow(0 3px 7px rgba(0,0,0,0.35)); }
-    .brand-divider { width: 6px; height: 44px; border-radius: 2px; background: var(--red); }
-    .brand-name { display: block; height: 44px; font-family: "Oswald", sans-serif; font-size: 18px; font-weight: 600; line-height: 1.22; letter-spacing: 0.16em; color: var(--red); }
-    .lang-switch { display: flex; overflow: hidden; border: 1px solid rgba(245,239,223,0.3); border-radius: 8px; background: rgba(255,255,255,0.04); }
-    .lang-button { min-height: 38px; padding: 0 13px; border: 0; border-right: 1px solid rgba(245,239,223,0.2); color: rgba(245,239,223,0.72); background: transparent; font-size: 13px; font-weight: 700; cursor: pointer; transition: color 0.18s ease, background 0.18s ease, transform 0.18s ease; }
-    .lang-button:last-child { border-right: 0; }
-    .lang-button:hover { color: var(--paper-light); background: rgba(245,239,223,0.06); transform: translateY(-1px); }
-    .lang-button.active { color: var(--paper-light); background: var(--red); }
-    .back-link {
-      justify-self: end;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      min-height: 42px;
-      padding: 0 15px;
-      border: 1px solid rgba(245, 239, 223, 0.35);
-      border-radius: 7px;
-      font-size: 14px;
-      font-weight: 700;
-      transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
-    }
-    .back-link:hover { background: var(--paper-light); color: var(--ink); transform: translateY(-2px); }
-    .back-link:focus-visible, .lang-button:focus-visible, .submit-button:focus-visible, .return-link:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+    /* Registration-page styling only — tokens, nav, brand, language switcher
+       and footer live in site.css, shared with Volunteer.html. */
 
     .form-hero {
       position: relative;
@@ -218,14 +162,11 @@
     .return-link:hover { transform: translateY(-2px); background: var(--red); }
     .return-link:active { transform: translateY(1px) scale(0.98); }
 
-    footer { padding: 34px 20px; color: rgba(245,239,223,0.72); background: var(--ink); text-align: center; font-size: 13px; }
-    footer strong { color: var(--paper-light); }
+    /* The submitted form posts into this hidden iframe so the page never
+       navigates away. See the submit handler for why it stays hidden. */
     .form-sink { display: none; width: 0; height: 0; border: 0; }
 
     @media (max-width: 760px) {
-      .site-nav { grid-template-columns: 1fr auto; }
-      .lang-switch { grid-column: 1 / -1; grid-row: 2; justify-self: center; width: min(100%, 310px); }
-      .lang-button { flex: 1 1 0; }
       .registration-layout { grid-template-columns: 1fr; }
       .form-aside { position: static; }
       .promise-list { grid-template-columns: 1fr 1fr; }
@@ -235,49 +176,45 @@
       .form-actions { padding-inline: 22px; }
     }
     @media (max-width: 460px) {
-      .brand-logo-frame { width: 50px; height: 50px; }
-      .brand-divider { height: 38px; }
-      .brand-name { height: 38px; font-size: 15.5px; }
-      .back-link span[aria-hidden="true"] { display: none; }
       .promise-list { grid-template-columns: 1fr; }
       .form-aside h2 { font-size: 27px; }
       main, .hero-inner { width: min(100% - 26px, 1120px); }
     }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; } }
   </style>
 </head>
 <body>
-  <nav class="site-nav" aria-label="报名页面导航">
-    <a class="brand" href="Home.dc.html" aria-label="返回 Worker's Assist 主页">
+  <nav class="site-nav" aria-label="Registration page navigation">
+    <a class="brand" href="Home.dc.html" aria-label="Worker's Assist home">
       <span class="brand-logo-frame"><img class="brand-logo" src="assets/img/wa-logo-transparent.png" alt="Worker's Assist logo"></span>
       <span class="brand-divider" aria-hidden="true"></span>
       <span class="brand-name">WORKER'S<br>ASSIST</span>
     </a>
-    <div class="lang-switch" role="group" aria-label="中文语言选择">
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button class="lang-button" type="button" data-lang="en">English</button>
       <button class="lang-button" type="button" data-lang="zh-hans">简体中文</button>
       <button class="lang-button" type="button" data-lang="zh-hant">繁體中文</button>
     </div>
-    <a class="back-link" href="Home.dc.html"><span aria-hidden="true">←</span><span data-i18n="backHome">返回主页</span></a>
+    <a class="back-link" href="Home.dc.html"><span aria-hidden="true">←</span><span data-i18n="backHome">Back to home</span></a>
   </nav>
 
   <header class="form-hero">
     <div class="hero-inner">
-      <span class="hero-kicker" data-i18n="heroKicker">免费社区课程</span>
-      <h1 data-i18n-html="heroTitle">报名英语班</h1>
-      <p class="hero-copy" data-i18n="heroCopy">留下您的联系方式，并告诉我们您什么时候方便上课。所有课程都是免费的。</p>
+      <span class="hero-kicker" data-i18n="heroKicker">Free community classes</span>
+      <h1 data-i18n-html="heroTitle">Join an English class</h1>
+      <p class="hero-copy" data-i18n="heroCopy">Leave us your contact details and tell us when you're free to attend. All classes are free.</p>
     </div>
   </header>
 
   <main>
     <div class="registration-layout">
       <aside class="form-aside">
-        <div class="aside-kicker" data-i18n="asideKicker">报名很简单</div>
-        <h2 data-i18n="asideTitle">简单填一下，我们会联系您</h2>
-        <p data-i18n="asideCopy">大约两分钟就能填完。提交后，我们会按您选择的方式联系您。</p>
+        <div class="aside-kicker" data-i18n="asideKicker">Signing up is simple</div>
+        <h2 data-i18n="asideTitle">Fill this in and we'll get in touch</h2>
+        <p data-i18n="asideCopy">It takes about two minutes. After you submit, we'll contact you the way you prefer.</p>
         <ol class="promise-list">
-          <li><span class="promise-number">1</span><span data-i18n="promise1">每周都有免费课</span></li>
-          <li><span class="promise-number">2</span><span data-i18n="promise2">可选线上或线下</span></li>
-          <li><span class="promise-number">3</span><span data-i18n="promise3">普通话或粤语辅助</span></li>
+          <li><span class="promise-number">1</span><span data-i18n="promise1">Free classes every week</span></li>
+          <li><span class="promise-number">2</span><span data-i18n="promise2">Online or in person</span></li>
+          <li><span class="promise-number">3</span><span data-i18n="promise3">Mandarin or Cantonese support</span></li>
         </ol>
       </aside>
 
@@ -287,28 +224,28 @@
             <div class="form-section">
               <div class="section-heading">
                 <span class="section-number">01</span>
-                <div><h2 id="form-title" data-i18n="contactTitle">联系方式</h2><p data-i18n="requiredNote">标有 * 的项目为必填</p></div>
+                <div><h2 id="form-title" data-i18n="contactTitle">Contact details</h2><p data-i18n="requiredNote">Fields marked * are required</p></div>
               </div>
               <div class="field-grid">
                 <div class="field">
-                  <label for="full-name"><span data-i18n="fullName">姓名</span> <span class="required">*</span></label>
+                  <label for="full-name"><span data-i18n="fullName">Name</span> <span class="required">*</span></label>
                   <input id="full-name" name="entry.1549766482" type="text" autocomplete="name" required>
                 </div>
                 <div class="field">
-                  <label for="phone"><span data-i18n="phone">电话</span> <span class="required">*</span></label>
+                  <label for="phone"><span data-i18n="phone">Phone</span> <span class="required">*</span></label>
                   <input id="phone" name="entry.1033979463" type="tel" autocomplete="tel" required>
                 </div>
                 <div class="field">
-                  <label for="email" data-i18n="email">邮箱</label>
+                  <label for="email" data-i18n="email">Email</label>
                   <input id="email" name="entry.226688268" type="email" autocomplete="email">
                 </div>
                 <div class="field">
-                  <label for="wechat" data-i18n="wechat">微信 ID</label>
+                  <label for="wechat" data-i18n="wechat">WeChat ID</label>
                   <input id="wechat" name="entry.1496782574" type="text" autocomplete="off">
                 </div>
                 <div class="field full">
-                  <label for="contact-method" data-i18n="contactMethod">您希望我们用哪种方式联系您？</label>
-                  <input id="contact-method" name="entry.1897490935" type="text" data-i18n-placeholder="contactPlaceholder" placeholder="例如：短信、电话、电子邮件或微信">
+                  <label for="contact-method" data-i18n="contactMethod">How would you like us to reach you?</label>
+                  <input id="contact-method" name="entry.1897490935" type="text" data-i18n-placeholder="contactPlaceholder" placeholder="For example: text, phone call, email, or WeChat">
                 </div>
               </div>
             </div>
@@ -316,34 +253,33 @@
             <div class="form-section">
               <div class="section-heading">
                 <span class="section-number">02</span>
-                <div><h2 data-i18n="preferencesTitle">您想怎么上课</h2><p data-i18n="preferencesNote">选择上课方式和方便的时间</p></div>
+                <div><h2 data-i18n="preferencesTitle">How you'd like to attend</h2><p data-i18n="preferencesNote">Choose a format and the times that work for you</p></div>
               </div>
               <div class="question">
-                <span class="question-label"><span data-i18n="classMode">您想上线上课，还是到现场上课？</span> <span class="required">*</span></span>
+                <span class="question-label"><span data-i18n="classMode">Would you like to attend online or in person?</span> <span class="required">*</span></span>
                 <div class="choice-grid">
                   <label class="choice">
                     <input type="radio" name="entry.1730008427" value="线上 / Online" required>
-                    <span class="choice-copy"><span class="choice-cn" data-i18n="online">线上</span></span>
+                    <span class="choice-copy"><span class="choice-cn" data-i18n="online">Online</span></span>
                   </label>
                   <label class="choice">
                     <input type="radio" name="entry.1730008427" value="线下 / In person" required>
-                    <span class="choice-copy"><span class="choice-cn" data-i18n="inPerson">线下</span></span>
+                    <span class="choice-copy"><span class="choice-cn" data-i18n="inPerson">In person</span></span>
                   </label>
                 </div>
               </div>
 
               <div class="question" id="schedule-question">
-                <span class="question-label"><span data-i18n="scheduleQuestion">哪些时间方便您上课？（可多选）</span> <span class="required">*</span></span>
-                <div class="choice-grid times">
-                  <label class="choice"><input type="checkbox" name="entry.246719977" value="周一晚 7:30–9:00 线下 / Monday 7:30–9:00 PM In person"><span class="choice-copy"><span class="choice-cn" data-i18n="monday">周一晚 7:30–9:00 · 线下</span></span></label>
-                  <label class="choice"><input type="checkbox" name="entry.246719977" value="周二晚 7:30–9:00 线上 / Tuesday 7:30–9:00 PM Online"><span class="choice-copy"><span class="choice-cn" data-i18n="tuesday">周二晚 7:30–9:00 · 线上</span></span></label>
-                  <label class="choice"><input type="checkbox" name="entry.246719977" value="周三晚 7:30–9:00 线上 / Wednesday 7:30–9:00 PM Online"><span class="choice-copy"><span class="choice-cn" data-i18n="wednesday">周三晚 7:30–9:00 · 线上</span></span></label>
-                  <label class="choice"><input type="checkbox" name="entry.246719977" value="周四晚 7:30–9:00 线下 / Thursday 7:30–9:00 PM In person"><span class="choice-copy"><span class="choice-cn" data-i18n="thursday">周四晚 7:30–9:00 · 线下</span></span></label>
-                  <label class="choice"><input type="checkbox" name="entry.246719977" value="周五晚 7:30–9:00 线下 / Friday 7:30–9:00 PM In person"><span class="choice-copy"><span class="choice-cn" data-i18n="friday">周五晚 7:30–9:00 · 线下</span></span></label>
-                  <label class="choice"><input id="other-checkbox" type="checkbox" name="entry.246719977" value="__other_option__"><span class="choice-copy"><span class="choice-cn" data-i18n="otherTime">其他时间</span></span></label>
+                <span class="question-label"><span data-i18n="scheduleQuestion">Which times work for you? (Choose all that apply)</span> <span class="required">*</span></span>
+                <!-- Class checkboxes are rendered from classes.js at load. They
+                     carry no `name`; the script serialises them into the hidden
+                     #schedule-answer field on submit. -->
+                <div class="choice-grid times" id="class-choices">
+                  <label class="choice" id="other-choice"><input id="other-checkbox" type="checkbox"><span class="choice-copy"><span class="choice-cn" data-i18n="otherTime">Another time</span></span></label>
                 </div>
-                <div class="other-wrap" id="other-wrap"><input id="other-time" name="entry.246719977.other_option_response" type="text" data-i18n-placeholder="otherPlaceholder" placeholder="请填写其他方便的时间"></div>
-                <p class="validation-message" id="schedule-error" role="alert" data-i18n="scheduleRequired">请至少选择一个时间。</p>
+                <div class="other-wrap" id="other-wrap"><input id="other-time" type="text" data-i18n-placeholder="otherPlaceholder" placeholder="Tell us what other times work"></div>
+                <input type="hidden" id="schedule-answer" name="entry.246719977" value="">
+                <p class="validation-message" id="schedule-error" role="alert" data-i18n="scheduleRequired">Please choose at least one time.</p>
               </div>
             </div>
 
@@ -351,24 +287,24 @@
               <input type="hidden" name="fvv" value="1">
               <input type="hidden" name="draftResponse" value="[]">
               <input type="hidden" name="pageHistory" value="0">
-              <button class="submit-button" id="submit-button" type="submit" data-i18n="submit">提交报名</button>
-              <p class="privacy-note" data-i18n="privacy">这些信息只用于联系您和安排课程。</p>
+              <button class="submit-button" id="submit-button" type="submit" data-i18n="submit">Submit registration</button>
+              <p class="privacy-note" data-i18n="privacy">We'll only use this to contact you and arrange classes.</p>
             </div>
           </div>
         </form>
 
         <div class="success-card" id="success-card" role="status" aria-live="polite">
           <div class="success-mark">✓</div>
-          <h2 data-i18n="successTitle">我们收到您的报名了</h2>
-          <p data-i18n="successCopy">谢谢，我们会尽快联系您。</p>
-          <a class="return-link" href="Home.dc.html" data-i18n="returnHome">返回主页</a>
+          <h2 data-i18n="successTitle">We've received your registration</h2>
+          <p data-i18n="successCopy">Thank you — we'll be in touch soon.</p>
+          <a class="return-link" href="Home.dc.html" data-i18n="returnHome">Back to home</a>
         </div>
       </section>
     </div>
   </main>
 
-  <iframe class="form-sink" id="wa-form-sink" name="wa-form-sink" title="报名提交结果" data-i18n-title="iframeTitle"></iframe>
-  <footer><strong>WORKER'S ASSIST</strong> · <span data-i18n="footer">为大波士顿地区提供免费社区英语课</span></footer>
+  <iframe class="form-sink" id="wa-form-sink" name="wa-form-sink" title="Registration result" data-i18n-title="iframeTitle"></iframe>
+  <footer><strong>WORKER'S ASSIST</strong> · <span data-i18n="footer">Free community English classes across Greater Boston</span></footer>
 
   <script>
     (function () {
@@ -382,11 +318,89 @@
       var submitButton = document.getElementById("submit-button");
       var formFields = document.getElementById("form-fields");
       var successCard = document.getElementById("success-card");
+      var classChoices = document.getElementById("class-choices");
+      var otherChoice = document.getElementById("other-choice");
+      var scheduleAnswer = document.getElementById("schedule-answer");
       var submitting = false;
-      var currentLang = "zh-hans";
-      var supportedLanguages = ["zh-hans", "zh-hant"];
-      var scheduleOptions = Array.prototype.slice.call(form.querySelectorAll('input[name="entry.246719977"]'));
+      // Tracks the active language for the strings read from JS rather than
+      // from data-i18n attributes (validation messages, the submitting label).
+      var currentLang = "en";
+
+      // Build one checkbox per class from the shared schedule in classes.js.
+      WAClasses.schedule.forEach(function (entry) {
+        var choice = document.createElement("label");
+        choice.className = "choice";
+
+        var input = document.createElement("input");
+        input.type = "checkbox";
+        input.className = "class-choice";
+        input.value = entry.value;
+
+        var copy = document.createElement("span");
+        copy.className = "choice-copy";
+
+        var text = document.createElement("span");
+        text.className = "choice-cn";
+        text.setAttribute("data-class-id", entry.id);
+
+        copy.appendChild(text);
+        choice.appendChild(input);
+        choice.appendChild(copy);
+        classChoices.insertBefore(choice, otherChoice);
+      });
+
+      var classInputs = Array.prototype.slice.call(classChoices.querySelectorAll(".class-choice"));
+      var scheduleOptions = classInputs.concat([otherCheckbox]);
+
+      // Google Forms now stores this question as free text, so the picks are
+      // joined into one string rather than submitted as separate options.
+      function buildScheduleAnswer() {
+        var picked = classInputs.filter(function (input) { return input.checked; })
+          .map(function (input) { return input.value; });
+        if (otherCheckbox.checked) picked.push(otherTime.value);
+        return WAClasses.serialize(picked);
+      }
       var translations = {
+        "en": {
+          docTitle: "Join a Class | Worker's Assist",
+          description: "Sign up for free community English classes with Worker's Assist across Greater Boston.",
+          backHome: "Back to home",
+          heroKicker: "Free community classes",
+          heroTitle: "Join an English class",
+          heroCopy: "Leave us your contact details and tell us when you're free to attend. All classes are free.",
+          asideKicker: "Signing up is simple",
+          asideTitle: "Fill this in and we'll get in touch",
+          asideCopy: "It takes about two minutes. After you submit, we'll contact you the way you prefer.",
+          promise1: "Free classes every week",
+          promise2: "Online or in person",
+          promise3: "Mandarin or Cantonese support",
+          contactTitle: "Contact details",
+          requiredNote: "Fields marked * are required",
+          fullName: "Name",
+          phone: "Phone",
+          email: "Email",
+          wechat: "WeChat ID",
+          contactMethod: "How would you like us to reach you?",
+          contactPlaceholder: "For example: text, phone call, email, or WeChat",
+          preferencesTitle: "How you'd like to attend",
+          preferencesNote: "Choose a format and the times that work for you",
+          classMode: "Would you like to attend online or in person?",
+          online: "Online",
+          inPerson: "In person",
+          scheduleQuestion: "Which times work for you? (Choose all that apply)",
+          otherTime: "Another time",
+          otherPlaceholder: "Tell us what other times work",
+          scheduleRequired: "Please choose at least one time.",
+          otherRequired: "Please tell us what other time works.",
+          submit: "Submit registration",
+          submitting: "Submitting, please wait…",
+          privacy: "We'll only use this to contact you and arrange classes.",
+          successTitle: "We've received your registration",
+          successCopy: "Thank you — we'll be in touch soon.",
+          returnHome: "Back to home",
+          iframeTitle: "Registration result",
+          footer: "Free community English classes across Greater Boston"
+        },
         "zh-hans": {
           docTitle: "报名英语班 | Worker's Assist",
           description: "报名参加 Worker's Assist 为大波士顿地区提供的免费社区英语课。",
@@ -414,11 +428,6 @@
           online: "线上",
           inPerson: "线下",
           scheduleQuestion: "哪些时间方便您上课？（可多选）",
-          monday: "周一晚上 7:30–9:00 · 线下",
-          tuesday: "周二晚上 7:30–9:00 · 线上",
-          wednesday: "周三晚上 7:30–9:00 · 线上",
-          thursday: "周四晚上 7:30–9:00 · 线下",
-          friday: "周五晚上 7:30–9:00 · 线下",
           otherTime: "其他时间",
           otherPlaceholder: "请填写其他方便的时间",
           scheduleRequired: "请至少选择一个时间。",
@@ -459,11 +468,6 @@
           online: "網上",
           inPerson: "實體",
           scheduleQuestion: "哪些時間方便您上課？（可多選）",
-          monday: "星期一晚上 7:30–9:00 · 實體",
-          tuesday: "星期二晚上 7:30–9:00 · 網上",
-          wednesday: "星期三晚上 7:30–9:00 · 網上",
-          thursday: "星期四晚上 7:30–9:00 · 實體",
-          friday: "星期五晚上 7:30–9:00 · 實體",
           otherTime: "其他時間",
           otherPlaceholder: "請填寫其他方便的時間",
           scheduleRequired: "請至少選擇一個時間。",
@@ -479,17 +483,13 @@
         }
       };
 
-      function setLanguage(lang) {
-        if (!translations[lang]) lang = "zh-hans";
-        currentLang = lang;
-        var t = translations[lang];
-        document.documentElement.lang = lang === "zh-hant" ? "zh-Hant" : "zh-Hans";
-        document.documentElement.setAttribute("data-lang", lang);
-        WASite.updateMetadata(t);
-        WASite.applyCopy(document, t);
-        WASite.updateLanguageButtons(".lang-button", "data-lang", lang);
-        WASite.writeLanguage(lang);
-        if (scheduleError.classList.contains("visible")) validateSchedule();
+      // Class labels are generated, so they are not covered by data-i18n and
+      // must be re-rendered whenever the language changes.
+      function renderClassLabels(lang) {
+        WAClasses.schedule.forEach(function (entry) {
+          var text = classChoices.querySelector('[data-class-id="' + entry.id + '"]');
+          if (text) text.textContent = WAClasses.label(entry, lang);
+        });
       }
 
       function validateSchedule() {
@@ -517,6 +517,7 @@
           scheduleQuestion.scrollIntoView({ behavior: "smooth", block: "center" });
           return;
         }
+        scheduleAnswer.value = buildScheduleAnswer();
         submitting = true;
         submitButton.disabled = true;
         submitButton.textContent = translations[currentLang].submitting;
@@ -532,10 +533,18 @@
         successCard.scrollIntoView({ behavior: "smooth", block: "center" });
       });
 
-      document.querySelectorAll(".lang-button").forEach(function (button) {
-        button.addEventListener("click", function () { setLanguage(button.getAttribute("data-lang")); });
-      });
-      setLanguage(WASite.readLanguage(supportedLanguages, "zh-hans"));
+      currentLang = WASite.initLanguage({
+        strings: translations,
+        selector: ".lang-button",
+        attribute: "data-lang",
+        fallback: "en",
+        onApply: function (language) {
+          currentLang = language;
+          renderClassLabels(language);
+          // Keep a visible validation message in the newly chosen language.
+          if (scheduleError.classList.contains("visible")) validateSchedule();
+        }
+      }).current;
     }());
   </script>
 </body>

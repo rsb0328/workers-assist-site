@@ -1,9 +1,30 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<!--
+  Home page - a Design Component, NOT plain HTML.
+
+  The element block below is a template (curly-brace interpolation plus the
+  runtime's for/if directives) and the data-dc-script block at the bottom is its
+  logic class, holding all copy for the three languages. support.js (the
+  dc-runtime bundle) parses both at load and mounts them with React, so nothing
+  renders without JavaScript.
+
+  CAUTION: the runtime finds the template by scanning this file's raw source for
+  the first occurrence of the opening template tag. Never write that tag name in
+  a comment - it will be matched instead of the real one and the page will
+  render as garbled text.
+
+  Styling is self-contained: tokens come from `rootStyle` in the logic class
+  (--font-head, --font-body, --accent). This page deliberately does not load
+  site.css, whose token names would collide. See README.md.
+
+  The class schedule comes from classes.js and is shared with Join.html.
+-->
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./site-runtime.js"></script>
+<script src="./classes.js"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -55,6 +76,9 @@
     .wa-nav-link { display: inline-flex; align-items: center; height: 56px; padding: 0 14px; color: rgba(245,239,223,0.72); font-family: 'Noto Sans', sans-serif; font-size: 15px; font-weight: 700; transition: color 0.18s ease; }
     .wa-nav-link:hover, .wa-nav-link.wa-nav-active { color: #F5EFDF; }
     .wa-nav-indicator { position: absolute; left: 0; bottom: 0; width: var(--wa-nav-w, 0px); height: 3px; background: var(--accent, #CE2029); border-radius: 999px 999px 0 0; transform: translateX(var(--wa-nav-x, 0px)); transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), width 0.34s cubic-bezier(0.22, 1, 0.36, 1); pointer-events: none; }
+    /* Narrow screens use the 简中/繁中 abbreviation — the full four-character
+       label wraps 3+1 inside a 47px button. */
+    .wa-lang-short { display: none; }
     .wa-action-button { position: relative; isolation: isolate; overflow: hidden; transform: translateY(0); transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s ease, filter 0.22s ease !important; }
     .wa-action-button::after { content: ''; position: absolute; inset: -30% auto -30% -45%; width: 24%; pointer-events: none; background: rgba(245,239,223,0.24); transform: translateX(-260%) skewX(-18deg); transition: transform 0.48s cubic-bezier(0.22, 1, 0.36, 1); }
     .wa-action-button:hover { transform: translateY(-3px) rotate(-0.25deg); box-shadow: 0 7px 0 rgba(28,27,25,0.2), 0 13px 24px rgba(0,0,0,0.18); }
@@ -68,19 +92,7 @@
     .wa-volunteer-role { position: relative; min-height: 250px; padding: 30px; background: #272521; border: 1px solid rgba(245,239,223,0.18); border-top: 5px solid var(--accent, #CE2029); transition: transform 0.24s ease, background 0.24s ease, border-color 0.24s ease; }
     .wa-volunteer-role:hover { transform: translateY(-6px); background: #2F2C27; border-color: rgba(245,239,223,0.34); }
     .wa-volunteer-role-number { display: block; font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.14em; color: var(--accent, #CE2029); margin-bottom: 38px; }
-    .wa-volunteer-roles,
-    .wa-volunteer-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-    .wa-volunteer-path { position: relative; display: block; overflow: visible; margin-top: 50px; padding: 34px 0 38px; color: #F5EFDF; background: transparent; border-top: 1px solid rgba(245,239,223,0.22); border-bottom: 1px solid rgba(245,239,223,0.22); }
-    .wa-volunteer-path-head { display: block; padding: 0 0 22px; color: #F5EFDF; background: transparent; }
-    .wa-volunteer-path-kicker { display: block; align-self: start; padding-top: 3px; font-family: var(--font-head); font-size: clamp(25px, 3vw, 34px); font-weight: var(--head-weight); line-height: 1.08; text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); }
-    .wa-volunteer-steps { padding: 32px 0 0; background: transparent; }
-    .wa-volunteer-step { position: relative; min-height: 184px; padding: 22px 0 0; }
-    .wa-volunteer-step::before { content: ''; position: absolute; top: 0; left: 0; width: 52px; height: 3px; background: var(--accent, #CE2029); }
-    .wa-volunteer-step + .wa-volunteer-step { border-left: 0; }
-    .wa-volunteer-step-top { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 18px; }
-    .wa-volunteer-step-number { display: block; flex: 0 0 auto; width: auto; height: auto; color: #F5EFDF; background: transparent; font-family: 'Oswald', sans-serif; font-size: 54px; font-weight: 700; line-height: 0.86; letter-spacing: -0.04em; -webkit-text-stroke: 0; text-shadow: none; box-shadow: none; }
-    .wa-volunteer-step-title { padding-bottom: 2px; font-family: var(--font-head); font-size: 21px; font-weight: var(--head-weight); line-height: 1.15; color: #F5EFDF; }
-    .wa-volunteer-step-copy { display: block; max-width: 29ch; font-family: var(--font-body); font-size: 15px; line-height: 1.68; color: rgba(245,239,223,0.68); }
+    .wa-volunteer-roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: 18px; }
     .wa-course-story { padding-top: 56px !important; padding-bottom: 16px !important; }
     .wa-story-beat { margin-bottom: 72px !important; }
     .wa-story-beat-last { margin-bottom: 48px !important; }
@@ -95,23 +107,27 @@
     .wa-brand-wordmark { display: block; height: 44px; font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 18px; line-height: 1.22; letter-spacing: 0.16em; color: var(--accent, #CE2029); text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
     .wa-volunteer-watermark { position: absolute; right: -100px; top: -74px; width: min(46vw, 540px); aspect-ratio: 1; pointer-events: none; overflow: hidden; opacity: 0.085; mix-blend-mode: screen; -webkit-mask-image: radial-gradient(circle at 48% 46%, #000 0 30%, rgba(0,0,0,0.82) 47%, rgba(0,0,0,0.24) 64%, transparent 78%); mask-image: radial-gradient(circle at 48% 46%, #000 0 30%, rgba(0,0,0,0.82) 47%, rgba(0,0,0,0.24) 64%, transparent 78%); }
     .wa-volunteer-watermark img { display: block; width: 100%; height: 100%; object-fit: contain; transform: scale(1.5); filter: grayscale(1) brightness(2.2) contrast(0.68); }
+    /* Story beats wrap to one column around 772px; the sticky image/card is a
+       two-column device, so release it before the wrap or it pins while the
+       stacked text scrolls up into it. */
+    @media (max-width: 800px) {
+      .wa-story-beat > *, .wa-story-beat-last > * { position: relative !important; top: auto !important; }
+    }
     @media (max-width: 760px) {
       nav { grid-template-columns: 1fr auto !important; padding: 8px 12px 10px !important; }
       .wa-top-brand { grid-column: 1 !important; grid-row: 1; }
       nav > div:last-child { grid-column: 2 !important; grid-row: 1; justify-self: end !important; }
       nav div[role="group"] { width: min(100%, 260px) !important; }
+      .wa-lang-full { display: none; }
+      .wa-lang-short { display: inline; }
       .wa-nav-track { grid-column: 1 / -1 !important; grid-row: 2; width: 100%; }
       .wa-nav-link { flex: 1 1 0; justify-content: center; padding: 0 8px; }
       .wa-header-cta { display: none !important; }
       .wa-hero-tagline { max-width: 20rem !important; font-size: 17px !important; overflow-wrap: normal; word-break: normal; }
+      /* Keep the eyebrow badge on one line — a wrapped pill reads as broken. */
+      span.wa-hero-stamp { font-size: 11px !important; letter-spacing: 0.07em !important; padding: 5px 12px !important; white-space: nowrap; }
       .wa-footer-mission { font-size: clamp(10px, 1.85vw, 14px) !important; }
-      .wa-volunteer-path { margin-top: 38px; padding: 28px 0 30px; }
-      .wa-volunteer-path-head { padding: 0 0 20px; }
       .wa-volunteer-roles { grid-template-columns: 1fr; gap: 18px; }
-      .wa-volunteer-steps { grid-template-columns: 1fr; gap: 0; padding: 6px 0 0; }
-      .wa-volunteer-step { min-height: 0; padding: 22px 0 0; }
-      .wa-volunteer-step + .wa-volunteer-step { border-left: 0; border-top: 1px solid rgba(245,239,223,0.16); margin-top: 26px; padding-top: 28px; }
-      .wa-volunteer-step + .wa-volunteer-step::before { top: 0; }
       .wa-course-story { padding-top: 36px !important; }
       .wa-story-beat { margin-bottom: 44px !important; }
       .wa-story-beat-last { margin-bottom: 8px !important; }
@@ -154,8 +170,8 @@
     <div style="grid-column: 3; justify-self: end;">
       <div role="group" aria-label="Language" style="display: flex; width: clamp(200px, 24vw, 240px); border: 1px solid rgba(245,239,223,0.28); border-radius: 8px; overflow: hidden; background: rgba(28,27,25,0.36);">
         <button type="button" onClick="{{ selEn }}" style="{{ langBtnEn }}">English</button>
-        <button type="button" onClick="{{ selHans }}" style="{{ langBtnHans }}">简体中文</button>
-        <button type="button" onClick="{{ selHant }}" style="{{ langBtnHant }}">繁體中文</button>
+        <button type="button" onClick="{{ selHans }}" style="{{ langBtnHans }}"><span class="wa-lang-full">简体中文</span><span class="wa-lang-short">简中</span></button>
+        <button type="button" onClick="{{ selHant }}" style="{{ langBtnHant }}"><span class="wa-lang-full">繁體中文</span><span class="wa-lang-short">繁中</span></button>
       </div>
     </div>
   </nav>
@@ -252,7 +268,6 @@
       </figure>
       <div class="wa-scroll-proof wa-story-copy" style="--wa-proof-delay: 120ms; flex: 1 1 340px; min-height: 56vh; display: flex; flex-direction: column; justify-content: center;">
         <span class="wa-story-kicker" style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); margin-bottom: 10px;">{{ t.beat1Eyebrow }}</span>
-        <h2 style="font-family: var(--font-head); font-weight: var(--head-weight); color: #1C1B19; font-size: clamp(26px, 4vw, 34px); line-height: 1.12; letter-spacing: -0.01em; margin: 0 0 16px;">{{ t.beat1Heading }}</h2>
         <p style="font-family: var(--font-body); font-size: 17.5px; line-height: 1.75; color: #34322C; margin: 0; max-width: 52ch;">{{ t.beat1Body }}</p>
       </div>
     </section>
@@ -270,12 +285,17 @@
             <li class="wa-schedule-ticket" style="display: flex; flex-direction: column; gap: 5px; padding: 18px 0; border-bottom: 1px solid #D8CDAE;">
               <div style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
                 <span style="font-family: var(--font-head); font-weight: var(--head-weight); font-size: 19px; color: #1C1B19;">{{ row.name }}</span>
-                <sc-if value="{{ showLevels }}" hint-placeholder-val="{{ true }}">
-                  <span style="font-family: var(--font-body); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #F5EFDF; background: var(--accent, #CE2029); padding: 3px 9px; border-radius: 999px;">{{ row.level }}</span>
-                </sc-if>
+                <span style="display: inline-flex; align-items: center; flex-wrap: wrap; gap: 6px;">
+                  <span style="font-family: var(--font-body); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1B19; background: transparent; border: 1.5px solid rgba(28,27,25,0.55); padding: 2px 9px; border-radius: 999px; white-space: nowrap;">{{ row.mode }}</span>
+                  <sc-if value="{{ showLevels }}" hint-placeholder-val="{{ true }}">
+                    <span style="font-family: var(--font-body); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #F5EFDF; background: var(--accent, #CE2029); padding: 3px 9px; border-radius: 999px; white-space: nowrap;">{{ row.level }}</span>
+                  </sc-if>
+                </span>
               </div>
               <span style="font-family: var(--font-body); font-size: 16px; color: #34322C;">{{ row.time }}</span>
-              <span style="font-family: var(--font-body); font-size: 15px; color: #5C584B;">{{ row.loc }}</span>
+              <sc-if value="{{ row.loc }}">
+                <span style="font-family: var(--font-body); font-size: 15px; color: #5C584B;">{{ row.loc }}</span>
+              </sc-if>
             </li>
           </sc-for>
         </ul>
@@ -333,35 +353,15 @@
         </article>
       </div>
 
-      <div class="wa-volunteer-path wa-scroll-proof" style="--wa-proof-delay: 160ms;">
-        <div class="wa-volunteer-path-head">
-          <span class="wa-volunteer-path-kicker">{{ t.volunteerPathEyebrow }}</span>
-        </div>
-        <div class="wa-volunteer-steps">
-          <div class="wa-volunteer-step"><div class="wa-volunteer-step-top"><strong class="wa-volunteer-step-number">01</strong><span class="wa-volunteer-step-title">{{ t.volunteerStep1Title }}</span></div><span class="wa-volunteer-step-copy">{{ t.volunteerStep1 }}</span></div>
-          <div class="wa-volunteer-step"><div class="wa-volunteer-step-top"><strong class="wa-volunteer-step-number">02</strong><span class="wa-volunteer-step-title">{{ t.volunteerStep2Title }}</span></div><span class="wa-volunteer-step-copy">{{ t.volunteerStep2 }}</span></div>
-          <div class="wa-volunteer-step"><div class="wa-volunteer-step-top"><strong class="wa-volunteer-step-number">03</strong><span class="wa-volunteer-step-title">{{ t.volunteerStep3Title }}</span></div><span class="wa-volunteer-step-copy">{{ t.volunteerStep3 }}</span></div>
-        </div>
-      </div>
-
-      <div class="wa-scroll-proof" style="--wa-proof-delay: 200ms; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding-top: 38px;">
-        <div>
-          <h3 style="font-family: var(--font-head); font-weight: var(--head-weight); font-size: clamp(24px, 3vw, 32px); line-height: 1.15; color: #F5EFDF; margin: 0;">{{ t.volunteerCtaHeading }}</h3>
-        </div>
-        <a href="Volunteer.html" class="wa-action-button" style="display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; font-family: var(--font-head); font-weight: 600; font-size: 17px; padding: 14px 28px; border-radius: 8px; background: var(--accent, #CE2029); color: #F5EFDF; min-height: 50px; white-space: nowrap;" style-hover="{ filter: 'brightness(0.9)' }">{{ t.ctaVolunteer }}</a>
-      </div>
     </div>
   </section>
 
   <!-- ===== Closing CTA (ink band) ===== -->
   <section style="background: #1C1B19; color: #F5EFDF; border-top: 1px solid rgba(245,239,223,0.16);">
     <div class="wa-scroll-proof" style="--wa-proof-delay: 0ms; max-width: 1180px; margin: 0 auto; padding: 72px 28px; text-align: center;">
-      <span class="wa-join-kicker" style="display: inline-block; font-family: var(--font-head); font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029);">{{ t.closingEyebrow }}</span>
-      <h2 style="font-family: var(--font-head); font-weight: var(--head-weight); color: #F5EFDF; font-size: clamp(28px, 5vw, 44px); line-height: 1.1; margin: 0 0 14px;">{{ t.closingHeading }}</h2>
-      <p style="font-family: var(--font-body); font-size: 18px; line-height: 1.7; color: rgba(245,239,223,0.85); margin: 0 auto 28px; max-width: 46ch;">{{ t.closingBody }}</p>
+      <span class="wa-join-kicker" style="display: block; margin-bottom: 26px; font-family: var(--font-head); font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029);">{{ t.closingEyebrow }}</span>
       <div style="display: flex; flex-wrap: wrap; gap: 14px; justify-content: center;">
         <a href="Volunteer.html" class="wa-action-button" style="display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 600; font-size: 17px; padding: 14px 32px; border-radius: 8px; background: var(--accent, #CE2029); color: #F5EFDF; min-height: 48px;" style-hover="{ filter: 'brightness(0.9)' }">{{ t.ctaVolunteer }}</a>
-        <a href="Join.html" class="wa-action-button" style="display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 600; font-size: 17px; padding: 14px 32px; border-radius: 8px; background: transparent; border: 1.5px solid #F5EFDF; color: #F5EFDF; min-height: 48px;" style-hover="{ background: '#F5EFDF', color: '#1C1B19' }">{{ t.ctaJoin }}</a>
       </div>
     </div>
   </section>
@@ -381,26 +381,25 @@
 class Component extends DCLogic {
   strings = {
     "en": {
-      docTitle: "Worker's Assist | Immigrant workers and families",
+      docTitle: "Worker's Assist | An English-learning cooperative",
       description: "Free community English classes for immigrant workers and families across Greater Boston.",
-      navHome: "Home", navClasses: "Classes", navAbout: "About", navVolunteer: "Volunteer",
+      navHome: "Home", navClasses: "Classes", navVolunteer: "Volunteer",
       ctaJoin: "Join a Class", ctaJoinArrow: "Join a Class →", ctaVolunteer: "Volunteer with us",
-      heroEyebrow: "Greater Boston",
-      heroHeadline: "Uniting immigrant workers & families",
-      heroTagline: "Linguistic justice · Civic engagement · Worker rights",
+      heroEyebrow: "Greater Boston, Online/Offline",
+      heroHeadline: "An English-learning cooperative, by and for immigrants",
+      heroTagline: "Language justice · Civic engagement · Worker rights",
       pillarsKicker: "What we stand for",
-      pillar1Label: "Linguistic justice", pillar1Body: "Everyone deserves to learn in a language they already think in.",
-      pillar2Label: "Civic engagement", pillar2Body: "Language is the door to school, work, and your community.",
-      pillar3Label: "Worker rights", pillar3Body: "Knowing your words means knowing your rights.",
-      beat1Eyebrow: "Who we are", beat1Heading: "We teach English in Mandarin & Cantonese",
-      beat1Body: "We're a community of English teachers and learners. Our classes are instructed in Mandarin and Cantonese. We build a one-on-one connection with every student.",
+      pillar1Label: "Language justice", pillar1Body: "Everyone deserves to learn in a language they already think in.",
+      pillar2Label: "Civil engagement", pillar2Body: "Language is the key to meaningful participation in school, work, and community.",
+      pillar3Label: "Worker's right", pillar3Body: "Knowing your words means knowing your rights.",
+      beat1Eyebrow: "Who we are",
+      beat1Body: "We're a community of English teachers and learners in the Greater Boston area. We mostly speak Mandarin but we could also accommodate Cantonese speaking students. We strive to build a worker community through our English classes, monthly social events as well as a one-on-one connection with every student.",
       beat2Eyebrow: "Schedule", beat2Heading: "Classes you can join now",
-      beat2Sub: "Free, every week — in person in Chinatown and online.",
+      beat2Sub: "Free, every week, in person in Chinatown and online.",
       beat3Eyebrow: "Our story", beat3Heading: "Neighbors helping neighbors",
       beat3Body1: "We started as a group of international students who wanted to help. We knew how hard a new language and a new country can be — and how much easier it gets when someone beside you speaks your language.",
       beat3Body2: "Today we're a cooperative of teachers and learners across Greater Boston, built on a simple idea: mutual aid. Neighbors helping neighbors — and everyone is welcome.",
-      closingEyebrow: "Get involved", closingHeading: "There's a place for you here",
-      closingBody: "Join a class, or teach one. Everyone is welcome.",
+      closingEyebrow: "Get involved",
       volunteerEyebrow: "Become a volunteer",
       volunteerHeading: "Give your time. Open a door.",
       volunteerIntro: "Our classes grow through people who show up consistently. Teach, practice conversation, or help behind the scenes — every role strengthens a learner's connection to work and community.",
@@ -413,38 +412,29 @@ class Component extends DCLogic {
       volunteerRole2Body: "Be a steady conversation partner, help learners review, and build confidence one relationship at a time.",
       volunteerRole3Title: "Strengthen the community",
       volunteerRole3Body: "Help with outreach, translation, class coordination, design, technology, or the work that keeps programs running.",
-      volunteerPathEyebrow: "How it works",
-      volunteerStep1Title: "Tell us about you",
-      volunteerStep1: "Tell us about your skills, interests, language background, and availability.",
-      volunteerStep2Title: "Choose together",
-      volunteerStep2: "Meet the team and choose a role that fits the time you can give.",
-      volunteerStep3Title: "Begin with support",
-      volunteerStep3: "Get materials, guidance, and a partner as you begin volunteering.",
-      volunteerCtaHeading: "Stand with workers!",
       footerMission: "A 501(c)(3) nonprofit cooperative serving immigrant workers and families across Greater Boston.",
       footerEmail: "admin@workers-assist.com"
     },
     "zh-hans": {
-      docTitle: "Worker's Assist｜团结移民工人与家庭",
+      docTitle: "Worker's Assist｜免费社区英语课",
       description: "Worker's Assist 为大波士顿地区的移民工人和家庭提供免费社区英语课程。",
-      navHome: "首页", navClasses: "课程", navAbout: "关于我们", navVolunteer: "志愿者",
+      navHome: "首页", navClasses: "课程", navVolunteer: "志愿者",
       ctaJoin: "报名上课", ctaJoinArrow: "报名上课 →", ctaVolunteer: "成为志愿者",
-      heroEyebrow: "大波士顿地区",
-      heroHeadline: "团结移民工人与家庭",
+      heroEyebrow: "大波士顿地区 · 线上/线下",
+      heroHeadline: "来参加我们的免费英语课",
       heroTagline: "学好英语　融入社区　维护我们的权益",
       pillarsKicker: "我们的信念",
       pillar1Label: "学好英语", pillar1Body: "从熟悉的语言开始学英语，更容易听懂，也更容易坚持。",
       pillar2Label: "融入社区", pillar2Body: "会说英语，办事、找工作、和邻里沟通都会方便很多。",
       pillar3Label: "维护权益", pillar3Body: "能听懂、会表达，遇到问题时才更有底气维护自己。",
-      beat1Eyebrow: "我们是谁", beat1Heading: "用普通话和粤语教英语",
+      beat1Eyebrow: "我们是谁",
       beat1Body: "我们是一群英语老师、志愿者和学员。课堂会用普通话和粤语辅助讲解，老师也会尽量照顾每位学员的进度。",
       beat2Eyebrow: "课表", beat2Heading: "本周就能加入的英语班",
       beat2Sub: "课程每周都有，全部免费；可以到华埠上课，也可以在线参加。",
       beat3Eyebrow: "我们的故事", beat3Heading: "邻里帮邻里",
       beat3Body1: "一开始，我们只是一群想帮上忙的留学生。我们都经历过在陌生国家学新语言的日子，所以知道：有人愿意用你熟悉的语言解释、陪你练习，真的会轻松很多。",
       beat3Body2: "现在，我们的老师和学员来自大波士顿各地。我们相信大家互相搭把手，日子就会好一点。邻里帮邻里，谁来都欢迎。",
-      closingEyebrow: "加入我们", closingHeading: "这里总有你能参与的方式",
-      closingBody: "想学英语，就来上课；愿意帮忙，也欢迎来当志愿者。",
+      closingEyebrow: "加入我们",
       volunteerEyebrow: "成为志愿者",
       volunteerHeading: "每周抽一点时间，陪别人一起学英语",
       volunteerIntro: "这些课能一直办下去，离不开每周愿意来帮忙的人。你可以教课、陪学员练口语，也可以协助联络、翻译或做幕后工作。无论帮哪一项，都会让学员在工作和生活中多一分底气。",
@@ -457,38 +447,29 @@ class Component extends DCLogic {
       volunteerRole2Body: "固定陪学员复习、聊天、练表达，让他们在一次次开口中慢慢建立信心。",
       volunteerRole3Title: "帮忙做幕后工作",
       volunteerRole3Body: "协助联络、翻译、排课、设计或技术工作，让课程顺利进行。",
-      volunteerPathEyebrow: "如何开始",
-      volunteerStep1Title: "先聊一聊",
-      volunteerStep1: "告诉我们你会什么、对什么感兴趣、会哪些语言，以及每周大概什么时候有空。",
-      volunteerStep2Title: "商量做什么",
-      volunteerStep2: "和我们见面聊聊，一起挑一项你做得来、时间也合适的工作。",
-      volunteerStep3Title: "开始帮忙",
-      volunteerStep3: "我们会准备材料、说明怎么做，也会安排搭档陪你一起开始。",
-      volunteerCtaHeading: "和工人站在一起！",
       footerMission: "Worker's Assist 是一家 501(c)(3) 非营利互助合作社，为大波士顿地区的移民工人和家庭提供服务。",
       footerEmail: "admin@workers-assist.com"
     },
     "zh-hant": {
-      docTitle: "Worker's Assist｜團結移民工人與家庭",
+      docTitle: "Worker's Assist｜免費社區英語課",
       description: "Worker's Assist 為大波士頓地區的移民工人和家庭提供免費社區英語課程。",
-      navHome: "首頁", navClasses: "課程", navAbout: "關於我們", navVolunteer: "義工",
+      navHome: "首頁", navClasses: "課程", navVolunteer: "義工",
       ctaJoin: "報名上課", ctaJoinArrow: "報名上課 →", ctaVolunteer: "成為義工",
-      heroEyebrow: "大波士頓地區",
-      heroHeadline: "團結移民工人與家庭",
+      heroEyebrow: "大波士頓地區 · 線上/實體",
+      heroHeadline: "來參加我們的免費英語課",
       heroTagline: "學好英語　融入社區　維護我們的權益",
       pillarsKicker: "我們的信念",
       pillar1Label: "學好英語", pillar1Body: "從熟悉的語言開始學英語，更容易聽懂，也更容易堅持。",
       pillar2Label: "融入社區", pillar2Body: "懂英語，辦事、找工作和跟鄰里溝通都會方便很多。",
       pillar3Label: "維護權益", pillar3Body: "聽得懂、說得清，遇到問題時才更有底氣保障自己。",
-      beat1Eyebrow: "我們是誰", beat1Heading: "用普通話和廣東話教英語",
+      beat1Eyebrow: "我們是誰",
       beat1Body: "我們是一群英語老師、義工和學員。課堂會用普通話和廣東話輔助講解，老師亦會盡量照顧每位學員的進度。",
       beat2Eyebrow: "課表", beat2Heading: "本週就能加入的英語班",
       beat2Sub: "課程每週都有，全部免費；可以到華埠上課，也可以在網上參加。",
       beat3Eyebrow: "我們的故事", beat3Heading: "鄰里幫鄰里",
       beat3Body1: "一開始，我們只是一群想幫上忙的留學生。我們都經歷過在陌生國家學新語言的日子，所以知道：有人願意用你熟悉的語言解釋、陪你練習，真的會輕鬆很多。",
       beat3Body2: "現在，我們的老師和學員來自大波士頓各地。我們相信大家互相幫忙，生活就會好一點。鄰里幫鄰里，誰來都歡迎。",
-      closingEyebrow: "加入我們", closingHeading: "這裡總有你能參與的方式",
-      closingBody: "想學英語，就來上課；願意幫忙，也歡迎來做義工。",
+      closingEyebrow: "加入我們",
       volunteerEyebrow: "成為義工",
       volunteerHeading: "每週抽一點時間，陪別人一起學英語",
       volunteerIntro: "這些課可以一直辦下去，全靠每星期願意來幫忙的人。你可以教課、陪學員練口語，也可以協助聯絡、翻譯或處理幕後工作。無論幫哪一樣，都可以令學員在工作和生活上多一分信心。",
@@ -501,37 +482,18 @@ class Component extends DCLogic {
       volunteerRole2Body: "固定陪學員溫習、聊天、練習表達，讓他們在一次次開口中慢慢建立信心。",
       volunteerRole3Title: "幫忙處理幕後工作",
       volunteerRole3Body: "協助聯絡、翻譯、排課、設計或技術工作，讓課程順利進行。",
-      volunteerPathEyebrow: "如何開始",
-      volunteerStep1Title: "先談一談",
-      volunteerStep1: "告訴我們你會甚麼、對甚麼有興趣、會哪些語言，以及每週大概甚麼時候有空。",
-      volunteerStep2Title: "商量做甚麼",
-      volunteerStep2: "和我們見面談談，一起挑一項你做得來、時間也合適的工作。",
-      volunteerStep3Title: "開始幫忙",
-      volunteerStep3: "我們會準備教材、說明怎樣做，也會安排拍檔陪你一起開始。",
-      volunteerCtaHeading: "和工人站在一起！",
       footerMission: "Worker's Assist 是一家 501(c)(3) 非牟利互助合作社，為大波士頓地區的移民工人和家庭提供服務。",
       footerEmail: "admin@workers-assist.com"
     }
   };
 
-  classData = [
-    { name: { en: "Everyday English Class", "zh-hans": "日常英语班", "zh-hant": "日常英語班" },
-      time: { en: "Mondays, 7:30pm", "zh-hans": "周一晚上 7:30", "zh-hant": "星期一晚上 7:30" },
-      loc:  { en: "In person, 1145 Washington St", "zh-hans": "线下 · 1145 Washington St", "zh-hant": "實體 · 1145 Washington St" },
-      level:{ en: "Beginner", "zh-hans": "初级", "zh-hant": "初級" } },
-    { name: { en: "Advanced English Class", "zh-hans": "高级英语班", "zh-hant": "高級英語班" },
-      time: { en: "Wednesdays, 7:30pm", "zh-hans": "周三晚上 7:30", "zh-hant": "星期三晚上 7:30" },
-      loc:  { en: "Online, Tencent Meeting", "zh-hans": "线上 · 腾讯会议", "zh-hant": "線上 · 騰訊會議" },
-      level:{ en: "Advanced", "zh-hans": "进阶", "zh-hant": "進階" } },
-    { name: { en: "Work English Class", "zh-hans": "职场英语班", "zh-hant": "職場英語班" },
-      time: { en: "Tuesdays & Fridays, 7:30pm", "zh-hans": "周二、周五晚上 7:30", "zh-hant": "星期二、星期五晚上 7:30" },
-      loc:  { en: "In person, 1145 Washington St", "zh-hans": "线下 · 1145 Washington St", "zh-hant": "實體 · 1145 Washington St" },
-      level:{ en: "Intensive", "zh-hans": "强化", "zh-hant": "強化" } }
-  ];
+  // Schedule lives in classes.js so this page and Join.html can never disagree.
+  // Edit the schedule there, not here.
+  classData = (window.WAClasses && window.WAClasses.schedule) || [];
 
   constructor(props) {
     super(props);
-    var fallback = props && this.strings[props.defaultLang] ? props.defaultLang : "zh-hans";
+    var fallback = props && this.strings[props.defaultLang] ? props.defaultLang : "en";
     var init = WASite.readLanguage(Object.keys(this.strings), fallback);
     this.state = { lang: init };
   }
@@ -808,9 +770,9 @@ class Component extends DCLogic {
       fontWeight: "var(--head-weight)",
       color: "#F5EFDF",
       lineHeight: 1.05,
-      fontSize: "clamp(40px, 7vw, 72px)",
+      fontSize: isCJK ? "clamp(40px, 7vw, 72px)" : "clamp(30px, 4.6vw, 56px)",
       margin: 0,
-      maxWidth: isCJK ? "none" : "15ch",
+      maxWidth: isCJK ? "none" : "26ch",
       letterSpacing: isCJK ? "0" : "-0.01em",
       display: isCJK ? "flex" : "block",
       flexWrap: isCJK ? "wrap" : "normal",
@@ -843,7 +805,8 @@ class Component extends DCLogic {
       return {
         name: c.name[lang] || c.name.en,
         time: c.time[lang] || c.time.en,
-        loc: c.loc[lang] || c.loc.en,
+        mode: c.mode[lang] || c.mode.en,
+        loc: c.loc[lang] !== undefined ? c.loc[lang] : c.loc.en,
         level: c.level[lang] || c.level.en
       };
     });

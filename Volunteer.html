@@ -1,94 +1,25 @@
 <!DOCTYPE html>
-<html lang="zh-Hans" data-lang="zh-hans">
+<!--
+  Volunteer sign-up.
+
+  No form backend: visitors reach us by email (a pre-filled mailto, rebuilt per
+  language) or by scanning the WeChat QR code. Copy for all three languages
+  lives in the `strings` object in the script at the bottom.
+-->
+<html lang="en" data-lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="成为 Worker's Assist 志愿者，可通过电子邮件或微信联系我们。">
-  <title>成为志愿者 | Worker's Assist</title>
+  <meta name="description" content="Volunteer with Worker's Assist. Contact us by email or WeChat.">
+  <title>Volunteer | Worker's Assist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Oswald:wght@500;600;700&family=Noto+Sans:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700;900&family=Noto+Sans+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./site.css">
   <script src="./site-runtime.js"></script>
   <style>
-    :root {
-      --ink: #1c1b19;
-      --paper: #ebe2cb;
-      --paper-light: #f5efdf;
-      --red: #ce2029;
-      --deep-red: #981b24;
-      --gold: #a8813f;
-      --text: #34322c;
-      --muted: #686253;
-      --head: "Oswald", "Noto Sans SC", sans-serif;
-      --body: "Noto Sans", "Noto Sans SC", sans-serif;
-    }
-    html[data-lang="zh-hans"] { --head: "Noto Sans SC", sans-serif; --body: "Noto Sans SC", sans-serif; }
-    html[data-lang="zh-hant"] { --head: "Noto Sans TC", sans-serif; --body: "Noto Sans TC", sans-serif; }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      color: var(--text);
-      background-color: var(--paper);
-      background-image: radial-gradient(rgba(92,88,75,0.075) 0.8px, transparent 0.8px);
-      background-size: 4px 4px;
-      font-family: var(--body);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
-    ::selection { color: var(--paper-light); background: var(--red); }
-
-    .site-nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      min-height: 72px;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 18px;
-      padding: 8px clamp(18px, 4vw, 42px);
-      color: var(--paper-light);
-      background: var(--ink);
-      border-bottom: 1px solid rgba(245,239,223,0.12);
-    }
-    .brand { display: inline-flex; align-items: center; gap: 10px; justify-self: start; min-width: 0; }
-    .brand-logo-frame { display: grid; place-items: center; width: 58px; height: 58px; overflow: hidden; flex: 0 0 auto; }
-    .brand-logo { display: block; width: 100%; height: 100%; object-fit: contain; transform: scale(1.48); filter: drop-shadow(0 3px 7px rgba(0,0,0,0.35)); }
-    .brand-divider { width: 6px; height: 44px; border-radius: 2px; background: var(--red); }
-    .brand-name { display: block; height: 44px; font-family: "Oswald", sans-serif; font-size: 18px; font-weight: 600; line-height: 1.22; letter-spacing: 0.16em; color: var(--red); }
-    .lang-switch { display: flex; overflow: hidden; border: 1px solid rgba(245,239,223,0.3); border-radius: 8px; background: rgba(255,255,255,0.04); }
-    .lang-button {
-      min-height: 38px;
-      padding: 0 13px;
-      border: 0;
-      border-right: 1px solid rgba(245,239,223,0.2);
-      color: rgba(245,239,223,0.72);
-      background: transparent;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: color 0.16s ease, background 0.16s ease, transform 0.16s ease;
-    }
-    .lang-button:last-child { border-right: 0; }
-    .lang-button:hover { color: var(--paper-light); transform: translateY(-1px); }
-    .lang-button.active { color: var(--paper-light); background: var(--red); }
-    .back-link {
-      justify-self: end;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      padding: 0 16px;
-      border: 1px solid rgba(245,239,223,0.35);
-      border-radius: 7px;
-      font-size: 14px;
-      font-weight: 700;
-      transition: color 0.18s ease, background 0.18s ease, transform 0.18s ease;
-    }
-    .back-link:hover { color: var(--ink); background: var(--paper-light); transform: translateY(-2px); }
+    /* Volunteer-page styling only — tokens, nav, brand, language switcher
+       and footer live in site.css, shared with Join.html. */
 
     .hero {
       position: relative;
@@ -234,13 +165,7 @@
     .expectation-item strong { display: block; margin-bottom: 5px; color: var(--red); font-family: var(--head); font-size: 21px; }
     .expectation-item span { color: var(--muted); font-size: 14px; }
 
-    footer { padding: 34px 20px; color: rgba(245,239,223,0.7); background: var(--ink); text-align: center; font-size: 13px; }
-    footer strong { color: var(--paper-light); }
-
     @media (max-width: 780px) {
-      .site-nav { grid-template-columns: 1fr auto; }
-      .lang-switch { grid-column: 1 / -1; grid-row: 2; justify-self: center; width: min(100%, 310px); }
-      .lang-button { flex: 1; }
       .hero-watermark { width: 380px; right: -150px; }
       .intro, .contact-grid { grid-template-columns: 1fr; }
       .email-card { min-height: 500px; }
@@ -248,17 +173,12 @@
       .expectation-item + .expectation-item { border-left: 0; border-top: 1px solid rgba(52,50,44,0.16); }
     }
     @media (max-width: 480px) {
-      .brand-logo-frame { width: 50px; height: 50px; }
-      .brand-divider { height: 38px; }
-      .brand-name { height: 38px; font-size: 15.5px; }
-      .back-link { padding: 0 11px; font-size: 13px; }
       .hero-inner, main { width: min(100% - 28px, 1120px); }
       .email-card, .wechat-card { padding: 28px 23px; }
       .action-button { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
-      .action-button:hover, .lang-button:hover, .back-link:hover { transform: none; }
+      .action-button:hover { transform: none; }
     }
   </style>
 </head>
@@ -274,60 +194,64 @@
       <button class="lang-button" type="button" data-lang-button="zh-hans">简体中文</button>
       <button class="lang-button" type="button" data-lang-button="zh-hant">繁體中文</button>
     </div>
-    <a class="back-link" href="Home.dc.html#get-involved" data-i18n="back">返回主页</a>
+    <a class="back-link" href="Home.dc.html#get-involved" data-i18n="back">Back to home</a>
   </nav>
 
   <header class="hero">
     <div class="hero-watermark" aria-hidden="true"><img src="assets/img/wa-logo-transparent.png" alt=""></div>
     <div class="hero-inner">
-      <span class="hero-kicker" data-i18n="heroKicker">志愿者报名</span>
-      <h1 data-i18n="heroTitle">愿意和工人站在一起吗？</h1>
-      <p class="hero-copy" data-i18n="heroCopy">选一种方便的方式联系我们。聊聊你想做什么、会哪些语言、什么时候有空，我们再一起看看你适合帮什么忙。</p>
+      <span class="hero-kicker" data-i18n="heroKicker">Volunteer sign-up</span>
+      <h1 data-i18n="heroTitle">Will you stand with workers?</h1>
+      <p class="hero-copy" data-i18n="heroCopy">Choose the easiest way to reach us. We will learn about your interests, languages, and availability, then find a role that fits.</p>
     </div>
   </header>
 
   <main>
     <section class="intro" aria-labelledby="contact-title">
       <div>
-        <h2 id="contact-title" data-i18n="contactTitle">用下面两种方式联系我们</h2>
+        <h2 id="contact-title" data-i18n="contactTitle">Two ways to join us</h2>
       </div>
-      <p data-i18n="contactCopy">不用准备正式简历。简单介绍一下自己，说说你想做什么、每周大概什么时候有空就可以。</p>
+      <p data-i18n="contactCopy">You do not need a formal resume. Just introduce yourself, tell us what you would like to do, and share your general availability.</p>
     </section>
 
     <section class="contact-grid">
       <article class="contact-card email-card">
         <div>
-          <span class="method-number" data-i18n="methodEmail">方式 01 · 电子邮件</span>
-          <h3 data-i18n="emailTitle">发邮件给我们</h3>
-          <p data-i18n="emailCopy">点击下面的按钮，会自动打开邮件并填好收件人和主题。你只要补上姓名、会说的语言、想帮的事情和有空的时间。</p>
+          <span class="method-number" data-i18n="methodEmail">METHOD 01 · EMAIL</span>
+          <h3 data-i18n="emailTitle">Send us an email</h3>
+          <p data-i18n="emailCopy">The button opens your email app with the recipient and subject ready. Tell us your name, languages, interests, and when you may be available.</p>
           <a class="email-address" href="mailto:admin@workers-assist.com">admin@workers-assist.com</a>
         </div>
-        <a id="email-action" class="action-button" href="mailto:admin@workers-assist.com" data-i18n="emailButton">用邮件联系我们</a>
+        <a id="email-action" class="action-button" href="mailto:admin@workers-assist.com" data-i18n="emailButton">Open email sign-up</a>
       </article>
 
       <article class="contact-card wechat-card">
-        <span class="method-number" data-i18n="methodWechat">方式 02 · 微信</span>
-        <h3 data-i18n="wechatTitle">扫码添加微信</h3>
-        <p data-i18n="wechatCopy">打开微信扫一扫，添加好友后告诉我们你想报名做志愿者。</p>
+        <span class="method-number" data-i18n="methodWechat">METHOD 02 · WECHAT</span>
+        <h3 data-i18n="wechatTitle">Scan to add us on WeChat</h3>
+        <p data-i18n="wechatCopy">Open WeChat and scan the code. After adding us, mention that you would like to join the Worker's Assist volunteer team.</p>
         <div class="qr-frame">
-          <img class="qr-image" src="assets/img/wechat-qr.png" alt="微信二维码" data-i18n-alt="qrAlt">
+          <img class="qr-image" src="assets/img/wechat-qr.png" alt="WeChat QR code" data-i18n-alt="qrAlt">
         </div>
       </article>
     </section>
 
-    <section class="expectation" aria-label="接下来怎么安排" data-i18n-aria="expectationLabel">
-      <div class="expectation-item"><strong data-i18n="step1Title">先聊一聊</strong><span data-i18n="step1Copy">说说你想做什么、以前做过什么。</span></div>
-      <div class="expectation-item"><strong data-i18n="step2Title">一起商量</strong><span data-i18n="step2Copy">根据你的兴趣和时间，选一项合适的工作。</span></div>
-      <div class="expectation-item"><strong data-i18n="step3Title">开始帮忙</strong><span data-i18n="step3Copy">我们会说明做法，并陪你一起开始。</span></div>
+    <section class="expectation" aria-label="What happens after you contact us" data-i18n-aria="expectationLabel">
+      <div class="expectation-item"><strong data-i18n="step1Title">Connect</strong><span data-i18n="step1Copy">Tell us about your interests and experience.</span></div>
+      <div class="expectation-item"><strong data-i18n="step2Title">Find a fit</strong><span data-i18n="step2Copy">Choose a volunteer role together.</span></div>
+      <div class="expectation-item"><strong data-i18n="step3Title">Get involved</strong><span data-i18n="step3Copy">Join the team at a pace that works for you.</span></div>
     </section>
   </main>
 
   <footer>
-    <strong>Worker's Assist</strong> · <span data-i18n="footer">和大波士顿地区的移民工人及其家庭站在一起</span>
+    <strong>Worker's Assist</strong> · <span data-i18n="footer">Standing with immigrant workers and families across Greater Boston</span>
   </footer>
 
   <script>
     (function () {
+      // Also hardcoded in the two mailto links in the markup above; change all
+      // three together if the address ever moves.
+      var CONTACT_EMAIL = "admin@workers-assist.com";
+
       var strings = {
         en: {
           title: "Volunteer | Worker's Assist",
@@ -414,25 +338,17 @@
           footer: "和大波士頓地區的移民工人及其家庭站在一起"
         }
       };
-      var supportedLanguages = Object.keys(strings);
-
-      function setLanguage(lang) {
-        if (!strings[lang]) lang = "zh-hans";
-        var copy = strings[lang];
-        document.documentElement.dataset.lang = lang;
-        document.documentElement.lang = lang === "en" ? "en" : (lang === "zh-hant" ? "zh-Hant" : "zh-Hans");
-        WASite.updateMetadata(copy);
-        WASite.applyCopy(document, copy);
-        WASite.updateLanguageButtons("[data-lang-button]", "data-lang-button", lang);
-        document.getElementById("email-action").href = WASite.buildMailto("admin@workers-assist.com", copy.emailSubject, copy.emailBody);
-        WASite.writeLanguage(lang);
-      }
-
-      document.querySelectorAll("[data-lang-button]").forEach(function (button) {
-        button.addEventListener("click", function () { setLanguage(button.getAttribute("data-lang-button")); });
+      WASite.initLanguage({
+        strings: strings,
+        selector: "[data-lang-button]",
+        attribute: "data-lang-button",
+        fallback: "en",
+        // The mailto body is localised, so rebuild the link on every switch.
+        onApply: function (language, copy) {
+          document.getElementById("email-action").href =
+            WASite.buildMailto(CONTACT_EMAIL, copy.emailSubject, copy.emailBody);
+        }
       });
-
-      setLanguage(WASite.readLanguage(supportedLanguages, "zh-hans"));
     })();
   </script>
 </body>
