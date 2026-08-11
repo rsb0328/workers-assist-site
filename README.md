@@ -37,8 +37,13 @@ or serve the folder over HTTP.
 the registration form's checkboxes render from the same `schedule` array, so
 they cannot drift apart. Adding, removing, or rescheduling a class is one edit.
 
-Each entry needs `name`, `time`, `slot`, `mode`, `loc`, and `level` in all three
+Each entry needs `name`, `time`, `slot`, `mode` and `level` in all three
 languages, plus a language-independent `value`.
+
+There is no per-class address. Every in-person class meets at the same place, so
+the address appears once — on the map in the home page's schedule section —
+rather than repeated on every row. If a class ever moves elsewhere, add a `loc`
+field to that entry and render it in the schedule ticket.
 
 `value` is what lands in the Google Form response. Two rules:
 

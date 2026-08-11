@@ -10,6 +10,10 @@
 // `value` is what gets recorded in the Google Form response. Keep it stable
 // across interface languages so the responses sheet stays filterable, and keep
 // it free of "/" — that character joins multiple selections together.
+//
+// There is no per-class address: every in-person class meets at the same place,
+// shown once on the map in the home page schedule section. If a class ever
+// moves elsewhere, add a `loc` field here and render it in the schedule ticket.
 (function (global) {
   "use strict";
 
@@ -22,7 +26,6 @@
       time:  { en: "Mondays, 7:30pm", "zh-hans": "周一晚上 7:30", "zh-hant": "星期一晚上 7:30" },
       slot:  { en: "Mondays 7:30–9:00 PM", "zh-hans": "周一晚上 7:30–9:00", "zh-hant": "星期一晚上 7:30–9:00" },
       mode:  { en: "In person", "zh-hans": "线下", "zh-hant": "實體" },
-      loc:   { en: "1145 Washington St", "zh-hans": "1145 Washington St", "zh-hant": "1145 Washington St" },
       level: { en: "Beginner", "zh-hans": "初级", "zh-hant": "初級" },
       value: "日常英语班 Everyday English Class (Mon 7:30–9:00 PM, in person)"
     },
@@ -32,19 +35,17 @@
       time:  { en: "Wednesdays, 7:30pm", "zh-hans": "周三晚上 7:30", "zh-hant": "星期三晚上 7:30" },
       slot:  { en: "Wednesdays 7:30–9:00 PM", "zh-hans": "周三晚上 7:30–9:00", "zh-hant": "星期三晚上 7:30–9:00" },
       mode:  { en: "Online", "zh-hans": "线上", "zh-hant": "線上" },
-      loc:   { en: "", "zh-hans": "", "zh-hant": "" },
       level: { en: "Intermediate", "zh-hans": "中级", "zh-hant": "中級" },
       value: "中级英语班 Intermediate English Class (Wed 7:30–9:00 PM, online)"
     },
     {
       id: "work",
-      name:  { en: "Work English Class", "zh-hans": "职场英语班", "zh-hant": "職場英語班" },
+      name:  { en: "Workplace English", "zh-hans": "职场英语班", "zh-hant": "職場英語班" },
       time:  { en: "Tuesdays & Fridays, 7:30pm", "zh-hans": "周二、周五晚上 7:30", "zh-hant": "星期二、星期五晚上 7:30" },
       slot:  { en: "Tuesdays & Fridays 7:30–9:00 PM", "zh-hans": "周二、周五晚上 7:30–9:00", "zh-hant": "星期二、星期五晚上 7:30–9:00" },
       mode:  { en: "In person", "zh-hans": "线下", "zh-hant": "實體" },
-      loc:   { en: "1145 Washington St", "zh-hans": "1145 Washington St", "zh-hant": "1145 Washington St" },
       level: { en: "Intensive", "zh-hans": "强化", "zh-hant": "強化" },
-      value: "职场英语班 Work English Class (Tue & Fri 7:30–9:00 PM, in person)"
+      value: "职场英语班 Workplace English (Tue & Fri 7:30–9:00 PM, in person)"
     }
   ];
 

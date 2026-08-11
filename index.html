@@ -97,6 +97,23 @@
     .wa-story-beat { margin-bottom: 72px !important; }
     .wa-story-beat-last { margin-bottom: 48px !important; }
     .wa-story-copy { min-height: clamp(460px, 62vh, 540px) !important; }
+
+    /* The schedule beat is a grid rather than a flex row so the location map can
+     * sit under the copy on desktop but *after* the class list on mobile. The
+     * two live at different nesting depths, so `order` alone cannot reorder
+     * them; named grid areas can. */
+    .wa-schedule-beat {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      grid-template-areas:
+        "copy card"
+        "map  card";
+      gap: 26px 48px;
+      align-items: start;
+    }
+    .wa-schedule-beat > .wa-schedule-copy { grid-area: copy; }
+    .wa-schedule-beat > .wa-schedule-card { grid-area: card; }
+    .wa-schedule-beat > .wa-schedule-map  { grid-area: map; }
     .wa-story-kicker { font-size: clamp(38px, 4.4vw, 50px) !important; line-height: 1.08 !important; margin-bottom: 18px !important; letter-spacing: -0.01em !important; }
     .wa-join-kicker { font-size: clamp(22px, 2.6vw, 30px) !important; line-height: 1.1 !important; margin-bottom: 16px !important; }
     .wa-volunteer-primary-kicker { font-size: clamp(29px, 4.1vw, 47px) !important; margin-bottom: 60px !important; }
@@ -112,6 +129,17 @@
        stacked text scrolls up into it. */
     @media (max-width: 800px) {
       .wa-story-beat > *, .wa-story-beat-last > * { position: relative !important; top: auto !important; }
+      /* Single column, with the map moved below the class list — on a phone the
+       * classes are what the visitor came for, so the map should not push them
+       * down the page. */
+      .wa-schedule-beat {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "copy"
+          "card"
+          "map";
+        gap: 30px;
+      }
     }
     @media (max-width: 760px) {
       nav { grid-template-columns: 1fr auto !important; padding: 8px 12px 10px !important; }
@@ -273,13 +301,30 @@
     </section>
 
     <!-- Beat 2 — schedule -->
-    <section id="beat-schedule" class="wa-story-beat" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 48px; margin-bottom: 96px;">
-      <div class="wa-scroll-proof wa-story-copy" style="--wa-proof-delay: 0ms; flex: 1 1 280px; min-height: 60vh; display: flex; flex-direction: column; justify-content: center;">
+    <section id="beat-schedule" class="wa-story-beat wa-schedule-beat" style="margin-bottom: 96px;">
+      <div class="wa-scroll-proof wa-schedule-copy" style="--wa-proof-delay: 0ms; display: flex; flex-direction: column; justify-content: center;">
         <span class="wa-story-kicker" style="display: inline-block; font-family: var(--font-head); font-size: 13px; font-weight: var(--eb-weight); text-transform: var(--eb-transform); letter-spacing: var(--eb-spacing); color: var(--accent, #CE2029); margin-bottom: 10px;">{{ t.beat2Eyebrow }}</span>
         <h2 style="font-family: var(--font-head); font-weight: var(--head-weight); color: #1C1B19; font-size: clamp(26px, 4vw, 34px); line-height: 1.12; letter-spacing: -0.01em; margin: 0 0 14px;">{{ t.beat2Heading }}</h2>
         <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.7; color: #5C584B; margin: 0; max-width: 34ch;">{{ t.beat2Sub }}</p>
       </div>
-      <div class="wa-scroll-proof" style="--wa-proof-delay: 120ms; flex: 1.4 1 340px; position: sticky; top: 80px; align-self: flex-start; background: #F5EFDF; border: 1px solid #D8CDAE; border-radius: 10px; padding: 28px 32px;">
+      <!-- Every in-person class meets at one address, so it appears once here
+           rather than on every schedule row. The `1d` value in the embed URL is
+           the map's vertical span in metres — raise it to zoom out, lower it to
+           zoom in. Position in the grid changes by breakpoint; see
+           .wa-schedule-beat in the stylesheet. -->
+      <figure class="wa-scroll-proof wa-schedule-map" style="--wa-proof-delay: 200ms; margin: 0; max-width: 34rem;">
+        <div style="overflow: hidden; border: 1px solid #1C1B19; border-radius: 12px; line-height: 0;">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4423.406561562447!2d-71.06890322392165!3d42.343851436125576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e37a6e193d5735%3A0xe308b3e1e7199e5d!2s1145%20Washington%20St%2C%20Boston%2C%20MA%2002118!5e0!3m2!1sen!2sus!4v1786386120108!5m2!1sen!2sus"
+            title="{{ t.mapTitle }}"
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+            style="display: block; width: 100%; aspect-ratio: 4 / 3; max-height: 320px; border: 0; filter: saturate(0.9);"></iframe>
+        </div>
+        <figcaption style="margin-top: 10px; font-family: var(--font-body); font-size: 14.5px; line-height: 1.55; color: #5C584B;">{{ t.mapCaption }}</figcaption>
+      </figure>
+      <div class="wa-scroll-proof wa-schedule-card" style="--wa-proof-delay: 120ms; position: sticky; top: 80px; align-self: start; background: #F5EFDF; border: 1px solid #D8CDAE; border-radius: 10px; padding: 28px 32px;">
         <ul style="list-style: none; margin: 0; padding: 0;">
           <sc-for list="{{ scheduleRows }}" as="row" hint-placeholder-count="3">
             <li class="wa-schedule-ticket" style="display: flex; flex-direction: column; gap: 5px; padding: 18px 0; border-bottom: 1px solid #D8CDAE;">
@@ -293,9 +338,6 @@
                 </span>
               </div>
               <span style="font-family: var(--font-body); font-size: 16px; color: #34322C;">{{ row.time }}</span>
-              <sc-if value="{{ row.loc }}">
-                <span style="font-family: var(--font-body); font-size: 15px; color: #5C584B;">{{ row.loc }}</span>
-              </sc-if>
             </li>
           </sc-for>
         </ul>
@@ -396,6 +438,8 @@ class Component extends DCLogic {
       beat1Body: "We're a community of English teachers and learners in the Greater Boston area. We mostly speak Mandarin but we could also accommodate Cantonese speaking students. We strive to build a worker community through our English classes, monthly social events as well as a one-on-one connection with every student.",
       beat2Eyebrow: "Schedule", beat2Heading: "Classes you can join now",
       beat2Sub: "Free, every week, in person in Chinatown and online.",
+      mapTitle: "Map showing 1145 Washington St, Boston",
+      mapCaption: "In-person classes meet at 1145 Washington St, Boston, MA 02118.",
       beat3Eyebrow: "Our story", beat3Heading: "Neighbors helping neighbors",
       beat3Body1: "We started as a group of international students who wanted to help. We knew how hard a new language and a new country can be — and how much easier it gets when someone beside you speaks your language.",
       beat3Body2: "Today we're a cooperative of teachers and learners across Greater Boston, built on a simple idea: mutual aid. Neighbors helping neighbors — and everyone is welcome.",
@@ -431,6 +475,8 @@ class Component extends DCLogic {
       beat1Body: "我们是一群英语老师、志愿者和学员。课堂会用普通话和粤语辅助讲解，老师也会尽量照顾每位学员的进度。",
       beat2Eyebrow: "课表", beat2Heading: "本周就能加入的英语班",
       beat2Sub: "课程每周都有，全部免费；可以到华埠上课，也可以在线参加。",
+      mapTitle: "1145 Washington St, Boston 地图",
+      mapCaption: "线下课程地点：1145 Washington St, Boston, MA 02118。",
       beat3Eyebrow: "我们的故事", beat3Heading: "邻里帮邻里",
       beat3Body1: "一开始，我们只是一群想帮上忙的留学生。我们都经历过在陌生国家学新语言的日子，所以知道：有人愿意用你熟悉的语言解释、陪你练习，真的会轻松很多。",
       beat3Body2: "现在，我们的老师和学员来自大波士顿各地。我们相信大家互相搭把手，日子就会好一点。邻里帮邻里，谁来都欢迎。",
@@ -466,6 +512,8 @@ class Component extends DCLogic {
       beat1Body: "我們是一群英語老師、義工和學員。課堂會用普通話和廣東話輔助講解，老師亦會盡量照顧每位學員的進度。",
       beat2Eyebrow: "課表", beat2Heading: "本週就能加入的英語班",
       beat2Sub: "課程每週都有，全部免費；可以到華埠上課，也可以在網上參加。",
+      mapTitle: "1145 Washington St, Boston 地圖",
+      mapCaption: "實體課程地點：1145 Washington St, Boston, MA 02118。",
       beat3Eyebrow: "我們的故事", beat3Heading: "鄰里幫鄰里",
       beat3Body1: "一開始，我們只是一群想幫上忙的留學生。我們都經歷過在陌生國家學新語言的日子，所以知道：有人願意用你熟悉的語言解釋、陪你練習，真的會輕鬆很多。",
       beat3Body2: "現在，我們的老師和學員來自大波士頓各地。我們相信大家互相幫忙，生活就會好一點。鄰里幫鄰里，誰來都歡迎。",
@@ -806,7 +854,6 @@ class Component extends DCLogic {
         name: c.name[lang] || c.name.en,
         time: c.time[lang] || c.time.en,
         mode: c.mode[lang] || c.mode.en,
-        loc: c.loc[lang] !== undefined ? c.loc[lang] : c.loc.en,
         level: c.level[lang] || c.level.en
       };
     });
