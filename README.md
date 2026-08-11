@@ -37,8 +37,12 @@ or serve the folder over HTTP.
 the registration form's checkboxes render from the same `schedule` array, so
 they cannot drift apart. Adding, removing, or rescheduling a class is one edit.
 
-Each entry needs `name`, `time`, `slot`, `mode` and `level` in all three
-languages, plus a language-independent `value`.
+Each entry needs `name`, `time`, `slot`, `mode`, `level` and `blurb` in all
+three languages, plus a language-independent `value`.
+
+`blurb` is the one-line description shown under each class on the home page.
+Keep it to roughly 10–18 words: much longer and it wraps to four lines on a
+phone, which unbalances the schedule card.
 
 There is no per-class address. Every in-person class meets at the same place, so
 the address appears once — on the map in the home page's schedule section —
