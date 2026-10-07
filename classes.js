@@ -23,8 +23,8 @@
     {
       id: "everyday",
       name:  { en: "Everyday English Class", "zh-hans": "日常英语班", "zh-hant": "日常英語班" },
-      time:  { en: "Mondays, 7:30pm", "zh-hans": "周一晚上 7:30", "zh-hant": "星期一晚上 7:30" },
-      slot:  { en: "Mondays 7:30–9:00 PM", "zh-hans": "周一晚上 7:30–9:00", "zh-hant": "星期一晚上 7:30–9:00" },
+      time:  { en: "Mondays & Thursdays, 7:30pm", "zh-hans": "周一、周四晚上 7:30", "zh-hant": "星期一、星期四晚上 7:30" },
+      slot:  { en: "Mondays & Thursdays 7:30–9:00 PM", "zh-hans": "周一、周四晚上 7:30–9:00", "zh-hant": "星期一、星期四晚上 7:30–9:00" },
       mode:  { en: "In person", "zh-hans": "线下", "zh-hant": "實體" },
       level: { en: "Beginner", "zh-hans": "初级", "zh-hant": "初級" },
       blurb: {
@@ -32,21 +32,35 @@
         "zh-hans": "日常生活用得上的英语：坐公交、问价钱、考驾照。零基础也能来。",
         "zh-hant": "日常生活用得上的英語：搭巴士、問價錢、考車牌。零基礎也能來。"
       },
-      value: "日常英语班 Everyday English Class (Mon 7:30–9:00 PM, in person)"
+      value: "日常英语班 Everyday English Class (Mon & Thu 7:30–9:00 PM, in person)"
     },
     {
-      id: "intermediate",
-      name:  { en: "Intermediate English Class", "zh-hans": "中级英语班", "zh-hant": "中級英語班" },
+      id: "beginner-online",
+      name:  { en: "Beginner English Class", "zh-hans": "初级英语班", "zh-hant": "初級英語班" },
+      time:  { en: "Tuesdays, 7:30pm", "zh-hans": "周二晚上 7:30", "zh-hant": "星期二晚上 7:30" },
+      slot:  { en: "Tuesdays 7:30–9:00 PM", "zh-hans": "周二晚上 7:30–9:00", "zh-hant": "星期二晚上 7:30–9:00" },
+      mode:  { en: "Online", "zh-hans": "线上", "zh-hant": "線上" },
+      level: { en: "Beginner", "zh-hans": "初级", "zh-hant": "初級" },
+      blurb: {
+        en: "Learn basic English online, with practice in everyday words and simple conversations. No experience needed.",
+        "zh-hans": "在线学习基础英语，练习日常用语和简单对话。零基础也能来。",
+        "zh-hant": "在線學習基礎英語，練習日常用語和簡單對話。零基礎也能來。"
+      },
+      value: "初级英语班 Beginner English Class (Tue 7:30–9:00 PM, online)"
+    },
+    {
+      id: "advanced",
+      name:  { en: "Advanced English Class", "zh-hans": "高级英语班", "zh-hant": "高級英語班" },
       time:  { en: "Wednesdays, 7:30pm", "zh-hans": "周三晚上 7:30", "zh-hant": "星期三晚上 7:30" },
       slot:  { en: "Wednesdays 7:30–9:00 PM", "zh-hans": "周三晚上 7:30–9:00", "zh-hant": "星期三晚上 7:30–9:00" },
       mode:  { en: "Online", "zh-hans": "线上", "zh-hant": "線上" },
-      level: { en: "Intermediate", "zh-hans": "中级", "zh-hant": "中級" },
+      level: { en: "Advanced", "zh-hans": "高级", "zh-hant": "高級" },
       blurb: {
-        en: "Grammar and sentence building, for learners who already speak some English.",
-        "zh-hans": "学语法、练造句。适合已经有一点英语基础的学员。",
-        "zh-hant": "學文法、練造句。適合已經有一點英語基礎的學員。"
+        en: "Build fluency and express more complex ideas, for learners with a strong English foundation.",
+        "zh-hans": "提升英语表达的流利度，练习表达更复杂的想法。适合已有扎实英语基础的学员。",
+        "zh-hant": "提升英語表達的流利度，練習表達更複雜的想法。適合已有紮實英語基礎的學員。"
       },
-      value: "中级英语班 Intermediate English Class (Wed 7:30–9:00 PM, online)"
+      value: "高级英语班 Advanced English Class (Wed 7:30–9:00 PM, online)"
     },
     {
       id: "work",
